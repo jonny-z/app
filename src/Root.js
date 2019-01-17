@@ -75,7 +75,7 @@ export default class Root extends React.Component {
               </TabBar.Item>
               <TabBar.Item
                 icon={<Icon name="user" />}
-                title="My"
+                title="我的"
                 selected={this.state.selectedTab === MY}
                 onPress={() => this.onChangeTab(MY)}
               >
