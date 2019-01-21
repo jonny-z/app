@@ -1,13 +1,47 @@
 import React from 'react';
+import { Text, View } from 'react-native';
+import { connect } from 'react-redux'
 import { Icon, TabBar } from '@ant-design/react-native';
-import Home from './page/Home';
-import Info from './page/Info';
-import ShoppingCentre from './page/ShoppingCentre';
-import My from './page/My';
+
 const HOME = Symbol();
 const INFO = Symbol();
 const SHOPPING_CENTRE = Symbol();
 const MY = Symbol();
+const Home = (text) => (
+  <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
+    <Text style={{ margin: 50}}>{text}</Text>
+  </View>
+);
+const Info = (text) => (
+  <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
+    <Text style={{ margin: 50}}>{text}</Text>
+  </View>
+);
+const ShoppingCentre = (text) => (
+  <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
+    <Text style={{ margin: 50}}>{text}</Text>
+  </View>
+);
+const My = (text) => (
+  <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
+    <Text style={{ margin: 50}}>{text}</Text>
+  </View>
+);
+const SignUp = () => (
+  <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
+    <Text style={{ margin: 50}}></Text>
+  </View>
+);
+const SignUpForm = connect(
+  (state) => {
+    return {
+      text: state.text
+    }
+  },
+  () => {
+
+  }
+)(SignUp);
 export default class Root extends React.Component {
   constructor(props) {
     super(props);
@@ -18,21 +52,14 @@ export default class Root extends React.Component {
   renderContent(page) {
     switch(page) {
       case HOME:
-        return (
-          <Home text={'主页'}></Home>
-        );
+          // return Home('主页');
+          return SignUp();
       case INFO:
-        return (
-          <Info text={'资讯'}></Info>
-        );
+        return Info('资讯');
       case SHOPPING_CENTRE:
-        return (
-          <ShoppingCentre text={'商城'}></ShoppingCentre>
-        );
+        return ShoppingCentre('商城');
       case MY:
-        return (
-          <My text={'我的'}></My>
-        );
+        return My('我的');
     }
     
   }
