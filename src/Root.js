@@ -1,15 +1,15 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { connect } from 'react-redux'
 import { Icon, TabBar } from '@ant-design/react-native';
-
+import SignUp from './Components/Form/SignUp';
 const HOME = Symbol();
 const INFO = Symbol();
 const SHOPPING_CENTRE = Symbol();
 const MY = Symbol();
 const Home = (text) => (
-  <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
+  <View style={{ flex: 1 }}>
     <Text style={{ margin: 50}}>{text}</Text>
+    <SignUp />
   </View>
 );
 const Info = (text) => (
@@ -27,21 +27,6 @@ const My = (text) => (
     <Text style={{ margin: 50}}>{text}</Text>
   </View>
 );
-const SignUp = () => (
-  <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
-    <Text style={{ margin: 50}}></Text>
-  </View>
-);
-const SignUpForm = connect(
-  (state) => {
-    return {
-      text: state.text
-    }
-  },
-  () => {
-
-  }
-)(SignUp);
 export default class Root extends React.Component {
   constructor(props) {
     super(props);
@@ -52,16 +37,14 @@ export default class Root extends React.Component {
   renderContent(page) {
     switch(page) {
       case HOME:
-          // return Home('主页');
-          return SignUp();
+          return Home('主页');
       case INFO:
         return Info('资讯');
       case SHOPPING_CENTRE:
         return ShoppingCentre('商城');
       case MY:
         return My('我的');
-    }
-    
+    }    
   }
   onChangeTab(tabName) {
     this.setState({

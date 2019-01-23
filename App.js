@@ -2,6 +2,7 @@ import React from 'react';
 import { AppLoading, Font } from 'expo';
 import { Provider } from '@ant-design/react-native';
 import Root from './src/Root'
+import theme from './src/theme/default'
 
 export default class App extends React.Component {
   constructor (props) {
@@ -9,11 +10,7 @@ export default class App extends React.Component {
     this.state = {
       isReady: false,
       theme: null,
-      currentTheme: null
     }
-  }
-  changeTheme = (theme, currentTheme) => {
-    this.setState({ theme, currentTheme });
   }
   async componentDidMount() {
     await Font.loadAsync(/*  */
@@ -31,14 +28,13 @@ export default class App extends React.Component {
     this.setState({ isReady: true });
   }
   render() {
-    const { isReady, theme, currentTheme } = this.state;
+    const { isReady, theme } = this.state;
     if (!isReady) {
       return <AppLoading />;
     }
     return (
       <Provider theme={theme}>
-        <Root screenProps={{ changeTheme: this.changeTheme, currentTheme }}
-        />
+        <Root/>
       </Provider>
     );
   }
