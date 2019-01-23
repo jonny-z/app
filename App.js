@@ -1,9 +1,21 @@
 import React from 'react';
 import { AppLoading, Font } from 'expo';
 import { Provider } from '@ant-design/react-native';
-import Root from './src/Root'
-import theme from './src/theme/default'
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import Root from './src/Root';
+import SignUp from './src/Components/Form/SignUp';
+// import theme from './src/theme/default'
 
+const RootNavigator = createStackNavigator({
+  Root,
+  SignUp,
+},{
+  //全屏
+  headerMode: 'none',
+  //初始化路由页面
+  initialRouteName: "Root"
+});
+const RootContainer = createAppContainer(RootNavigator);
 export default class App extends React.Component {
   constructor (props) {
     super(props);
@@ -34,7 +46,7 @@ export default class App extends React.Component {
     }
     return (
       <Provider theme={theme}>
-        <Root/>
+        <RootContainer />
       </Provider>
     );
   }

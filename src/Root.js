@@ -1,15 +1,15 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Icon, TabBar } from '@ant-design/react-native';
-import SignUp from './Components/Form/SignUp';
+import { Icon, TabBar, Button } from '@ant-design/react-native';
+
 const HOME = Symbol();
 const INFO = Symbol();
 const SHOPPING_CENTRE = Symbol();
 const MY = Symbol();
-const Home = (text) => (
+const Home = (text, content) => (
   <View style={{ flex: 1 }}>
     <Text style={{ margin: 50}}>{text}</Text>
-    <SignUp />
+    {content}
   </View>
 );
 const Info = (text) => (
@@ -28,6 +28,13 @@ const My = (text) => (
   </View>
 );
 export default class Root extends React.Component {
+  static navigationOptions = {
+    title: '',
+    headerStyle: {
+      backgroundColor: 'black',
+    },
+    headerTintColor: 'white',
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +44,11 @@ export default class Root extends React.Component {
   renderContent(page) {
     switch(page) {
       case HOME:
-          return Home('主页');
+          return Home('主页',<Button type="primary" onPress={()=>{
+            this.props.navigation.navigate('SignUp',{
+              id: 1
+            })
+          }}>注册页面</Button>);
       case INFO:
         return Info('资讯');
       case SHOPPING_CENTRE:

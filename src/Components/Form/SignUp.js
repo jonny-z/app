@@ -2,6 +2,9 @@ import React from 'react';
 import { View } from 'react-native';
 import { Button, InputItem, List } from '@ant-design/react-native';
 export default class SignUp extends React.Component {
+    static navigationOptions = {
+        title: '注册'
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -11,7 +14,8 @@ export default class SignUp extends React.Component {
         };
     }
     render() {
-        const { text, phone, captcha } = this.props;
+        const { text, phone, captcha, navigation } = this.props;
+        console.log(navigation.getParam('id'));
         return (
                 <List>
                     <InputItem
