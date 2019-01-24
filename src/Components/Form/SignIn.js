@@ -1,7 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
+import { TouchableWithoutFeedback, Text, View } from 'react-native';
 import { Button, InputItem, List } from '@ant-design/react-native';
-export default class SignIn extends React.Component {
+export default class SignUp extends React.Component {
+    static navigationOptions = {
+        title: '注册'
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -11,22 +14,10 @@ export default class SignIn extends React.Component {
         };
     }
     render() {
-        const { text, phone, captcha } = this.props;
+        const { text, phone, captcha,navigation } = this.props;
         return (
+            <View>
                 <List>
-                    <InputItem
-                        clear
-                        error
-                        value={this.state.text}
-                        onChange={value => {
-                        this.setState({
-                            text: value,
-                        });
-                        }}
-                        placeholder="text"
-                    >
-                        名称
-                    </InputItem>
                     <InputItem
                         clear
                         type="phone"
@@ -36,29 +27,29 @@ export default class SignIn extends React.Component {
                             phone: value,
                         });
                         }}
-                        placeholder="phone"
+                        placeholder="手机号"
                     >
-                        手机号
+                        账号
                     </InputItem>
-                    <View>
-                        <InputItem
-                            clear
-                            type="number"
-                            value={this.state.captcha}
-                            onChange={value => {
-                            this.setState({
-                                captcha: value,
-                            });
-                            }}
-                            placeholder="number"
-                        >
-                            验证码
-                        </InputItem>              
-                        <Button type="primary">发送</Button>
-                    </View>
-                    <Button type="primary">注册</Button>
+                    <InputItem
+                        clear
+                        type="password"
+                        value={this.state.captcha}
+                        onChange={value => {
+                        this.setState({
+                            captcha: value,
+                        });
+                        }}
+                        placeholder="密码"
+                    >
+                        验证码
+                    </InputItem>              
+                    <Button type="primary">登录</Button>
                 </List>
-
+                <TouchableWithoutFeedback onPress={()=>this.props.navigation.navigate('SignUp')}>
+                    <Text>注册</Text>
+                </TouchableWithoutFeedback>
+            </View>
         )
     }
 }
