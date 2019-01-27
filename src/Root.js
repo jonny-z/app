@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { Icon, TabBar, Button } from '@ant-design/react-native';
+import My1 from './Pages/My';
 
 const HOME = Symbol();
 const INFO = Symbol();
@@ -23,9 +24,7 @@ const ShoppingCentre = (text) => (
   </View>
 );
 const My = (text) => (
-  <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
-    <Text style={{ margin: 50}}>{text}</Text>
-  </View>
+    <My1 name={text}/>
 );
 export default class Root extends React.Component {
   static navigationOptions = {
