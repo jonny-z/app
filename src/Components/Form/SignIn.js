@@ -14,7 +14,7 @@ export default class SignUp extends React.Component {
         };
     }
     render() {
-        const { text, phone, captcha,navigation } = this.props;
+        const { text, phone, captcha, navigation } = this.props;
         return (
             <View>
                 <List>
@@ -46,7 +46,7 @@ export default class SignUp extends React.Component {
                     </InputItem>              
                     <Button type="primary">登录</Button>
                 </List>
-                <TouchableWithoutFeedback onPress={()=>this.props.navigation.navigate('SignUp')}>
+                <TouchableWithoutFeedback onPress={()=>this.props.navigation.navigate('Root')}>
                     <Text>注册</Text>
                 </TouchableWithoutFeedback>
             </View>

@@ -1,12 +1,22 @@
 import React from 'react';
 import { AppLoading, Font } from 'expo';
-import { Provider } from '@ant-design/react-native';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Root from './src/Root';
 import SignIn from './src/Components/Form/SignIn';
 import SignUp from './src/Components/Form/SignUp';
-// import theme from './src/theme/default'
-
+import Theme from './src/theme/default';
+const reducer = (state = {count: 0}, action) => {
+  console.log('action type:' + action.type);
+  switch(action.type) {
+    case 'test':
+      return {count: 'te'};
+    default:
+      return state;
+  }
+};
+let store = createStore(reducer);
 const RootNavigator = createStackNavigator({
   Root,
   SignIn,
@@ -32,7 +42,6 @@ export default class App extends React.Component {
       // eslint-disable-next-line
       require('@ant-design/icons-react-native/fonts/antoutline.ttf')
     );
-
     await Font.loadAsync(
       'antfill',
       // eslint-disable-next-line
@@ -47,7 +56,7 @@ export default class App extends React.Component {
       return <AppLoading />;
     }
     return (
-      <Provider theme={theme}>
+      <Provider store={store}>
         <RootContainer />
       </Provider>
     );
