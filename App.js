@@ -9,9 +9,10 @@ import SignUp from './src/Components/Form/SignUp';
 import Theme from './src/theme/default';
 const reducer = (state = {count: 0}, action) => {
   console.log('action type:' + action.type);
+  const count = state.count;
   switch(action.type) {
-    case 'test':
-      return {count: 'te'};
+    case 'add':
+      return {count: count + 1};
     default:
       return state;
   }
@@ -23,7 +24,7 @@ const RootNavigator = createStackNavigator({
   SignUp,
 },{
   //全屏
-  headerMode: 'none',
+  // headerMode: 'none',
   //初始化路由页面
   initialRouteName: "SignIn"
 });

@@ -132,7 +132,7 @@ export default connect(
       get: () =>{
         console.log('get');
         dispatch({
-          type: 'test'
+          type: 'add'
         })
       }
     }
