@@ -15,7 +15,7 @@ const RootNavigator = createStackNavigator({
   //全屏
   headerMode: 'none',
   //初始化路由页面
-  initialRouteName: "SignIn"
+  initialRouteName: "Root"
 });
 const RootContainer = createAppContainer(RootNavigator);
 export default class App extends React.Component {
