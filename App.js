@@ -6,7 +6,6 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Root from './src/Root';
 import SignIn from './src/Components/Form/SignIn';
 import SignUp from './src/Components/Form/SignUp';
-import Theme from './src/theme/default';
 const reducer = (state = {count: 0}, action) => {
   console.log('action type:' + action.type);
   const count = state.count;
@@ -24,7 +23,7 @@ const RootNavigator = createStackNavigator({
   SignUp,
 },{
   //全屏
-  // headerMode: 'none',
+  headerMode: 'none',
   //初始化路由页面
   initialRouteName: "Root"
 });

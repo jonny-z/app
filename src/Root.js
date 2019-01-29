@@ -1,16 +1,47 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ScrollView, ImageBackground, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon, TabBar, Button } from '@ant-design/react-native';
 import MyPage from './Pages/My';
-import HomePage from './Pages/Home'
+import UserProfile from './Components/Account/UserProfile';
+import { appBg } from './index';
 
 const HOME = Symbol();
 const INFO = Symbol();
 const SHOPPING_CENTRE = Symbol();
 const MY = Symbol();
-const Home = (text, content) => (
-  <HomePage />
+const Styles = {
+  backgroundImage:{
+      flex: 1,
+      resizeMode: 'cover',
+      width: null,
+      backgroundColor: 'rgba(0,0,0,0)',
+  },
+  home: {
+    userProfile: {
+      avatar: {
+        // width: 50,
+        // height: 50,
+        // borderRadius: 25,
+      },
+      name: {
+        color: '#fff',
+      },
+      edit: {
+        // color: 'red'
+      }
+    }
+  }
+}
+//editable控制编辑按钮显示，customStyle 自定义样式，对应组件里的style，详情查看UserProfile.js 
+//barStyle: light-content、dark-content
+const Home = () => (
+  <ImageBackground source={appBg} style={Styles.backgroundImage}>
+    <StatusBar barStyle="light-content" />
+    <ScrollView>
+      <UserProfile editable={false} style={Styles.home.userProfile}/>
+    </ScrollView>
+	</ImageBackground>
 );
 const Info = (text) => (
   <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
@@ -72,7 +103,6 @@ class Root extends React.Component {
     });
   }
     render () {
-      const { get,count } = this.props;
       return (
         <TabBar
           unselectedTintColor="#949494"
@@ -86,7 +116,6 @@ class Root extends React.Component {
             onPress={() => this.onChangeTab(HOME)}
           >
             {this.renderContent(HOME)}
-            {Demo(get, count)}
           </TabBar.Item>
           <TabBar.Item
             icon={<Icon name="profile" />}
