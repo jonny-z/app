@@ -2,17 +2,15 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon, TabBar, Button } from '@ant-design/react-native';
-import My1 from './Pages/My';
+import MyPage from './Pages/My';
+import HomePage from './Pages/Home'
 
 const HOME = Symbol();
 const INFO = Symbol();
 const SHOPPING_CENTRE = Symbol();
 const MY = Symbol();
 const Home = (text, content) => (
-  <View style={{ flex: 1 }}>
-    <Text style={{ margin: 50}}>{text}</Text>
-    {content}
-  </View>
+  <HomePage />
 );
 const Info = (text) => (
   <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
@@ -25,7 +23,7 @@ const ShoppingCentre = (text) => (
   </View>
 );
 const My = (text) => (
-    <My1 name={text}/>
+    <MyPage name={text}/>
 );
 const Demo = (get, val) => {
   return (
