@@ -15,7 +15,7 @@ export default class SignUp extends React.Component {
     }
     render() {
         const { text, phone, captcha, navigation } = this.props;
-        console.log(navigation.getParam('id'));
+        console.log(navigation.getParam('id'))
         return (
                 <List>
                     <InputItem
