@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ImageBackground, Alert, Text, View, Image, StyleSheet } from 'react-native';
 import { Icon, Button, Flex, WhiteSpace, WingBlank } from '@ant-design/react-native';
+import { appBg, theme } from '../index';
 
 const styles = StyleSheet.create({
 	avatar: {
@@ -61,7 +62,7 @@ export default class My extends Component {
 			//     <Text style={{ margin: 50 }}>{this.props.name}</Text>
 			// </View>
 			<View style={styles.container}>
-				<ImageBackground source={require('../../assets/hengtai/bg.png')} style={styles.backgroundImage}>
+				<ImageBackground source={appBg} style={styles.backgroundImage}>
 					<Flex style={{ marginTop: 20, paddingTop: 20, paddingBottom: 20, paddingLeft: 15, paddingRight: 15 }}>
 						<Flex.Item style={{flex: 0, marginRight: 20}}>
 							<Image
@@ -76,9 +77,9 @@ export default class My extends Component {
 							</Flex>
 						</Flex.Item>
 					</Flex>
-					<List name="昵称" icon="contacts"/>
-					<List name="性别" icon="skin"/>
-					<List name="手机号" icon="phone"/>
+					<List name="个人信息" icon="contacts"/>
+					<List name="交易历史" icon="skin"/>
+					<List name="分享链接" icon="phone"/>
 					<List name="收获地址" icon="tags"/>
 				</ImageBackground>
 			</View>
