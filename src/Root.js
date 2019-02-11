@@ -4,44 +4,171 @@ import { connect } from 'react-redux';
 import { Icon, TabBar, Button } from '@ant-design/react-native';
 import MyPage from './Pages/My';
 import UserProfile from './Components/Account/UserProfile';
-import { appBg } from './index';
+import Navigation from './Components/Navigation';
+import ConvenientServiceMenu from './Components/ConvenientServiceMenu';
+import { appBg, theme } from './Index';
 
 const HOME = Symbol();
 const INFO = Symbol();
 const SHOPPING_CENTRE = Symbol();
 const MY = Symbol();
 const Styles = {
-  backgroundImage:{
-      flex: 1,
-      resizeMode: 'cover',
-      width: null,
-      backgroundColor: 'rgba(0,0,0,0)',
-  },
-  home: {
-    userProfile: {
-      avatar: {
-        // width: 50,
-        // height: 50,
-        // borderRadius: 25,
-      },
-      name: {
-        color: '#fff',
-      },
-      edit: {
-        // color: 'red'
-      }
+    backgroundImage:{
+        flex: 1,
+        resizeMode: 'cover',
+        width: null,
+    },
+    home: {
+        userProfile: {
+            container: {
+                marginTop: theme.appTopHeight,
+            },
+            avatar: {
+                // width: 50,
+                // height: 50,
+                // borderRadius: 25,
+                marginLeft: 15.
+            },
+            name: {
+                color: '#fff',
+            },
+            edit: {
+                // color: 'red'
+            }
+        },
+        main: {
+            marginTop: 100,
+        },
+        balanceAndCredit: {
+            container: {
+                paddingTop: 5,
+                paddingBottom: 5,
+                backgroundColor: theme.opacityWhite,
+                flexDirection: 'row'
+            },
+            text: {
+                flex: 1,
+                paddingTop: 5,
+                paddingBottom: 5,
+                textAlign: 'center',
+                fontSize: 18,
+                color: '#fff',
+            },
+            balance: {
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+                borderRightWidth: 1,
+                borderRightColor: '#fff',
+            },
+            credit: {
+                flex: 1,
+            }
+        },
+        convenientService: {
+            container: {
+                marginTop: 15,
+                paddingLeft: 20,
+                paddingRight: 20,
+                paddingTop: 15,
+                paddingBottom: 15,
+                // backgroundColor: 'rgba(255, 255, 255, .2)',
+            },
+            title: {
+                container: {
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                },
+                titleBar: {
+                    width: 8,
+                    height: 24,
+                    borderRadius: 3,
+                    backgroundColor: theme.shitYellow
+                },
+                text: {
+                    color: '#fff',
+                    marginLeft: 15,
+                    fontSize: 18,
+                }
+            },
+            menu: {
+                container: {
+
+                }
+            }
+        }
     }
-  }
 }
-//editable控制编辑按钮显示，customStyle 自定义样式，对应组件里的style，详情查看UserProfile.js 
+const navigateList = [
+    {
+        title: '买入',
+        imgSrc: require('../assets/hengtai/buy.png'),
+    },
+    {
+        title: '卖出',
+        imgSrc: require('../assets/hengtai/sale.png'),
+    },
+    {
+        title: '推广链接',
+        imgSrc: require('../assets/hengtai/share-link.png'),
+    },
+    {
+        title: '积分兑换',
+        imgSrc: require('../assets/hengtai/exchange-credit.png'),
+    },
+    {
+        title: '团队',
+        imgSrc: require('../assets/hengtai/party.png'),
+    },
+    {
+        title: '红包领取',
+        imgSrc: require('../assets/hengtai/get-redpacket.png'),
+    }
+]
+const convenientServiceMenu = [
+    {
+        title: '创建订单',
+    },
+    {
+        title: '未完成订单',
+    },
+    {
+        title: '确认打款',
+    },
+    {
+        title: '已完成订单',
+    },
+    {
+        title: '买入记录',
+    },
+    {
+        title: '买入中心',
+    }
+]
+//editable控制编辑按钮显示，customStyle 自定义样式，对应组件里的style，详情查看UserProfile.js
 //barStyle: light-content、dark-content
 const Home = () => (
-  <ImageBackground source={appBg} style={Styles.backgroundImage}>
-    <StatusBar barStyle="light-content" />
-    <ScrollView>
-      <UserProfile editable={false} style={Styles.home.userProfile}/>
-    </ScrollView>
-	</ImageBackground>
+    <ImageBackground source={appBg} style={Styles.backgroundImage}>
+        <UserProfile editable={false} style={Styles.home.userProfile}/>
+        <ScrollView style={Styles.home.main}>
+            <View style={Styles.home.balanceAndCredit.container}>
+                <View style={Styles.home.balanceAndCredit.balance}>
+                    <Text style={Styles.home.balanceAndCredit.text}>余额: 0.00</Text>
+                </View>
+                <View style={Styles.home.balanceAndCredit.credit}>
+                    <Text style={Styles.home.balanceAndCredit.text}>积分: 430.74</Text>
+                </View>
+            </View>
+            <Navigation list={navigateList}/>
+            <View style={Styles.home.convenientService.container}>
+                <View style={Styles.home.convenientService.title.container}>
+                    <View style={Styles.home.convenientService.title.titleBar}/>
+                    <Text style={Styles.home.convenientService.title.text}>便民服务</Text>
+                </View>
+                <ConvenientServiceMenu menu={convenientServiceMenu}></ConvenientServiceMenu>
+            </View>
+        </ScrollView>
+    </ImageBackground>
 );
 const Info = (text) => (
   <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
@@ -87,7 +214,7 @@ class Root extends React.Component {
                 this.props.navigation.navigate('SignUp',{
                   id: 1
                 })
-              }}>注册页面</Button>      
+              }}>注册页面</Button>
             </View>));
       case INFO:
         return Info('资讯');
@@ -95,7 +222,7 @@ class Root extends React.Component {
         return ShoppingCentre('商城');
       case MY:
         return My('我的');
-    }    
+    }
   }
   onChangeTab(tabName) {
     this.setState({
@@ -107,7 +234,8 @@ class Root extends React.Component {
         <TabBar
           unselectedTintColor="#949494"
           tintColor="#33A3F4"
-          barTintColor="#f5f5f5"
+          barTintColor="#fff"
+          style={{borderWidth: 0,}}
         >
           <TabBar.Item
             title="首页"

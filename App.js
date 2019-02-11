@@ -2,6 +2,7 @@ import React from 'react';
 import { AppLoading, Font } from 'expo';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { StatusBar } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Root from './src/Root';
 import SignIn from './src/Components/Form/SignIn';
@@ -25,7 +26,7 @@ const RootNavigator = createStackNavigator({
   //全屏
   headerMode: 'none',
   //初始化路由页面
-  initialRouteName: "Root"
+  initialRouteName: "SignIn"
 });
 const RootContainer = createAppContainer(RootNavigator);
 export default class App extends React.Component {
@@ -57,6 +58,7 @@ export default class App extends React.Component {
     }
     return (
       <Provider store={store}>
+        <StatusBar barStyle="light-content" />
         <RootContainer />
       </Provider>
     );

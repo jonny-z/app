@@ -1,55 +1,104 @@
 import React from 'react';
-import { TouchableWithoutFeedback, Text, View } from 'react-native';
-import { Button, InputItem, List } from '@ant-design/react-native';
+import { TouchableWithoutFeedback, Text, View, ImageBackground, TextInput} from 'react-native';
+import { appBg, theme } from "../../Index";
+const Styles = {
+    background: {
+        flex: 1,
+        resizeMode: 'cover',
+        width: null,
+        justifyContent: 'center',
+    },
+    title: {
+        container: {
+            alignItems: 'center',
+            marginBottom: 160,
+        },
+        cnName: {
+            fontSize: 42,
+            color: theme.shitYellow,
+        },
+        enName: {
+            fontSize: 18,
+            color: theme.shitYellow,
+        }
+    },
+    form: {
+        alignItems: 'center',
+    },
+    inputField: {
+        width: '80%',
+        fontSize: 16,
+        color: '#fff',
+        marginBottom: 20,
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingLeft: 20,
+        paddingRight: 20,
+        textAlign: 'center',
+        backgroundColor: theme.opacityWhite,
+    },
+    btnLogin: {
+        container: {
+            width: 160,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 30,
+            paddingTop: 15,
+            paddingBottom: 15,
+            borderRadius: 60,
+            backgroundColor: theme.opacityWhite,
+        },
+        text: {
+            fontSize: 18,
+            color: '#fff',
+        }
+    }
+}
 export default class SignUp extends React.Component {
     static navigationOptions = {
-        title: '注册'
+        title: '登录'
     }
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            phone: '',
-            captcha: ''
+            username: '233',
+            password: '',
+
         };
     }
     render() {
-        const { text, phone, captcha, navigation } = this.props;
         return (
-            <View>
-                <List>
-                    <InputItem
-                        clear
-                        type="phone"
-                        value={this.state.phone}
-                        onChange={value => {
-                        this.setState({
-                            phone: value,
-                        });
-                        }}
-                        placeholder="手机号"
-                    >
-                        账号
-                    </InputItem>
-                    <InputItem
-                        clear
-                        type="password"
-                        value={this.state.captcha}
-                        onChange={value => {
-                        this.setState({
-                            captcha: value,
-                        });
-                        }}
+            <ImageBackground source={appBg} style={Styles.background}>
+                <View style={Styles.title.container}>
+                    <Text style={Styles.title.cnName}>恒泰</Text>
+                    <Text style={Styles.title.enName}>HENGTAI</Text>
+                </View>
+                <View style={Styles.form}>
+                    <TextInput
+                        style={Styles.inputField}
+                        onChangeText={(username) => console.log(username)}
+                        // value={this.state.username}
+                        placeholder="账号"
+                        placeholderTextColor={theme.lightGray}
+                        selectionColor="#fff"
+                    />
+                    <TextInput
+                        style={Styles.inputField}
+                        onChangeText={(password) => console.log(password)}
                         placeholder="密码"
-                    >
-                        验证码
-                    </InputItem>              
-                    <Button type="primary">登录</Button>
-                </List>
-                <TouchableWithoutFeedback onPress={()=>this.props.navigation.navigate('Root')}>
+                        placeholderTextColor={theme.lightGray}
+                        selectionColor="#fff"
+                    />
+                    <TouchableWithoutFeedback onPress={()=>console.log('login')}>
+                        <View style={Styles.btnLogin.container}>
+                            <Text style={Styles.btnLogin.text}>登录</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
+                {/* <TouchableWithoutFeedback onPress={()=>this.props.navigation.navigate('Root')}>
                     <Text>注册</Text>
-                </TouchableWithoutFeedback>
-            </View>
+                </TouchableWithoutFeedback> */}
+            </ImageBackground>
         )
     }
 }
