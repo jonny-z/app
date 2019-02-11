@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import { Text, Image, View } from 'react-native';
 import { Icon } from '@ant-design/react-native';
-import { defaultAvatar, theme } from '../../index';
+import { defaultAvatar } from '../../Index';
 const Styles = {
     container: {
-        marginTop: theme.appTopHeight,
-        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
     },
     avatarWrapper: {
-        flex: 0,
         marginRight: 10
     },
     content:{
-        flex: 0,
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -22,6 +18,9 @@ const Styles = {
         width: 32,
 		height: 32,
 		borderRadius: 16,
+    },
+    name: {
+        color: '#fff',
     },
     edit: {
         name: "edit",
