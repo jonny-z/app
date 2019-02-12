@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, ScrollView } from 'react-native';
 import { Button, Flex, List, InputItem } from '@ant-design/react-native';
-import { appBg, theme } from '../index';
+import { appBg, theme } from '../Index';
 
 const styles = StyleSheet.create({
 	container: {

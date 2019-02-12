@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ImageBackground, Alert, Text, View, Image, StyleSheet } from 'react-native';
 import { Icon, Button, Flex, WhiteSpace, WingBlank } from '@ant-design/react-native';
-import { appBg, theme } from '../index';
+import { appBg, theme } from '../Index';
 
 const styles = StyleSheet.create({
 	avatar: {

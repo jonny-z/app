@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, TextInput } from 'react-native';
 import { Button, Flex } from '@ant-design/react-native';
-import { appBg, theme } from '../index';
+import { appBg, theme } from '../Index';
 
 const styles = StyleSheet.create({
 	container: {
@@ -33,14 +33,35 @@ const styles = StyleSheet.create({
 		minWidth: 140,
 		marginTop: 30,
 		height: 40,
+	},
+	money: {
+		backgroundColor: '#fff',
+		height: 40,
+		minWidth: 100,
+		marginRight: 15,
+		textAlign: 'center',
+		lineHeight: 40,
+		fontSize: 16
+	},
+	moneyActive: {
+		color: '#cc9933'
 	}
 });
 
+const money = [
+	{
+		number: '5000',
+		key: '0'
+	},{
+		number: '10000',
+		key: '1'
+	}
+]
 export default class Team extends Component {
 	constructor (props) {
 	    super(props);
 	    this.state = {
-	    	isActive: true
+	    	isActive: ''
 	    };
 	}
 	render () {
@@ -57,9 +78,13 @@ export default class Team extends Component {
 						>
 							<Flex
 							justify="center" 
-							align="center" 
+							align="center"
 							>
-
+								{money.map((item, index) => {
+									return <Text onPress={() => {
+										this.setState({isActive: item.key})
+									}} style={(this.state.isActive == item.key) ? [styles.money, styles.moneyActive] : styles.money} key={item.key}>{item.number}</Text>
+								})}
 							</Flex>
 						    <Button 
 						    style={styles.confirmBtn}

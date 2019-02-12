@@ -1,0 +1,121 @@
+import React, { Component } from 'react';
+import { ImageBackground, Text, View, StyleSheet, FlatList } from 'react-native';
+import { Button, Flex } from '@ant-design/react-native';
+import { appBg, theme } from '../Index';
+
+const styles = StyleSheet.create({
+	container: {
+        flex: 1,
+    },
+	backgroundImage:{
+	    flex:1,
+	    resizeMode: 'cover',
+	    width:null,
+	    width:null,
+	    backgroundColor:'rgba(0,0,0,0)',
+	},
+	title: {
+		marginTop: theme.appTopHeight,
+		textAlign: 'center',
+		color: 'white',
+		fontSize: 20,
+		fontWeight: 'bold',
+		marginBottom: 15
+	},
+	item: {
+		paddingTop: 10,
+		paddingBottom: 10,
+		backgroundColor: 'rgba(255,255,255,0.2)',
+		marginBottom: 6
+	},
+	itemText: {
+		textAlign: 'center',
+		fontSize: 16,
+		lineHeight: 17,
+		height: 17,
+		color: '#ffffff'
+	},
+	subtitle: {
+		color: '#fff',
+		fontSize: 18
+	},
+	viewmore: {
+		color: '#fff'
+	},
+	subcontent: {
+		paddingLeft: 15,
+		paddingRight: 15,
+		marginBottom: 10
+	}
+});
+class UserItem extends Component {
+	render() {
+		return (
+			<Flex.Item style={styles.item}>
+	      		<Text style={styles.itemText}>{this.props.type}</Text>
+	      	</Flex.Item>
+		)
+	}
+}
+
+class TransactionList extends Component {
+  render() {
+    return (
+      <Flex 
+      	align="center" 
+      	justify="center">
+      	<UserItem type={this.props.name} />
+      	<UserItem type={this.props.number} />
+      	<UserItem type={this.props.time} />
+      	<UserItem type={this.props.status} />
+      </Flex>
+    );
+  }
+}
+
+export default class Team extends Component {
+	constructor (props) {
+	    super(props);
+	}
+	render () {
+		return (
+			<View style={styles.container}>
+				<ImageBackground source={appBg} style={styles.backgroundImage}>
+					<Text style={styles.title}>交易中心　</Text>
+					<View style={{marginBottom: 20}}>
+						<Flex
+						justify="between" 
+						align="center" 
+						style={styles.subcontent}
+						>
+							<Text style={styles.subtitle}>买入</Text>
+							<Text style={styles.viewmore}>更多</Text>
+						</Flex>
+						<TransactionList name="姓名" number="规格" time="挂单时间" status="状态" />
+						<FlatList
+							keyExtractor={(item, index) => index.toString()}
+							data={[{name: '李四', number: '5000', time: '2019/1/1 10:00', status: '售卖中'}, {name: '李四', number: '5000', time: '2019/1/1 10:00', status: '售卖中'}]}
+							renderItem={({item}) => <TransactionList name={item.name} number={item.number} time={item.time} status={item.status} />}
+						/>
+					</View>
+					<View>
+						<Flex
+						justify="between" 
+						align="center" 
+						style={styles.subcontent}
+						>
+							<Text style={styles.subtitle}>卖出</Text>
+							<Text style={styles.viewmore}>更多</Text>
+						</Flex>
+						<TransactionList name="姓名" number="数量" time="时间" status="状态" />
+						<FlatList
+							keyExtractor={(item, index) => index.toString()}
+							data={[{name: '李四', number: '5000', time: '2019/1/1 10:00', status: '已出单'}, {name: '李四', number: '5000', time: '2019/1/1 10:00', status: '已出单'}]}
+							renderItem={({item}) => <TransactionList name={item.name} number={item.number} time={item.time} status={item.status} />}
+						/>
+					</View>
+			    </ImageBackground>
+			</View>
+		)
+	}
+}
