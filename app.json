@@ -13,8 +13,7 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -25,6 +24,12 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.billionEntertainment.entertainmentBox"
+    },
+    "android": {
+      "package": "com.billionEntertainment.entertainmentBox"
+    },
+    "androidStatusBar": {
+        "barStyle": "light-content"
     }
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ImageBackground, Alert, Text, View, Image, StyleSheet } from 'react-native';
 import { Icon, Button, Flex, WhiteSpace, WingBlank } from '@ant-design/react-native';
-import { appBg, theme } from '../index';
+import { appBg, theme } from '../Index';
 
 const styles = StyleSheet.create({
 	avatar: {
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
 		height: 100,
 		borderRadius: 50,
 	},
-	itemList: { 
+	itemList: {
 		backgroundColor: '#483D8B',
 		paddingTop: 15,
 		paddingBottom:15,
@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
 class List extends Component {
   render() {
     return (
-      <Flex 
-      	justify="between" 
-      	style={ styles.itemList } 
+      <Flex
+      	justify="between"
+      	style={ styles.itemList }
       	onPress={() => {
 		    Alert.alert("你点击了按钮！");
 		}}>
@@ -42,7 +42,7 @@ class List extends Component {
       		<Flex>
 	      		<Icon name={this.props.icon} color='#cc9933' size='md'/>
 	      		<Text style={{ paddingLeft:15, color: 'white', fontSize: 18, fontWeight: 'bold' }}>{this.props.name}</Text>
-      		</Flex>	
+      		</Flex>
       	</Flex.Item>
       	<Flex.Item style={{ flex: 0 }}>
       		<Icon name="right" color="white" size="xs"/>
@@ -67,7 +67,7 @@ export default class My extends Component {
 						<Flex.Item style={{flex: 0, marginRight: 20}}>
 							<Image
 								style={styles.avatar}
-								source={{uri: 'http://img5.duitang.com/uploads/item/201411/07/20141107164412_v284V.jpeg'}} 
+								source={{uri: 'http://img5.duitang.com/uploads/item/201411/07/20141107164412_v284V.jpeg'}}
 							/>
 						</Flex.Item>
 						<Flex.Item>

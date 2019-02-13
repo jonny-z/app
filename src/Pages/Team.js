@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, FlatList } from 'react-native';
 import { Button, Flex } from '@ant-design/react-native';
-import { appBg, theme } from '../index';
+import { appBg, theme } from '../Index';
 
 const styles = StyleSheet.create({
 	container: {
@@ -49,8 +49,8 @@ class UserItem extends Component {
 class UserList extends Component {
   render() {
     return (
-      <Flex 
-      	align="center" 
+      <Flex
+      	align="center"
       	justify="center">
       	<UserItem type={this.props.name} />
       	<UserItem type={this.props.level} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableWithoutFeedback, Text, View, ImageBackground, TextInput} from 'react-native';
+import { TouchableWithoutFeedback, Text, View, ImageBackground, TextInput } from 'react-native';
 import { appBg, theme } from "../../Index";
 const Styles = {
     background: {
@@ -81,6 +81,7 @@ export default class SignUp extends React.Component {
                         placeholder="账号"
                         placeholderTextColor={theme.lightGray}
                         selectionColor="#fff"
+                        maxLength={12}
                     />
                     <TextInput
                         style={Styles.inputField}
@@ -88,6 +89,8 @@ export default class SignUp extends React.Component {
                         placeholder="密码"
                         placeholderTextColor={theme.lightGray}
                         selectionColor="#fff"
+                        maxLength={8}
+                        secureTextEntry={true}
                     />
                     <TouchableWithoutFeedback onPress={()=>console.log('login')}>
                         <View style={Styles.btnLogin.container}>

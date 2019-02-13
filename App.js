@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppLoading, Font } from 'expo';
+import { AppLoading, Font, SplashScreen } from 'expo';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { StatusBar } from 'react-native';
@@ -7,15 +7,17 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Root from './src/Root';
 import SignIn from './src/Components/Form/SignIn';
 import SignUp from './src/Components/Form/SignUp';
-const reducer = (state = {count: 0}, action) => {
-  console.log('action type:' + action.type);
-  const count = state.count;
-  switch(action.type) {
+const reducer = (state = {
+        mainIsReady: false
+    }, action) => {
+    console.log('action type:' + action.type);
+    const count = state.count;
+    switch(action.type) {
     case 'add':
-      return {count: count + 1};
+        return {count: count + 1};
     default:
-      return state;
-  }
+        return state;
+    }
 };
 let store = createStore(reducer);
 const RootNavigator = createStackNavigator({
@@ -32,11 +34,13 @@ const RootContainer = createAppContainer(RootNavigator);
 export default class App extends React.Component {
   constructor (props) {
     super(props);
+    StatusBar.setHidden(true);
     this.state = {
       isReady: false,
       theme: null,
     }
   }
+//   static setHidden
   async componentDidMount() {
     await Font.loadAsync(/*  */
       'antoutline',
@@ -48,17 +52,28 @@ export default class App extends React.Component {
       // eslint-disable-next-line
       require('@ant-design/icons-react-native/fonts/antfill.ttf')
     );
-    // eslint-disable-next-line
-    this.setState({ isReady: true });
   }
   render() {
     const { isReady, theme } = this.state;
+    console.log('render')
     if (!isReady) {
-      return <AppLoading />;
+      return <AppLoading
+        startAsync={this.componentDidMount}
+        onFinish={() => {
+            this.setState({ isReady: true })
+            setTimeout(()=>{
+                StatusBar.setHidden(false);
+                SplashScreen.hide();
+                console.log('loading completed')
+            }, 1000)
+
+        }}
+        autoHideSplash={false}
+      />;
     }
     return (
       <Provider store={store}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="light-content" backgroundColor="rgba(0,0,0,0)" translucent={true} animated={true}/>
         <RootContainer />
       </Provider>
     );
