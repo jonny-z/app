@@ -3,7 +3,7 @@ import { AppLoading, Font, SplashScreen } from 'expo';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { StatusBar } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 import Root from './src/Root';
 import SignIn from './src/Components/Form/SignIn';
 import SignUp from './src/Components/Form/SignUp';
@@ -21,16 +21,17 @@ const reducer = (state = {
 };
 let store = createStore(reducer);
 const RootNavigator = createStackNavigator({
-  Root,
-  SignIn,
-  SignUp,
-},{
-  //全屏
-  headerMode: 'none',
-  //初始化路由页面
-  initialRouteName: "SignIn"
+    Root,
 });
-const RootContainer = createAppContainer(RootNavigator);
+const RootContainer = createAppContainer(createSwitchNavigator({
+    SignIn,
+    SignUp,
+    RootNavigator,
+},{
+    //全屏
+    headerMode: 'none',
+    initialRouteName: 'SignIn'
+}));
 export default class App extends React.Component {
   constructor (props) {
     super(props);
@@ -39,9 +40,8 @@ export default class App extends React.Component {
       isReady: false,
       theme: null,
     }
-    this.login();
+
   }
-//   static setHidden
   async componentDidMount() {
     await Font.loadAsync(/*  */
       'antoutline',
@@ -54,27 +54,8 @@ export default class App extends React.Component {
       require('@ant-design/icons-react-native/fonts/antfill.ttf')
     );
   }
-  login() {
-      console.log(1);
-    axios({
-        method: 'post',
-        url: '/User/login',
-        baseURL: 'http://www.blyl1888.com/index.php/Api',
-        headers: {
-            "Content-Type": 'application/x-www-form-urlencoded',
-        },
-        params: {
-            username: 'test111',
-            password: '123456',
-        },
-        responseType: 'json',
-    }).then((res)=> {
-        console.log(res);
-    })
-  }
   render() {
     const { isReady, theme } = this.state;
-    console.log('render')
     if (!isReady) {
       return <AppLoading
         startAsync={this.componentDidMount}
