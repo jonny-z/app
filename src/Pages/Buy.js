@@ -43,6 +43,13 @@ const styles = StyleSheet.create({
 		lineHeight: 40,
 		fontSize: 16
 	},
+	inputStyle: {
+		height: 40,
+		backgroundColor: '#ffffff',
+		width: '60%',
+		paddingLeft: 10,
+		paddingRight: 10,
+	},
 	moneyActive: {
 		color: '#cc9933'
 	}
@@ -61,7 +68,8 @@ export default class Team extends Component {
 	constructor (props) {
 	    super(props);
 	    this.state = {
-	    	isActive: ''
+	    	isActive: '',
+	    	code: ''
 	    };
 	}
 	render () {
@@ -86,6 +94,16 @@ export default class Team extends Component {
 									}} style={(this.state.isActive == item.key) ? [styles.money, styles.moneyActive] : styles.money} key={item.key}>{item.number}</Text>
 								})}
 							</Flex>
+							<Text style={{color: '#fff', marginTop:10, marginBottom:10}}>请输入支付宝/银行卡号</Text>
+							<TextInput
+								keyboardType="numeric" 
+								placeholder="请输入交易方式(支付宝号/银行卡号)" 
+								style={styles.inputStyle}
+						        onChangeText={(code) => {
+						        	this.setState({code: newText})
+						        }}
+						        value={this.state.code}
+						    />
 						    <Button 
 						    style={styles.confirmBtn}
 				            onPress={() => {
