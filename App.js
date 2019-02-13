@@ -39,6 +39,7 @@ export default class App extends React.Component {
       isReady: false,
       theme: null,
     }
+    this.login();
   }
 //   static setHidden
   async componentDidMount() {
@@ -52,6 +53,24 @@ export default class App extends React.Component {
       // eslint-disable-next-line
       require('@ant-design/icons-react-native/fonts/antfill.ttf')
     );
+  }
+  login() {
+      console.log(1);
+    axios({
+        method: 'post',
+        url: '/User/login',
+        baseURL: 'http://www.blyl1888.com/index.php/Api',
+        headers: {
+            "Content-Type": 'application/x-www-form-urlencoded',
+        },
+        params: {
+            username: 'test111',
+            password: '123456',
+        },
+        responseType: 'json',
+    }).then((res)=> {
+        console.log(res);
+    })
   }
   render() {
     const { isReady, theme } = this.state;
