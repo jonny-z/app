@@ -71,7 +71,8 @@ class PersonalInfo extends Component {
 				                userName: value,
 				              });
 				            }}
-				            placeholder="请输入名字"
+                            placeholder="请输入名字"
+                            editable={!username}
 				          	>
 				            	姓名
 				            </InputItem>
@@ -84,7 +85,8 @@ class PersonalInfo extends Component {
 				                idCard: value,
 				              });
 				            }}
-				            placeholder="请输入身份证"
+                            placeholder="请输入身份证"
+                            editable={!resident_id_card}
 				          	>
 				            	身份证
 				            </InputItem>
@@ -98,7 +100,8 @@ class PersonalInfo extends Component {
 				                phoneNumber: value,
 				              });
 				            }}
-				            placeholder="请输入手机号"
+                            placeholder="请输入手机号"
+                            editable={!alipay}
 				          	>
 				            	手机号
 				            </InputItem>
@@ -111,7 +114,8 @@ class PersonalInfo extends Component {
 				                bankCard: value,
 				              });
 				            }}
-				            placeholder="请输入银行卡"
+                            placeholder="请输入银行卡"
+                            editable={bank_card}
 				          	>
 				            	银行卡
 				            </InputItem>
@@ -123,7 +127,8 @@ class PersonalInfo extends Component {
 				                aPay: value,
 				              });
 				            }}
-				            placeholder="请输入支付宝"
+                            placeholder="请输入支付宝"
+                            editable={alipay}
 				          	>
 				            	支付宝
 				            </InputItem>
@@ -135,7 +140,8 @@ class PersonalInfo extends Component {
 				                spreadCode: value,
 				              });
 				            }}
-				            placeholder="请输入推广码"
+                            placeholder="请输入推广码"
+                            editable={promotion_code}
 				          	>
 				            	推广码
 				            </InputItem>
