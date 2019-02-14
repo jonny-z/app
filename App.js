@@ -7,14 +7,26 @@ import { createStackNavigator, createSwitchNavigator, createAppContainer } from 
 import Root from './src/Root';
 import SignIn from './src/Components/Form/SignIn';
 import SignUp from './src/Components/Form/SignUp';
+import Toast from "./src/Components/Modal/Toast";
 const reducer = (state = {
-        mainIsReady: false
+        mainIsReady: false,
+        isLogin: false,
+        username: '未登录',
     }, action) => {
     console.log('action type:' + action.type);
-    const count = state.count;
     switch(action.type) {
-    case 'add':
-        return {count: count + 1};
+    case 'LOGIN_SUCCESS':
+        return Object.assign(state, {
+            isLogin: true,
+            token: action.data.token,
+            id: action.data.id,
+            username: action.data.username,
+        });
+    case 'SHOW_TOAST':
+        return Object.assign(state, {
+            refs: action.refs,
+            message: action.message,
+        })
     default:
         return state;
     }
@@ -38,7 +50,6 @@ export default class App extends React.Component {
     StatusBar.setHidden(true);
     this.state = {
       isReady: false,
-      theme: null,
     }
 
   }
@@ -55,7 +66,7 @@ export default class App extends React.Component {
     );
   }
   render() {
-    const { isReady, theme } = this.state;
+    const { isReady } = this.state;
     if (!isReady) {
       return <AppLoading
         startAsync={this.componentDidMount}
@@ -75,6 +86,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <StatusBar barStyle="light-content" backgroundColor="rgba(0,0,0,0)" translucent={true} animated={true}/>
         <RootContainer />
+        <Toast />
       </Provider>
     );
   }

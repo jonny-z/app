@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Animated } from "react-native";
+import { connect } from 'react-redux';
 const Styles = {
     container: {
         position: 'absolute',
@@ -21,16 +22,17 @@ const Styles = {
         color: '#fff',
     }
 }
-export default class Toast extends Component {
+class Toast extends Component {
     constructor(props) {
         super(props);
         this.state = {
             fade: new Animated.Value(0),
             duration: 1000,
-            showTime: 1000.
+            showTime: 1000,
         };
     }
-    componentDidUpdate () {
+    test = () => console.log('test')
+    show = () => {
         let animeFade = Animated.sequence([
             Animated.timing(
                 this.state.fade,
@@ -47,10 +49,15 @@ export default class Toast extends Component {
                   duration: this.state.duration,
                 }
             )
-        ])
-        if(this.props.show) {
-            animeFade.start();
-        }
+        ]);
+        animeFade.start();
+    }
+    componentDidMount () {
+        console.log(this.props);
+        // this.props.refs(this);
+    }
+    componentWillReceiveProps() {
+
     }
     render() {
         const { message } = this.props;
@@ -65,3 +72,23 @@ export default class Toast extends Component {
         )
     }
 }
+export default connect(
+    (state) => {
+        console.log('map state to props');
+        return {
+            message: state.message
+        }
+    },
+    (dispatch, ownProps) => {
+        console.log('map dispatch props')
+        console.log();
+        return {
+            get: () =>{
+                console.log('get');
+                dispatch({
+                    type: 'add'
+                })
+            }
+        }
+    }
+)(Toast);

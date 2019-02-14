@@ -39,6 +39,10 @@ const Styles = {
         textAlign: 'center',
         backgroundColor: theme.opacityWhite,
     },
+    inputFieldDisable: {
+        color: '#ccc',
+        opacity: .9,
+    },
     btnLogin: {
         container: {
             width: 160,
@@ -72,8 +76,7 @@ async function requestLogin (data) {
         console.error(error);
     }
 }
-
-export default class SignUp extends React.Component {
+class SignIn extends React.Component {
     static navigationOptions = {
         title: '登录'
     }
@@ -83,42 +86,45 @@ export default class SignUp extends React.Component {
             username: '',
             password: '',
             editable: true,
-            showToast: false,
             message: '',
         };
     }
-    test () {
-        console.log('test');
-
+    lock = () => {
+        console.log('lock');
     }
-    login () {
+    login = () => {
         if(!this.state.username) {
-            this.setState({ message: '请输入用户名', showToast: true});
+            this.setState({ message: '请输入用户名'});
+            // this.toast.show();
+            this.props.showToast('请输入用户名', this.onRefs);
             return;
         }
         if(!this.state.password) {
-            this.setState({ message: '请输入密码', showToast: true});
+            this.setState({ message: '请输入密码'});
+            // this.toast.show();
             return;
         }
         this.setState({ editable: false });
         requestLogin(this.state).then((res) => {
             switch(res.code) {
                 case 'success':
-                    this.setState({ editable: true, message: '登录成功', showToast: true});
-                    this.props.navigation.navigate('Root');
+                this.props.loginSuccess(res.data);
+                    this.setState({ editable: true, message: '登录成功'});
+                    // console.log(res);
+                    // this.props.navigation.navigate('Root');
+
+                    // this.toast.show();
                 break;
                 case 'error':
-                    this.setState({ editable: true, message: res.message, showToast: true});
-                    console.log(res)
+                    this.setState({ editable: true, message: res.message});
+                    // this.toast.show();
                 break;
-                default:
-
             }
         });
     }
-
+    onRefs = (ref) => this.toast = ref
     render() {
-        const { editable, showToast, message } = this.state;
+        const { editable, message } = this.state;
         return (
             <ImageBackground source={appBg} style={Styles.background}>
                 <View style={Styles.title.container}>
@@ -127,7 +133,7 @@ export default class SignUp extends React.Component {
                 </View>
                 <View style={Styles.form}>
                     <TextInput
-                        style={Styles.inputField}
+                        style={this.state.editable ? Styles.inputField : [Styles.inputField, Styles.inputFieldDisable]}
                         onChangeText={(username) => this.state.username = username}
                         // value={this.state.username}
                         placeholder="账号"
@@ -140,7 +146,7 @@ export default class SignUp extends React.Component {
                         autoComplete="off"
                     />
                     <TextInput
-                        style={Styles.inputField}
+                        style={this.state.editable ? Styles.inputField : [Styles.inputField, Styles.inputFieldDisable]}
                         onChangeText={(password) => this.state.password = password}
                         placeholder="密码"
                         placeholderTextColor={theme.lightGray}
@@ -150,17 +156,38 @@ export default class SignUp extends React.Component {
                         defaultValue={this.state.password}
                         editable={this.state.editable}
                     />
-                    <TouchableOpacity activeOpacity={.5} onPress={() => editable ? this.login(this) : this.test()}>
+                    <TouchableOpacity activeOpacity={.5} onPress={editable ? this.login : this.lock}>
                         <View style={Styles.btnLogin.container}>
                             <Text style={Styles.btnLogin.text}>登录</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
-                {/* <TouchableWithoutFeedback onPress={()=>this.props.navigation.navigate('Root')}>
-                    <Text>注册</Text>
-                </TouchableWithoutFeedback> */}
-                <Toast show={showToast} message={message}/>
+                {/* <Toast message={message} refs={this.onRefs}/> */}
             </ImageBackground>
         )
     }
 }
+export default connect(
+    (state) => {
+        console.log('sign in map state to props')
+        console.log(state)
+        return {message: 2333};
+    },
+    (dispatch, ownProps) => {
+        return {
+            loginSuccess: (data) =>{
+                dispatch({
+                    type: 'LOGIN_SUCCESS',
+                    data,
+                })
+            },
+            showToast: (msg, refs)=> {
+                dispatch({
+                    type: 'SHOW_TOAST',
+                    message: msg,
+                    refs
+                })
+            }
+        }
+    }
+)(SignIn);
