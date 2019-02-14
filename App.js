@@ -63,8 +63,8 @@ const RootContainer = createAppContainer(createSwitchNavigator({
 },{
     //全屏
     headerMode: 'none',
-    // initialRouteName: 'SignIn'
-    initialRouteName: 'RootNavigator'
+    initialRouteName: 'SignIn'
+    // initialRouteName: 'RootNavigator'
 }));
 export default class App extends React.Component {
   constructor (props) {
