@@ -49,8 +49,8 @@ class UserItem extends Component {
 class UserList extends Component {
   render() {
     return (
-      <Flex 
-      	align="center" 
+      <Flex
+      	align="center"
       	justify="center">
       	<UserItem type={this.props.name} />
       	<UserItem type={this.props.level} />

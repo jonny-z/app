@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, ImageBackground, StatusBar } from 'react-native';
+import { Text, View, ScrollView, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon, TabBar, Button } from '@ant-design/react-native';
 import MyPage from './Pages/My';
@@ -194,6 +194,7 @@ const Demo = (get, val) => {
 class Root extends React.Component {
   static navigationOptions = {
     title: '',
+    header: null,
     headerStyle: {
       backgroundColor: 'black',
     },
