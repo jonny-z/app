@@ -11,6 +11,9 @@ import Toast from './src/Components/Modal/Toast';
 import Buy from './src/Pages/Buy';
 import HangUp from './src/Pages/HangUp';
 import Team from './src/Pages/Team';
+import PersonalInfo from './src/Pages/PersonalInfo';
+// import My from './src/Pages/My';
+import Transaction from './src/Pages/Transaction';
 const reducer = (state = {
         mainIsReady: false,
         isLogin: false,
@@ -40,7 +43,10 @@ const RootNavigator = createStackNavigator({
     Root,
     Team,
     Buy,
+    // My,
     HangUp,
+    PersonalInfo,
+    Transaction,
 },{
     defaultNavigationOptions: {
         headerStyle: {
@@ -57,8 +63,8 @@ const RootContainer = createAppContainer(createSwitchNavigator({
 },{
     //全屏
     headerMode: 'none',
-    initialRouteName: 'SignIn'
-    // initialRouteName: 'RootNavigator'
+    // initialRouteName: 'SignIn'
+    initialRouteName: 'RootNavigator'
 }));
 export default class App extends React.Component {
   constructor (props) {

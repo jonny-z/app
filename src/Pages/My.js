@@ -30,13 +30,21 @@ const styles = StyleSheet.create({
 });
 
 class List extends Component {
+    constructor(props) {
+        super(props);
+    }
   render() {
+      const {id, nav} = this.props;
     return (
       <Flex
       	justify="between"
       	style={ styles.itemList }
       	onPress={() => {
-		    Alert.alert("你点击了按钮！");
+            if(!id) {
+                Alert.alert('暂未开放')
+                return;
+            }
+		    nav.navigate(id);
 		}}>
       	<Flex.Item style={{ flex: 0 }}>
       		<Flex>
@@ -57,6 +65,8 @@ export default class My extends Component {
 	    super(props);
 	}
 	render () {
+        const {nav} = this.props;
+        console.log(nav)
 		return (
 			// <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
 			//     <Text style={{ margin: 50 }}>{this.props.name}</Text>
@@ -77,10 +87,10 @@ export default class My extends Component {
 							</Flex>
 						</Flex.Item>
 					</Flex>
-					<List name="个人信息" icon="contacts"/>
-					<List name="交易历史" icon="skin"/>
-					<List name="分享链接" icon="phone"/>
-					<List name="收获地址" icon="tags"/>
+					<List name="个人信息" icon="contacts" id="PersonalInfo" nav={nav}/>
+					<List name="交易大厅" icon="skin" id="Transaction"  nav={nav}/>
+					<List name="分享链接" icon="phone" nav={nav}/>
+					<List name="收获地址" icon="tags" nav={nav}/>
 				</ImageBackground>
 			</View>
 		)
