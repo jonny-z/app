@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, ScrollView } from 'react-native';
 import { Button, Flex, List, InputItem } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
+import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
 	container: {
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default class Team extends Component {
+class PersonalInfo extends Component {
     static navigationOptions = {
         title: '个人信息',
     }
@@ -39,22 +40,22 @@ export default class Team extends Component {
 	    	spreadCode: ''
 	    }
 	}
-	componentDidMount() {
-		let formData=new FormData();
-		formData.append('id', '10000');
-		formData.append('token', 'f542d311a9d1a368cd241d2aa9ba7f1e');
-		fetch('http://www.blyl1888.com/index.php/Api/User/getUserInfo', {
-		  method: 'POST',
-		  headers: {},
-		  body: formData,
-		}).then((response) => response.json()).then((responseJson) => {
-			console.log(responseJson);
-	      // this.setState({Info: responseJson.data})
-	    }).catch(function (err) {
-	    	console.log(err);
-	  	});
-	}
+	// componentWillMount() {
+	// 	let formData=new FormData();
+	// 	formData.append('id', this.props.id);
+	// 	formData.append('token', this.props.token);
+	// 	fetch('http://www.blyl1888.com/index.php/Api/User/getUserInfo', {
+	// 	  method: 'POST',
+	// 	  body: formData,
+	// 	}).then((response) => response.json()).then((responseJson) => {
+	// 		console.log(responseJson);
+	//       // this.setState({Info: responseJson.data})
+	//     }).catch(function (err) {
+	//     	console.log(err);
+	//   	});
+	// }
 	render () {
+        const {username, resident_id_card, alipay, bank_card, promotion_code} = this.props;
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
@@ -64,7 +65,7 @@ export default class Team extends Component {
 						<List>
 							<InputItem
 				            clear
-				            value={this.state.userName}
+				            value={username}
 				            onChange={value => {
 				              this.setState({
 				                userName: value,
@@ -77,7 +78,7 @@ export default class Team extends Component {
 
 				            <InputItem
 				            clear
-				            value={this.state.idCard}
+				            value={resident_id_card}
 				            onChange={value => {
 				              this.setState({
 				                idCard: value,
@@ -91,7 +92,7 @@ export default class Team extends Component {
 				            <InputItem
 				            clear
 				            type="phone"
-				            value={this.state.phoneNumber}
+				            value={alipay}
 				            onChange={value => {
 				              this.setState({
 				                phoneNumber: value,
@@ -104,7 +105,7 @@ export default class Team extends Component {
 				            <InputItem
 				            clear
 				            type="bankCard"
-				            value={this.state.bankCard}
+				            value={bank_card}
 				            onChange={value => {
 				              this.setState({
 				                bankCard: value,
@@ -116,7 +117,7 @@ export default class Team extends Component {
 				            </InputItem>
 				            <InputItem
 				            clear
-				            value={this.state.aPay}
+				            value={alipay}
 				            onChange={value => {
 				              this.setState({
 				                aPay: value,
@@ -128,7 +129,7 @@ export default class Team extends Component {
 				            </InputItem>
 				            <InputItem
 				            clear
-				            value={this.state.spreadCode}
+				            value={promotion_code}
 				            onChange={value => {
 				              this.setState({
 				                spreadCode: value,
@@ -155,3 +156,9 @@ export default class Team extends Component {
 		)
 	}
 }
+export default connect(
+    (state) => {
+        console.log(state);
+        return state;
+    }
+)(PersonalInfo)
