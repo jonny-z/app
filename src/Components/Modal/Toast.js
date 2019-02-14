@@ -27,8 +27,8 @@ class Toast extends Component {
         super(props);
         this.state = {
             fade: new Animated.Value(0),
-            duration: 1000,
-            showTime: 1000,
+            duration: 500,
+            showTime: 500,
         };
     }
     test = () => console.log('test')

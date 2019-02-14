@@ -43,10 +43,13 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default class Team extends Component {
+export default class HangUp extends Component {
+    static navigationOptions = {
+        title: '卖出',
+    }
 	constructor (props) {
 	    super(props);
-	    this.state = { 
+	    this.state = {
 	    	money: ''
 	    };
 	}
@@ -57,14 +60,14 @@ export default class Team extends Component {
 					<Text style={styles.title}>矿金挂卖</Text>
 					<View style={styles.content}>
 						<Flex
-						justify="center" 
-						align="center" 
+						justify="center"
+						align="center"
 						direction="column"
 						style={{height: '100%'}}
 						>
 							<TextInput
-								keyboardType="numeric" 
-								placeholder="请输入金额(元)" 
+								keyboardType="numeric"
+								placeholder="请输入金额(元)"
 								style={styles.inputStyle}
 						        onChangeText={(money) => {
 						        	const newText = money.replace(/[^\d]+/, '');
@@ -72,7 +75,7 @@ export default class Team extends Component {
 						        }}
 						        value={this.state.money}
 						    />
-						    <Button 
+						    <Button
 						    style={styles.confirmBtn}
 				            onPress={() => {
 				                let formData=new FormData();

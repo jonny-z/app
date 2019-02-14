@@ -1,12 +1,13 @@
 import React from 'react';
 import { Text, View, ScrollView, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
-import { Icon, TabBar, Button } from '@ant-design/react-native';
+import { Icon, TabBar } from '@ant-design/react-native';
 import MyPage from './Pages/My';
 import UserProfile from './Components/Account/UserProfile';
 import Navigation from './Components/Navigation';
 import ConvenientServiceMenu from './Components/ConvenientServiceMenu';
 import { appBg, theme } from './Index';
+import Api from "./Api/Api";
 
 const HOME = Symbol();
 const INFO = Symbol();
@@ -98,26 +99,32 @@ const Styles = {
 const navigateList = [
     {
         title: '买入',
+        id: 'Buy',
         imgSrc: require('../assets/hengtai/buy.png'),
     },
     {
         title: '卖出',
+        id: 'HangUp',
         imgSrc: require('../assets/hengtai/sale.png'),
     },
     {
         title: '推广链接',
+        id: '',
         imgSrc: require('../assets/hengtai/share-link.png'),
     },
     {
         title: '积分兑换',
+        id: '',
         imgSrc: require('../assets/hengtai/exchange-credit.png'),
     },
     {
         title: '团队',
+        id: 'Team',
         imgSrc: require('../assets/hengtai/party.png'),
     },
     {
         title: '红包领取',
+        id: '',
         imgSrc: require('../assets/hengtai/get-redpacket.png'),
     }
 ]
@@ -143,150 +150,147 @@ const convenientServiceMenu = [
 ]
 //editable控制编辑按钮显示，customStyle 自定义样式，对应组件里的style，详情查看UserProfile.js
 //barStyle: light-content、dark-content
-const Home = () => (
-    <ImageBackground source={appBg} style={Styles.backgroundImage}>
-        <ScrollView style={Styles.home.main}>
-            <UserProfile editable={false} style={Styles.home.userProfile}/>
-            <View style={Styles.home.balanceAndCredit.container}>
-                <View style={Styles.home.balanceAndCredit.balance}>
-                    <Text style={Styles.home.balanceAndCredit.text}>余额: 0.00</Text>
-                </View>
-                <View style={Styles.home.balanceAndCredit.credit}>
-                    <Text style={Styles.home.balanceAndCredit.text}>积分: 430.74</Text>
-                </View>
-            </View>
-            <Navigation list={navigateList}/>
-            <View style={Styles.home.convenientService.container}>
-                <View style={Styles.home.convenientService.title.container}>
-                    <View style={Styles.home.convenientService.title.titleBar}/>
-                    <Text style={Styles.home.convenientService.title.text}>便民服务</Text>
-                </View>
-                <ConvenientServiceMenu menu={convenientServiceMenu}></ConvenientServiceMenu>
-            </View>
-        </ScrollView>
-    </ImageBackground>
-);
 const Info = (text) => (
   <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
-    <Text style={{ margin: 50}}>{text}</Text>
+    <Text style={{ margin: 50, fontSize: 22}}>即将到来</Text>
   </View>
 );
 const ShoppingCentre = (text) => (
   <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
-    <Text style={{ margin: 50}}>{text}</Text>
+    <Text style={{ margin: 50, fontSize: 22}}>即将到来</Text>
   </View>
 );
 const My = (text) => (
     <MyPage name={text}/>
 );
-const Demo = (get, val) => {
-  return (
-    <View>
-      <Text>{val}</Text>
-      <Button type="primary" onPress={get}>test</Button>
-    </View>
-  )
-}
 class Root extends React.Component {
-  static navigationOptions = {
-    title: '',
-    header: null,
-    headerStyle: {
-      backgroundColor: 'black',
-    },
-    headerTintColor: 'white',
-  }
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedTab: HOME,
-    };
-  }
-  renderContent(page) {
-    switch(page) {
-      case HOME:
-          return Home('主页',(
-            <View>
-              <Button type="primary" onPress={()=>{
-                this.props.navigation.navigate('SignUp',{
-                  id: 1
-                })
-              }}>注册页面</Button>
-            </View>));
-      case INFO:
-        return Info('资讯');
-      case SHOPPING_CENTRE:
-        return ShoppingCentre('商城');
-      case MY:
-        return My('我的');
+    static navigationOptions = {
+        header: null,
     }
-  }
-  onChangeTab(tabName) {
-    this.setState({
-      selectedTab: tabName,
-    });
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedTab: HOME,
+        };
+    }
+    Home = () => {
+        const { name, avatar, mine_balance, frozen_money, navigation } = this.props
+        return (
+            <ImageBackground source={appBg} style={Styles.backgroundImage}>
+                <ScrollView style={Styles.home.main}>
+                    <UserProfile editable={false} style={Styles.home.userProfile} name={name} avatar={avatar}/>
+                    <View style={Styles.home.balanceAndCredit.container}>
+                        <View style={Styles.home.balanceAndCredit.balance}>
+                            <Text style={Styles.home.balanceAndCredit.text}>余额: {mine_balance}</Text>
+                        </View>
+                        <View style={Styles.home.balanceAndCredit.credit}>
+                            <Text style={Styles.home.balanceAndCredit.text}>红利: {frozen_money}</Text>
+                        </View>
+                    </View>
+                    <Navigation list={navigateList} nav={navigation} refs={this.props.setToastMsg}/>
+                    <View style={Styles.home.convenientService.container}>
+                        <View style={Styles.home.convenientService.title.container}>
+                            <View style={Styles.home.convenientService.title.titleBar}/>
+                            <Text style={Styles.home.convenientService.title.text}>便民服务</Text>
+                        </View>
+                        <ConvenientServiceMenu menu={convenientServiceMenu} refs={this.props.setToastMsg}></ConvenientServiceMenu>
+                    </View>
+                </ScrollView>
+            </ImageBackground>
+    )}
+    renderContent(page) {
+        switch(page) {
+            case HOME:
+                return this.Home();
+            case INFO:
+                return Info('资讯');
+            case SHOPPING_CENTRE:
+                return ShoppingCentre('商城');
+            case MY:
+                return My('我的');
+        }
+    }
+    onChangeTab(tabName) {
+        this.setState({
+            selectedTab: tabName,
+        });
+    }
+    componentWillMount() {
+        let fd = new FormData();
+        fd.append('id', this.props.id);
+        fd.append('token', this.props.token);
+        Api.getUserInfo(fd).then((resData)=>{
+            this.props.update(resData.data);
+        });
+    }
     render () {
-      return (
-        <TabBar
-          unselectedTintColor="#949494"
-          tintColor="#33A3F4"
-          barTintColor="#fff"
-          style={{borderWidth: 0,}}
-        >
-          <TabBar.Item
-            title="首页"
-            icon={<Icon name="home" />}
-            selected={this.state.selectedTab === HOME}
-            onPress={() => this.onChangeTab(HOME)}
-          >
-            {this.renderContent(HOME)}
-          </TabBar.Item>
-          <TabBar.Item
-            icon={<Icon name="profile" />}
-            title="资讯"
-            // badge={2}
-            selected={this.state.selectedTab === INFO}
-            onPress={() => this.onChangeTab(INFO)}
-          >
-            {this.renderContent(INFO)}
-          </TabBar.Item>
-          <TabBar.Item
-            icon={<Icon name="shopping" />}
-            title="商城"
-            selected={this.state.selectedTab === SHOPPING_CENTRE}
-            onPress={() => this.onChangeTab(SHOPPING_CENTRE)}
-          >
-            {this.renderContent(SHOPPING_CENTRE)}
-          </TabBar.Item>
-          <TabBar.Item
-            icon={<Icon name="user" />}
-            title="我的"
-            selected={this.state.selectedTab === MY}
-            onPress={() => this.onChangeTab(MY)}
-          >
-            {this.renderContent(MY)}
-          </TabBar.Item>
-        </TabBar>
-      );
+        console.log('root render')
+        return (
+            <TabBar
+                unselectedTintColor="#949494"
+                tintColor="#33A3F4"
+                barTintColor="#fff"
+                style={{borderWidth: 0,}}
+            >
+                <TabBar.Item
+                title="首页"
+                icon={<Icon name="home" />}
+                selected={this.state.selectedTab === HOME}
+                onPress={() => this.onChangeTab(HOME)}
+            >
+                {this.renderContent(HOME)}
+            </TabBar.Item>
+                <TabBar.Item
+                    icon={<Icon name="profile" />}
+                    title="资讯"
+                    // badge={2}
+                    selected={this.state.selectedTab === INFO}
+                    onPress={() => this.onChangeTab(INFO)}
+                >
+                    {this.renderContent(INFO)}
+                </TabBar.Item>
+                <TabBar.Item
+                    icon={<Icon name="shopping" />}
+                    title="商城"
+                    selected={this.state.selectedTab === SHOPPING_CENTRE}
+                    onPress={() => this.onChangeTab(SHOPPING_CENTRE)}
+                >
+                    {this.renderContent(SHOPPING_CENTRE)}
+                </TabBar.Item>
+                <TabBar.Item
+                    icon={<Icon name="user" />}
+                    title="我的"
+                    selected={this.state.selectedTab === MY}
+                    onPress={() => this.onChangeTab(MY)}
+                >
+                    {this.renderContent(MY)}
+                </TabBar.Item>
+            </TabBar>
+        );
     }
 }
 export default connect(
-  (state) => {
-    console.log('map state to props')
-    return {
-      count: state.count
+    (state) => {
+        console.log('root map state to props');
+        console.log(state)
+        return state;
+    },
+    (dispatch) => {
+        console.log('root map dispatch props')
+        return {
+            update: (userInfo) =>{
+                console.log('update user info');
+                dispatch({
+                    type: 'UPDATE_USER_INFO',
+                    userInfo,
+                })
+            },
+            setToastMsg: (msg)=> {
+                dispatch({
+                    type: 'SET_TOAST_MSG',
+                    message: msg,
+                })
+            }
+        }
     }
-  },
-  (dispatch, ownProps) => {
-    console.log('map dispatch props')
-    return {
-      get: () =>{
-        console.log('get');
-        dispatch({
-          type: 'add'
-        })
-      }
-    }
-  }
 )(Root);

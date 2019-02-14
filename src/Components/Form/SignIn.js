@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { TouchableOpacity, Text, View, ImageBackground, TextInput } from 'react-native';
 import { appBg, theme } from "../../Index";
-import Toast from "../Modal/Toast";
+import Api from "../../Api/Api";
 const Styles = {
     background: {
         flex: 1,
@@ -60,22 +60,7 @@ const Styles = {
         }
     }
 }
-async function requestLogin (data) {
-    console.log('send');
-    var fd = new FormData();
-    fd.append('username', data.username);
-    fd.append('password', data.password);
-    try {
-        let res = await fetch('http://www.blyl1888.com/index.php/Api/User/login', {
-            method: 'POST',
-            body: fd,
-        })
-        let resData = await res.json();
-        return resData;
-    } catch (error) {
-        console.error(error);
-    }
-}
+
 class SignIn extends React.Component {
     static navigationOptions = {
         title: '登录'
@@ -103,7 +88,10 @@ class SignIn extends React.Component {
             return;
         }
         this.setState({ editable: false });
-        requestLogin(this.state).then((res) => {
+        let fd = new FormData();
+        fd.append('username', this.state.username);
+        fd.append('password', this.state.password);
+        Api.requestLogin(fd).then((res) => {
             switch(res.code) {
                 case 'success':
                 this.props.loginSuccess(res.data);

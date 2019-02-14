@@ -7,7 +7,10 @@ import { createStackNavigator, createSwitchNavigator, createAppContainer } from 
 import Root from './src/Root';
 import SignIn from './src/Components/Form/SignIn';
 import SignUp from './src/Components/Form/SignUp';
-import Toast from "./src/Components/Modal/Toast";
+import Toast from './src/Components/Modal/Toast';
+import Buy from './src/Pages/Buy';
+import HangUp from './src/Pages/HangUp';
+import Team from './src/Pages/Team';
 const reducer = (state = {
         mainIsReady: false,
         isLogin: false,
@@ -25,7 +28,9 @@ const reducer = (state = {
     case 'SET_TOAST_MSG':
         return Object.assign({}, state, {
             message: action.message,
-        })
+        });
+    case 'UPDATE_USER_INFO':
+        return Object.assign({}, state, action.userInfo);
     default:
         return state;
     }
@@ -33,6 +38,17 @@ const reducer = (state = {
 let store = createStore(reducer);
 const RootNavigator = createStackNavigator({
     Root,
+    Team,
+    Buy,
+    HangUp,
+},{
+    defaultNavigationOptions: {
+        headerStyle: {
+            backgroundColor: 'black',
+        },
+        headerTintColor: 'white',
+        headerBackTitle: '返回',
+    }
 });
 const RootContainer = createAppContainer(createSwitchNavigator({
     SignIn,
@@ -42,6 +58,7 @@ const RootContainer = createAppContainer(createSwitchNavigator({
     //全屏
     headerMode: 'none',
     initialRouteName: 'SignIn'
+    // initialRouteName: 'RootNavigator'
 }));
 export default class App extends React.Component {
   constructor (props) {

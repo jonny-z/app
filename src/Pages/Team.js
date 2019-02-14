@@ -62,6 +62,9 @@ class UserList extends Component {
 }
 
 export default class Team extends Component {
+    static navigationOptions = {
+        title: '团队',
+    }
 	constructor (props) {
 	    super(props);
 	    this.state = {
