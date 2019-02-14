@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { theme} from '../Index';
 const Styles = {
     container: {
@@ -43,13 +43,14 @@ export default class ConvenientServiceMenu extends Component {
             <View style={Styles.container}>
                 <View style={Styles.menu}>
                     {menu.map((item, index) => (
-                        <TouchableWithoutFeedback key={index} onPress={()=>{
+                        <TouchableOpacity key={index} onPress={()=>{
                             this.setState({activeButton: index});
+
                         }}>
                             <View style={Styles.menuItem}>
                                 <Text style={(this.state.activeButton === index) ? [Styles.menuItemText, Styles.menuItemActiveText]:Styles.menuItemText}>{item.title}</Text>
                             </View>
-                        </TouchableWithoutFeedback>
+                        </TouchableOpacity>
                     ))}
                 </View>
                 <Text>选择买入金额</Text>
