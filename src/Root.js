@@ -37,10 +37,11 @@ const Styles = {
             }
         },
         main: {
-            marginTop: 100,
+
         },
         balanceAndCredit: {
             container: {
+                marginTop: 80,
                 paddingTop: 5,
                 paddingBottom: 5,
                 backgroundColor: theme.opacityWhite,
@@ -89,11 +90,6 @@ const Styles = {
                     color: '#fff',
                     marginLeft: 15,
                     fontSize: 18,
-                }
-            },
-            menu: {
-                container: {
-
                 }
             }
         }
@@ -149,8 +145,8 @@ const convenientServiceMenu = [
 //barStyle: light-content、dark-content
 const Home = () => (
     <ImageBackground source={appBg} style={Styles.backgroundImage}>
-        <UserProfile editable={false} style={Styles.home.userProfile}/>
         <ScrollView style={Styles.home.main}>
+            <UserProfile editable={false} style={Styles.home.userProfile}/>
             <View style={Styles.home.balanceAndCredit.container}>
                 <View style={Styles.home.balanceAndCredit.balance}>
                     <Text style={Styles.home.balanceAndCredit.text}>余额: 0.00</Text>
