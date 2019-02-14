@@ -36,6 +36,21 @@ export default class Team extends Component {
 	    	spreadCode: ''
 	    }
 	}
+	componentDidMount() {
+		let formData=new FormData();
+		formData.append('id', '10000');
+		formData.append('token', 'f542d311a9d1a368cd241d2aa9ba7f1e');
+		fetch('http://www.blyl1888.com/index.php/Api/User/getUserInfo', {
+		  method: 'POST',
+		  headers: {},
+		  body: formData,
+		}).then((response) => response.json()).then((responseJson) => {
+			console.log(responseJson);
+	      // this.setState({Info: responseJson.data})
+	    }).catch(function (err) {
+	    	console.log(err);
+	  	});
+	}
 	render () {
 		return (
 			<View style={styles.container}>
