@@ -31,9 +31,6 @@ const Styles = {
 export default class UserProfile extends Component {
     constructor (props) {
         super(props);
-        this.state = {
-            avatarSrc: defaultAvatar
-        }
     }
     showEdit (editable, style) {
         let iconStyle = Object.assign(Styles.edit, style);
@@ -45,17 +42,16 @@ export default class UserProfile extends Component {
         return;
     }
     render () {
-        const { editable, style: customStyle } = this.props;
-        const { avatarSrc } = this.state;
+        const { editable, style: customStyle, avatar=defaultAvatar, name='昵称'} = this.props;
         return (
             <View style={[Styles.container, customStyle.container]}>
                 <View style={[Styles.avatarWrapper, customStyle.avatarWrapper]}>
                     <Image style={[Styles.avatar, customStyle.avatar]}
-                        source={avatarSrc}
+                        source={avatar.toString().indexOf('http') === 0 ? {uri: avatar} : avatar}
                     />
                 </View>
                 <View style={[Styles.content, customStyle.content]}>
-                    <Text style={[Styles.name, customStyle.name]}>昵称</Text>
+                    <Text style={[Styles.name, customStyle.name]}>{name}</Text>
                     {this.showEdit(editable, customStyle.edit)}
                 </View>
             </View>

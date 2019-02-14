@@ -7,14 +7,30 @@ import { createStackNavigator, createSwitchNavigator, createAppContainer } from 
 import Root from './src/Root';
 import SignIn from './src/Components/Form/SignIn';
 import SignUp from './src/Components/Form/SignUp';
+import Toast from './src/Components/Modal/Toast';
+import Buy from './src/Pages/Buy';
+import HangUp from './src/Pages/HangUp';
+import Team from './src/Pages/Team';
 const reducer = (state = {
-        mainIsReady: false
+        mainIsReady: false,
+        isLogin: false,
+        username: '未登录',
     }, action) => {
     console.log('action type:' + action.type);
-    const count = state.count;
     switch(action.type) {
-    case 'add':
-        return {count: count + 1};
+    case 'LOGIN_SUCCESS':
+        return Object.assign({}, state, {
+            isLogin: true,
+            token: action.data.token,
+            id: action.data.id,
+            username: action.data.username,
+        });
+    case 'SET_TOAST_MSG':
+        return Object.assign({}, state, {
+            message: action.message,
+        });
+    case 'UPDATE_USER_INFO':
+        return Object.assign({}, state, action.userInfo);
     default:
         return state;
     }
@@ -22,6 +38,17 @@ const reducer = (state = {
 let store = createStore(reducer);
 const RootNavigator = createStackNavigator({
     Root,
+    Team,
+    Buy,
+    HangUp,
+},{
+    defaultNavigationOptions: {
+        headerStyle: {
+            backgroundColor: 'black',
+        },
+        headerTintColor: 'white',
+        headerBackTitle: '返回',
+    }
 });
 const RootContainer = createAppContainer(createSwitchNavigator({
     SignIn,
@@ -31,6 +58,7 @@ const RootContainer = createAppContainer(createSwitchNavigator({
     //全屏
     headerMode: 'none',
     initialRouteName: 'SignIn'
+    // initialRouteName: 'RootNavigator'
 }));
 export default class App extends React.Component {
   constructor (props) {
@@ -38,10 +66,9 @@ export default class App extends React.Component {
     StatusBar.setHidden(true);
     this.state = {
       isReady: false,
-      theme: null,
     }
-
   }
+  onRef = (ref) => global.toast = ref
   async componentDidMount() {
     await Font.loadAsync(/*  */
       'antoutline',
@@ -55,7 +82,7 @@ export default class App extends React.Component {
     );
   }
   render() {
-    const { isReady, theme } = this.state;
+    const { isReady } = this.state;
     if (!isReady) {
       return <AppLoading
         startAsync={this.componentDidMount}
@@ -75,6 +102,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <StatusBar barStyle="light-content" backgroundColor="rgba(0,0,0,0)" translucent={true} animated={true}/>
         <RootContainer />
+        <Toast onRef={this.onRef}/>
       </Provider>
     );
   }

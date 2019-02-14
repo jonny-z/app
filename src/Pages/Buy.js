@@ -64,7 +64,10 @@ const money = [
 		key: '1'
 	}
 ]
-export default class Team extends Component {
+export default class Buy extends Component {
+    static navigationOptions = {
+        title: '买入',
+    }
 	constructor (props) {
 	    super(props);
 	    this.state = {
@@ -79,13 +82,13 @@ export default class Team extends Component {
 					<Text style={styles.title}>矿机规格</Text>
 					<View style={styles.content}>
 						<Flex
-						justify="center" 
-						align="center" 
+						justify="center"
+						align="center"
 						direction="column"
 						style={{height: '100%'}}
 						>
 							<Flex
-							justify="center" 
+							justify="center"
 							align="center"
 							>
 								{money.map((item, index) => {
@@ -95,7 +98,7 @@ export default class Team extends Component {
 								})}
 							</Flex>
 
-						    <Button 
+						    <Button
 						    style={styles.confirmBtn}
 				            onPress={() => {
 				                let formData=new FormData();
@@ -127,8 +130,8 @@ export default class Team extends Component {
 
 //<Text style={{color: '#fff', marginTop:10, marginBottom:10}}>请输入支付宝/银行卡号</Text>
 // <TextInput
-// 	keyboardType="numeric" 
-// 	placeholder="请输入交易方式(支付宝号/银行卡号)" 
+// 	keyboardType="numeric"
+// 	placeholder="请输入交易方式(支付宝号/银行卡号)"
 // 	style={styles.inputStyle}
 //     onChangeText={(code) => {
 //     	this.setState({code: newText})

@@ -33,13 +33,22 @@ export default class Navigation extends Component{
     constructor(props) {
         super(props);
     }
+    link (id) {
+        if(!id) {
+            console.log('no page')
+            this.props.refs('该功能暂未开放!!!');
+            global.toast.show();
+            return;
+        }
+        this.props.nav.navigate(id);
+    }
     render () {
         const { list } = this.props;
         return (
             <View style={Styles.container}>
                 {
                     list.map((item, index) => (
-                        <TouchableWithoutFeedback key={index}>
+                        <TouchableWithoutFeedback key={index} onPress={() => this.link(item.id)}>
                             <View style={Styles.item}>
                                 <Image source={item.imgSrc} style={Styles.itemImg}/>
                                 <Text style={Styles.itemTitle}>{item.title}</Text>

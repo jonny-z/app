@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { TouchableOpacity, Text, View, ImageBackground, TextInput } from 'react-native';
 import { appBg, theme } from "../../Index";
-import Toast from "../Modal/Toast";
+import Api from "../../Api/Api";
 const Styles = {
     background: {
         flex: 1,
@@ -39,6 +39,10 @@ const Styles = {
         textAlign: 'center',
         backgroundColor: theme.opacityWhite,
     },
+    inputFieldDisable: {
+        color: '#ccc',
+        opacity: .9,
+    },
     btnLogin: {
         container: {
             width: 160,
@@ -56,24 +60,8 @@ const Styles = {
         }
     }
 }
-async function requestLogin (data) {
-    console.log('send');
-    var fd = new FormData();
-    fd.append('username', data.username);
-    fd.append('password', data.password);
-    try {
-        let res = await fetch('http://www.blyl1888.com/index.php/Api/User/login', {
-            method: 'POST',
-            body: fd,
-        })
-        let resData = await res.json();
-        return resData;
-    } catch (error) {
-        console.error(error);
-    }
-}
 
-export default class SignUp extends React.Component {
+class SignIn extends React.Component {
     static navigationOptions = {
         title: '登录'
     }
@@ -83,42 +71,45 @@ export default class SignUp extends React.Component {
             username: '',
             password: '',
             editable: true,
-            showToast: false,
-            message: '',
         };
     }
-    test () {
-        console.log('test');
-
+    lock = () => {
+        console.log('lock');
     }
-    login () {
+    login = () => {
         if(!this.state.username) {
-            this.setState({ message: '请输入用户名', showToast: true});
+            this.props.setToastMsg('请输入用户名');
+            global.toast.show();
             return;
         }
         if(!this.state.password) {
-            this.setState({ message: '请输入密码', showToast: true});
+            this.props.setToastMsg('请输入密码');
+            global.toast.show();
             return;
         }
         this.setState({ editable: false });
-        requestLogin(this.state).then((res) => {
+        let fd = new FormData();
+        fd.append('username', this.state.username);
+        fd.append('password', this.state.password);
+        Api.requestLogin(fd).then((res) => {
             switch(res.code) {
                 case 'success':
-                    this.setState({ editable: true, message: '登录成功', showToast: true});
+                this.props.loginSuccess(res.data);
+                    this.props.setToastMsg('登录成功');
+                    global.toast.show();
+                    this.setState({ editable: true });
                     this.props.navigation.navigate('Root');
                 break;
                 case 'error':
-                    this.setState({ editable: true, message: res.message, showToast: true});
-                    console.log(res)
+                    this.props.setToastMsg(res.message);
+                    global.toast.show();
+                    this.setState({ editable: true });
                 break;
-                default:
-
             }
         });
     }
-
     render() {
-        const { editable, showToast, message } = this.state;
+        const { editable } = this.state;
         return (
             <ImageBackground source={appBg} style={Styles.background}>
                 <View style={Styles.title.container}>
@@ -127,7 +118,7 @@ export default class SignUp extends React.Component {
                 </View>
                 <View style={Styles.form}>
                     <TextInput
-                        style={Styles.inputField}
+                        style={this.state.editable ? Styles.inputField : [Styles.inputField, Styles.inputFieldDisable]}
                         onChangeText={(username) => this.state.username = username}
                         // value={this.state.username}
                         placeholder="账号"
@@ -140,7 +131,7 @@ export default class SignUp extends React.Component {
                         autoComplete="off"
                     />
                     <TextInput
-                        style={Styles.inputField}
+                        style={this.state.editable ? Styles.inputField : [Styles.inputField, Styles.inputFieldDisable]}
                         onChangeText={(password) => this.state.password = password}
                         placeholder="密码"
                         placeholderTextColor={theme.lightGray}
@@ -150,17 +141,36 @@ export default class SignUp extends React.Component {
                         defaultValue={this.state.password}
                         editable={this.state.editable}
                     />
-                    <TouchableOpacity activeOpacity={.5} onPress={() => editable ? this.login(this) : this.test()}>
+                    <TouchableOpacity activeOpacity={.5} onPress={editable ? this.login : this.lock}>
                         <View style={Styles.btnLogin.container}>
                             <Text style={Styles.btnLogin.text}>登录</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
-                {/* <TouchableWithoutFeedback onPress={()=>this.props.navigation.navigate('Root')}>
-                    <Text>注册</Text>
-                </TouchableWithoutFeedback> */}
-                <Toast show={showToast} message={message}/>
             </ImageBackground>
         )
     }
 }
+export default connect(
+    // (state) => {
+    //     console.log('sign in map state to props')
+    //     return state;
+    // },
+    null,
+    (dispatch, ownProps) => {
+        return {
+            loginSuccess: (data) =>{
+                dispatch({
+                    type: 'LOGIN_SUCCESS',
+                    data,
+                })
+            },
+            setToastMsg: (msg)=> {
+                dispatch({
+                    type: 'SET_TOAST_MSG',
+                    message: msg,
+                })
+            }
+        }
+    }
+)(SignIn);
