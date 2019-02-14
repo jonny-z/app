@@ -127,22 +127,22 @@ const navigateList = [
 ]
 const convenientServiceMenu = [
     {
-        title: '创建订单',
+        title: '话费',
     },
     {
-        title: '未完成订单',
+        title: '油卡',
     },
     {
-        title: '确认打款',
+        title: '机票',
     },
     {
-        title: '已完成订单',
+        title: '宾馆',
     },
     {
-        title: '买入记录',
+        title: '商城',
     },
     {
-        title: '买入中心',
+        title: '打车',
     }
 ]
 //editable控制编辑按钮显示，customStyle 自定义样式，对应组件里的style，详情查看UserProfile.js

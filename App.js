@@ -16,15 +16,14 @@ const reducer = (state = {
     console.log('action type:' + action.type);
     switch(action.type) {
     case 'LOGIN_SUCCESS':
-        return Object.assign(state, {
+        return Object.assign({}, state, {
             isLogin: true,
             token: action.data.token,
             id: action.data.id,
             username: action.data.username,
         });
-    case 'SHOW_TOAST':
-        return Object.assign(state, {
-            refs: action.refs,
+    case 'SET_TOAST_MSG':
+        return Object.assign({}, state, {
             message: action.message,
         })
     default:
@@ -51,8 +50,8 @@ export default class App extends React.Component {
     this.state = {
       isReady: false,
     }
-
   }
+  onRef = (ref) => global.toast = ref
   async componentDidMount() {
     await Font.loadAsync(/*  */
       'antoutline',
@@ -86,7 +85,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <StatusBar barStyle="light-content" backgroundColor="rgba(0,0,0,0)" translucent={true} animated={true}/>
         <RootContainer />
-        <Toast />
+        <Toast onRef={this.onRef}/>
       </Provider>
     );
   }

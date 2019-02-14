@@ -86,7 +86,6 @@ class SignIn extends React.Component {
             username: '',
             password: '',
             editable: true,
-            message: '',
         };
     }
     lock = () => {
@@ -94,14 +93,13 @@ class SignIn extends React.Component {
     }
     login = () => {
         if(!this.state.username) {
-            this.setState({ message: '请输入用户名'});
-            // this.toast.show();
-            this.props.showToast('请输入用户名', this.onRefs);
+            this.props.setToastMsg('请输入用户名');
+            global.toast.show();
             return;
         }
         if(!this.state.password) {
-            this.setState({ message: '请输入密码'});
-            // this.toast.show();
+            this.props.setToastMsg('请输入密码');
+            global.toast.show();
             return;
         }
         this.setState({ editable: false });
@@ -109,22 +107,21 @@ class SignIn extends React.Component {
             switch(res.code) {
                 case 'success':
                 this.props.loginSuccess(res.data);
-                    this.setState({ editable: true, message: '登录成功'});
-                    // console.log(res);
-                    // this.props.navigation.navigate('Root');
-
-                    // this.toast.show();
+                    this.props.setToastMsg('登录成功');
+                    global.toast.show();
+                    this.setState({ editable: true });
+                    this.props.navigation.navigate('Root');
                 break;
                 case 'error':
-                    this.setState({ editable: true, message: res.message});
-                    // this.toast.show();
+                    this.props.setToastMsg(res.message);
+                    global.toast.show();
+                    this.setState({ editable: true });
                 break;
             }
         });
     }
-    onRefs = (ref) => this.toast = ref
     render() {
-        const { editable, message } = this.state;
+        const { editable } = this.state;
         return (
             <ImageBackground source={appBg} style={Styles.background}>
                 <View style={Styles.title.container}>
@@ -162,17 +159,16 @@ class SignIn extends React.Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                {/* <Toast message={message} refs={this.onRefs}/> */}
             </ImageBackground>
         )
     }
 }
 export default connect(
-    (state) => {
-        console.log('sign in map state to props')
-        console.log(state)
-        return {message: 2333};
-    },
+    // (state) => {
+    //     console.log('sign in map state to props')
+    //     return state;
+    // },
+    null,
     (dispatch, ownProps) => {
         return {
             loginSuccess: (data) =>{
@@ -181,11 +177,10 @@ export default connect(
                     data,
                 })
             },
-            showToast: (msg, refs)=> {
+            setToastMsg: (msg)=> {
                 dispatch({
-                    type: 'SHOW_TOAST',
+                    type: 'SET_TOAST_MSG',
                     message: msg,
-                    refs
                 })
             }
         }

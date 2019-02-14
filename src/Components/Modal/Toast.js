@@ -5,7 +5,7 @@ const Styles = {
     container: {
         position: 'absolute',
         left: '50%',
-        bottom: -50,
+        bottom: 100,
     },
     inner: {
         position: 'relative',
@@ -53,11 +53,7 @@ class Toast extends Component {
         animeFade.start();
     }
     componentDidMount () {
-        console.log(this.props);
-        // this.props.refs(this);
-    }
-    componentWillReceiveProps() {
-
+        this.props.onRef(this);
     }
     render() {
         const { message } = this.props;
@@ -73,22 +69,10 @@ class Toast extends Component {
     }
 }
 export default connect(
-    (state) => {
-        console.log('map state to props');
+    (state, ownProps) => {
+        console.log('toast map state to props');
         return {
-            message: state.message
-        }
-    },
-    (dispatch, ownProps) => {
-        console.log('map dispatch props')
-        console.log();
-        return {
-            get: () =>{
-                console.log('get');
-                dispatch({
-                    type: 'add'
-                })
-            }
+            message: state.message,
         }
     }
 )(Toast);
