@@ -160,9 +160,6 @@ const ShoppingCentre = (text) => (
     <Text style={{ margin: 50, fontSize: 22}}>即将到来</Text>
   </View>
 );
-const My = (text) => (
-    <MyPage name={text}/>
-);
 class Root extends React.Component {
     static navigationOptions = {
         header: null,
@@ -198,6 +195,9 @@ class Root extends React.Component {
                 </ScrollView>
             </ImageBackground>
     )}
+    My = () => (
+        <MyPage nav={this.props.navigation}/>
+    )
     renderContent(page) {
         switch(page) {
             case HOME:
@@ -207,7 +207,7 @@ class Root extends React.Component {
             case SHOPPING_CENTRE:
                 return ShoppingCentre('商城');
             case MY:
-                return My('我的');
+                return this.My();
         }
     }
     onChangeTab(tabName) {

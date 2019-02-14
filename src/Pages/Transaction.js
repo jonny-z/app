@@ -61,8 +61,8 @@ class UserItem extends Component {
 class TransactionList extends Component {
   render() {
     return (
-      <Flex 
-      	align="center" 
+      <Flex
+      	align="center"
       	justify="center">
       	<UserItem type={this.props.name} />
       	<UserItem type={this.props.number} />
@@ -71,7 +71,10 @@ class TransactionList extends Component {
     );
   }
 }
-export default class Team extends Component {
+export default class Transaction extends Component {
+    static navigationOptions = {
+        title: '交易大厅',
+    }
 	constructor (props) {
 	    super(props);
 	    this.state = {
@@ -88,7 +91,7 @@ export default class Team extends Component {
 	    }).catch(function (err) {
 	    	console.log(err);
 	  	});
-	  	
+
 	  	fetch('http://www.blyl1888.com/index.php/Api/Order/BuyList', {
 		  method: 'POST',
 		  headers: {},
@@ -105,8 +108,8 @@ export default class Team extends Component {
 					<Text style={styles.title}>交易中心　</Text>
 					<View style={{marginBottom: 20}}>
 						<Flex
-						justify="between" 
-						align="center" 
+						justify="between"
+						align="center"
 						style={styles.subcontent}
 						>
 							<Text style={styles.subtitle}>买入</Text>
@@ -114,15 +117,15 @@ export default class Team extends Component {
 						</Flex>
 						<TransactionList name="姓名" number="规格" time="挂单时间"/>
 						<FlatList
-							keyExtractor={(item, index) => index.toString()} 
+							keyExtractor={(item, index) => index.toString()}
 							data={this.state.Buy}
 							renderItem={({item}) => <TransactionList name={item.id} number={item.purchase_quantity} time={item.purchase_time}/>}
 						/>
 					</View>
 					<View>
 						<Flex
-						justify="between" 
-						align="center" 
+						justify="between"
+						align="center"
 						style={styles.subcontent}
 						>
 							<Text style={styles.subtitle}>卖出</Text>
@@ -130,7 +133,7 @@ export default class Team extends Component {
 						</Flex>
 						<TransactionList name="姓名" number="数量" time="时间"/>
 						<FlatList
-							keyExtractor={(item, index) => index.toString()} 
+							keyExtractor={(item, index) => index.toString()}
 							data={this.state.Sale}
 							renderItem={({item}) => <TransactionList name={item.id} number={item.hanging_amount} time={item.hanging_time}/>}
 						/>

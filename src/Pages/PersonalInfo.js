@@ -25,6 +25,9 @@ const styles = StyleSheet.create({
 });
 
 export default class Team extends Component {
+    static navigationOptions = {
+        title: '个人信息',
+    }
 	constructor (props) {
 	    super(props);
 	    this.state = {
@@ -56,7 +59,7 @@ export default class Team extends Component {
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
 					<Text style={styles.title}>个人信息</Text>
-					<ScrollView 
+					<ScrollView
 					>
 						<List>
 							<InputItem
@@ -138,7 +141,7 @@ export default class Team extends Component {
 				            <List.Item>
 					            <Button
 					              onPress={() => {
-					                
+
 					              }}
 					              type="primary"
 					            >
