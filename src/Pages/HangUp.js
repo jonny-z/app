@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ImageBackground, Text, View, StyleSheet, TextInput } from 'react-native';
+import { ImageBackground, Text, View, StyleSheet, TextInput, Alert } from 'react-native';
 import { Button, Flex } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
 
@@ -75,7 +75,20 @@ export default class Team extends Component {
 						    <Button 
 						    style={styles.confirmBtn}
 				            onPress={() => {
-				                
+				                let formData=new FormData();
+								formData.append('id', '10000');
+								formData.append('token', 'f542d311a9d1a368cd241d2aa9ba7f1e');
+								formData.append('mine_balance', this.state.money);
+								fetch('http://www.blyl1888.com/index.php/Api/Order/user_sale', {
+								  method: 'POST',
+								  headers: {},
+								  body: formData,
+								}).then((response) => response.json()).then((responseJson) => {
+									console.log(responseJson);
+							        Alert.alert(responseJson.message);
+							    }).catch(function (err) {
+							    	console.log(err);
+							  	});
 				            }}
 				            type="primary"
 				            >

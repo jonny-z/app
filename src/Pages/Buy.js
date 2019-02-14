@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ImageBackground, Text, View, StyleSheet, TextInput } from 'react-native';
+import { ImageBackground, Text, View, StyleSheet, TextInput, Alert } from 'react-native';
 import { Button, Flex } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
 
@@ -94,20 +94,23 @@ export default class Team extends Component {
 									}} style={(this.state.isActive == item.key) ? [styles.money, styles.moneyActive] : styles.money} key={item.key}>{item.number}</Text>
 								})}
 							</Flex>
-							<Text style={{color: '#fff', marginTop:10, marginBottom:10}}>请输入支付宝/银行卡号</Text>
-							<TextInput
-								keyboardType="numeric" 
-								placeholder="请输入交易方式(支付宝号/银行卡号)" 
-								style={styles.inputStyle}
-						        onChangeText={(code) => {
-						        	this.setState({code: newText})
-						        }}
-						        value={this.state.code}
-						    />
+
 						    <Button 
 						    style={styles.confirmBtn}
 				            onPress={() => {
-				                
+				                let formData=new FormData();
+								formData.append('id', '10000');
+								formData.append('token', 'f542d311a9d1a368cd241d2aa9ba7f1e');
+								formData.append('machine_specifications', money[this.state.isActive].number);
+								fetch('http://www.blyl1888.com/index.php/Api/Order/user_buy', {
+								  method: 'POST',
+								  headers: {},
+								  body: formData,
+								}).then((response) => response.json()).then((responseJson) => {
+							      	Alert.alert(responseJson.message);
+							    }).catch(function (err) {
+							    	console.log(err);
+							  	});
 				            }}
 				            type="primary"
 				            >
@@ -120,3 +123,15 @@ export default class Team extends Component {
 		)
 	}
 }
+
+
+//<Text style={{color: '#fff', marginTop:10, marginBottom:10}}>请输入支付宝/银行卡号</Text>
+// <TextInput
+// 	keyboardType="numeric" 
+// 	placeholder="请输入交易方式(支付宝号/银行卡号)" 
+// 	style={styles.inputStyle}
+//     onChangeText={(code) => {
+//     	this.setState({code: newText})
+//     }}
+//     value={this.state.code}
+// />
