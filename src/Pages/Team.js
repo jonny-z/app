@@ -64,6 +64,23 @@ class UserList extends Component {
 export default class Team extends Component {
 	constructor (props) {
 	    super(props);
+	    this.state = {
+	    	Team: ''
+	    }
+	}
+	componentDidMount() {
+		let formData=new FormData();
+		formData.append('id', '10000');
+		formData.append('token', 'f542d311a9d1a368cd241d2aa9ba7f1e');
+		fetch('http://www.blyl1888.com/index.php/Api/User/user_family', {
+		  method: 'POST',
+		  headers: {},
+		  body: formData,
+		}).then((response) => response.json()).then((responseJson) => {
+	      this.setState({Team: responseJson.data});
+	    }).catch(function (err) {
+	    	console.log(err);
+	  	});
 	}
 	render () {
 		return (
@@ -71,10 +88,10 @@ export default class Team extends Component {
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
 					<Text style={styles.title}>团队成员</Text>
 					<View>
-						<UserList name="名称" level="推广级" standard="矿机规格" superior="上线" />
+						<UserList name="名称" level="推广级" standard="矿机规格" superior="推广码" />
 						<FlatList
-							data={[{key: '1', name: '李四', level: '直推', standard: '5000', superior: '张三'}, {key: '2', name: '李四', level: '直推', standard: '5000', superior: '张三'}]}
-							renderItem={({item}) => <UserList name={item.name} level={item.level} standard={item.standard} superior={item.superior} />}
+							data={this.state.Team}
+							renderItem={({item}) => <UserList name={item.name} level={item.level} standard={item.machine_specifications} superior={item.promotion_code} />}
 						/>
 					</View>
 			    </ImageBackground>

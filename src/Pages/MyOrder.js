@@ -22,13 +22,6 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		marginBottom: 30
 	},
-	content: {
-		position: 'absolute',
-		top: 0,
-		bottom: 0,
-		left: 0,
-		right: 0,
-	},
 	text: {
 		color: '#fff',
 		fontSize: 16,
@@ -43,7 +36,9 @@ const styles = StyleSheet.create({
 		paddingRight: 10,
 		paddingTop: 10,
 		paddingBottom: 10,
-		borderRadius: 5
+		borderRadius: 5,
+		width: '90%',
+		marginBottom: 10
 	}
 });
 const orderInfo = {
@@ -53,49 +48,49 @@ const orderInfo = {
 export default class Team extends Component {
 	constructor (props) {
 	    super(props);
-	    this.state = { 
-	    	isBuy: true,
-	    	isMatch: false
+	    this.state = {
+	    	Info: []
 	    };
 	}
+	componentDidMount() {
+		let formData=new FormData();
+		formData.append('id', '10000');
+		formData.append('token', 'f542d311a9d1a368cd241d2aa9ba7f1e');
+		fetch('http://www.blyl1888.com/index.php/Api/Order/user_deal', {
+		  method: 'POST',
+		  headers: {},
+		  body: formData,
+		}).then((response) => response.json()).then((responseJson) => {
+	      this.setState({Info: responseJson.data})
+	    }).catch(function (err) {
+	    	console.log(err);
+	  	});
+	}
 	render () {
-		let dom = null;
-		let btn = null;
-		if(this.state.isBuy) {
-			btn = <Button style={styles.btn} type="primary" size="small">打出款项</Button>;
-		}else {
-			btn = <Button style={styles.btn} type="primary" size="small">收到款项</Button>;
-		}
-		if(this.state.isMatch) {
-			dom = <Text style={{color: '#fff'}}>排单匹配中</Text>;
-		}else {
-			dom = (<View style={styles.infoWrapper}>
-					<Text style={styles.text}>已出单</Text>
-					<Text style={styles.text}>{this.state.isBuy ? '购入人姓名' : '售卖人姓名' } : {orderInfo.name}</Text>
-					<Text style={styles.text}>交易方式: {orderInfo.orderType}</Text>
-					<Flex 
-					justify="center" 
-					align="center" 
-					>
-						{btn}
-						<Text style={{color: '#fff'}}>进入交易中心查看</Text>
-					</Flex>
-					</View>
-				)
-
-		}
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
-					<Text style={styles.title}>当前交易状态</Text>
-					<View style={styles.content}>
+					<Text style={styles.title}>当前交易</Text>
+					<View>
 						<Flex
-						justify="center" 
-						align="center" 
 						direction="column"
 						style={{height: '100%'}}
 						>
-							{dom}
+							{this.state.Info.map((item, index) => (
+								<View style={styles.infoWrapper} key={index}>
+									<Text style={styles.text}>已出单</Text>
+									<Text style={styles.text}>{(item.role == 1) ? '购入人姓名' : '售卖人姓名' } : {(item.role == 1) ? item.buy_name : item.sale_name}</Text>
+									<Text style={styles.text}>支付宝: {(item.role == 1) ? item.buy_alipay : item.sale_alipay}</Text>
+									<Text style={styles.text}>银行卡: {(item.role == 1) ? item.buy_bank_card : item.sale_bank_card}</Text>
+									<Flex 
+									justify="between" 
+									align="center" 
+									>
+										<Button style={styles.btn} type="primary" size="small">{(item.role == 1) ? '打出款项' : '收到款项'}</Button>
+										<Text style={{color: '#fff'}}>进入交易中心查看</Text>
+									</Flex>
+								</View>
+							))}
 						</Flex>
 					</View>
 			    </ImageBackground>
