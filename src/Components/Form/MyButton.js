@@ -24,7 +24,7 @@ export default class MyButton extends Component {
         super(props)
     }
     render () {
-        const { title, onPress, activeOpacity, style} = this.props;
+        const { title, onPress, activeOpacity, style={} } = this.props;
         return (
             <TouchableOpacity activeOpacity={activeOpacity} onPress={onPress}>
                 <View style={[Styles.btn.container, style.container]}>

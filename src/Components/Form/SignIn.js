@@ -110,7 +110,7 @@ class SignIn extends React.Component {
                         defaultValue={this.state.password}
                         editable={this.state.editable}
                     />
-                    <MyButton title="登录" style={{container: {width: 200}}} activeOpacity={.5} onPress={editable ? this.login : this.lock}/>
+                    <MyButton title="登录" activeOpacity={.5} onPress={editable ? this.login : this.lock}/>
                 </View>
             </ImageBackground>
         )
