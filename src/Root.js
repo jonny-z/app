@@ -184,13 +184,13 @@ class Root extends React.Component {
                             <Text style={Styles.home.balanceAndCredit.text}>红利: {frozen_money}</Text>
                         </View>
                     </View>
-                    <Navigation list={navigateList} nav={navigation} refs={this.props.setToastMsg}/>
+                    <Navigation list={navigateList} nav={navigation}/>
                     <View style={Styles.home.convenientService.container}>
                         <View style={Styles.home.convenientService.title.container}>
                             <View style={Styles.home.convenientService.title.titleBar}/>
                             <Text style={Styles.home.convenientService.title.text}>便民服务</Text>
                         </View>
-                        <ConvenientServiceMenu menu={convenientServiceMenu} refs={this.props.setToastMsg}></ConvenientServiceMenu>
+                        <ConvenientServiceMenu menu={convenientServiceMenu}></ConvenientServiceMenu>
                     </View>
                 </ScrollView>
             </ImageBackground>

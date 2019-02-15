@@ -29,10 +29,10 @@ class Toast extends Component {
             fade: new Animated.Value(0),
             duration: 500,
             showTime: 500,
+            msg: '',
         };
     }
-    test = () => console.log('test')
-    show = () => {
+    show = (msg) => {
         let animeFade = Animated.sequence([
             Animated.timing(
                 this.state.fade,
@@ -50,6 +50,8 @@ class Toast extends Component {
                 }
             )
         ]);
+        console.log(msg);
+        this.setState({msg})
         animeFade.start();
     }
     componentDidMount () {
@@ -57,22 +59,16 @@ class Toast extends Component {
     }
     render() {
         const { message } = this.props;
+        const { msg } = this.state;
         return (
             <Animated.View style={{opacity: this.state.fade}}>
                 <View style={Styles.container}>
                     <View style={Styles.inner}>
-                        <Text style={Styles.text}>{message}</Text>
+                        <Text style={Styles.text}>{msg}</Text>
                     </View>
                 </View>
             </Animated.View>
         )
     }
 }
-export default connect(
-    (state, ownProps) => {
-        console.log('toast map state to props');
-        return {
-            message: state.message,
-        }
-    }
-)(Toast);
+export default Toast;
