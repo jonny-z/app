@@ -50,8 +50,7 @@ class Toast extends Component {
                 }
             )
         ]);
-        console.log(msg);
-        this.setState({msg})
+        this.setState({msg});
         animeFade.start();
     }
     componentDidMount () {
