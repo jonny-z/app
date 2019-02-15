@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { TouchableOpacity, Text, View, ImageBackground, TextInput } from 'react-native';
 import { appBg, theme } from "../../Index";
+import MyButton from './MyButton';
 import Api from "../../Api/Api";
 const Styles = {
     background: {
@@ -26,38 +27,6 @@ const Styles = {
     },
     form: {
         alignItems: 'center',
-    },
-    inputField: {
-        width: '80%',
-        fontSize: 16,
-        color: '#fff',
-        marginBottom: 20,
-        paddingTop: 15,
-        paddingBottom: 15,
-        paddingLeft: 20,
-        paddingRight: 20,
-        textAlign: 'center',
-        backgroundColor: theme.opacityWhite,
-    },
-    inputFieldDisable: {
-        color: '#ccc',
-        opacity: .9,
-    },
-    btnLogin: {
-        container: {
-            width: 160,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginTop: 30,
-            paddingTop: 15,
-            paddingBottom: 15,
-            borderRadius: 60,
-            backgroundColor: theme.opacityWhite,
-        },
-        text: {
-            fontSize: 18,
-            color: '#fff',
-        }
     }
 }
 
@@ -118,7 +87,7 @@ class SignIn extends React.Component {
                 </View>
                 <View style={Styles.form}>
                     <TextInput
-                        style={this.state.editable ? Styles.inputField : [Styles.inputField, Styles.inputFieldDisable]}
+                        style={this.state.editable ? theme.textInput : [theme.textInput, theme.textInputDisable]}
                         onChangeText={(username) => this.state.username = username}
                         // value={this.state.username}
                         placeholder="账号"
@@ -131,7 +100,7 @@ class SignIn extends React.Component {
                         autoComplete="off"
                     />
                     <TextInput
-                        style={this.state.editable ? Styles.inputField : [Styles.inputField, Styles.inputFieldDisable]}
+                        style={this.state.editable ? theme.textInput : [theme.textInput, theme.textInputDisable]}
                         onChangeText={(password) => this.state.password = password}
                         placeholder="密码"
                         placeholderTextColor={theme.lightGray}
@@ -141,11 +110,7 @@ class SignIn extends React.Component {
                         defaultValue={this.state.password}
                         editable={this.state.editable}
                     />
-                    <TouchableOpacity activeOpacity={.5} onPress={editable ? this.login : this.lock}>
-                        <View style={Styles.btnLogin.container}>
-                            <Text style={Styles.btnLogin.text}>登录</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <MyButton title="登录" activeOpacity={.5} onPress={editable ? this.login : this.lock}/>
                 </View>
             </ImageBackground>
         )
