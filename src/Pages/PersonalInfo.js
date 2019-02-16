@@ -22,8 +22,6 @@ const styles = StyleSheet.create({
 		width: '30%',
 		textAlign: 'right',
 		paddingRight: 15,
-		paddingTop: 15,
-        paddingBottom: 15,
 		
 	},
 	confirmWrapper: {
