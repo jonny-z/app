@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, Image, View } from 'react-native';
 import { Icon } from '@ant-design/react-native';
 import { defaultAvatar } from '../../Index';
+import { connect } from 'react-redux';
 const Styles = {
     container: {
         flexDirection: 'row',
@@ -28,7 +29,7 @@ const Styles = {
         size: 'xs',
     }
 }
-export default class UserProfile extends Component {
+class UserProfile extends Component {
     constructor (props) {
         super(props);
     }
@@ -42,7 +43,7 @@ export default class UserProfile extends Component {
         return;
     }
     render () {
-        const { editable, style: customStyle, avatar=defaultAvatar, name='昵称'} = this.props;
+        const { editable, style: customStyle={}, avatar=defaultAvatar, name='昵称'} = this.props;
         return (
             <View style={[Styles.container, customStyle.container]}>
                 <View style={[Styles.avatarWrapper, customStyle.avatarWrapper]}>
@@ -58,3 +59,4 @@ export default class UserProfile extends Component {
         )
     }
 }
+export default connect((state)=>{ return {avatar: state.avatar, name: state.name}})(UserProfile)

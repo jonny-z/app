@@ -171,11 +171,11 @@ class Root extends React.Component {
         };
     }
     Home = () => {
-        const { name, avatar, mine_balance, frozen_money, navigation } = this.props
+        const { mine_balance, frozen_money, navigation } = this.props
         return (
             <ImageBackground source={appBg} style={Styles.backgroundImage}>
                 <ScrollView style={Styles.home.main}>
-                    <UserProfile editable={false} style={Styles.home.userProfile} name={name} avatar={avatar}/>
+                    <UserProfile editable={false} style={Styles.home.userProfile}/>
                     <View style={Styles.home.balanceAndCredit.container}>
                         <View style={Styles.home.balanceAndCredit.balance}>
                             <Text style={Styles.home.balanceAndCredit.text}>余额: {mine_balance}</Text>
@@ -184,13 +184,13 @@ class Root extends React.Component {
                             <Text style={Styles.home.balanceAndCredit.text}>红利: {frozen_money}</Text>
                         </View>
                     </View>
-                    <Navigation list={navigateList} nav={navigation} refs={this.props.setToastMsg}/>
+                    <Navigation list={navigateList} nav={navigation}/>
                     <View style={Styles.home.convenientService.container}>
                         <View style={Styles.home.convenientService.title.container}>
                             <View style={Styles.home.convenientService.title.titleBar}/>
                             <Text style={Styles.home.convenientService.title.text}>便民服务</Text>
                         </View>
-                        <ConvenientServiceMenu menu={convenientServiceMenu} refs={this.props.setToastMsg}></ConvenientServiceMenu>
+                        <ConvenientServiceMenu menu={convenientServiceMenu}></ConvenientServiceMenu>
                     </View>
                 </ScrollView>
             </ImageBackground>
@@ -283,12 +283,6 @@ export default connect(
                 dispatch({
                     type: 'UPDATE_USER_INFO',
                     userInfo,
-                })
-            },
-            setToastMsg: (msg)=> {
-                dispatch({
-                    type: 'SET_TOAST_MSG',
-                    message: msg,
                 })
             }
         }

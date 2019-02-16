@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { TouchableOpacity, Text, View, ImageBackground, TextInput } from 'react-native';
+import { Text, View, ImageBackground, TextInput } from 'react-native';
 import { appBg, theme } from "../../Index";
 import MyButton from './MyButton';
 import Api from "../../Api/Api";
@@ -47,13 +47,11 @@ class SignIn extends React.Component {
     }
     login = () => {
         if(!this.state.username) {
-            this.props.setToastMsg('请输入用户名');
-            global.toast.show();
+            global.toast.show('请输入用户名');
             return;
         }
         if(!this.state.password) {
-            this.props.setToastMsg('请输入密码');
-            global.toast.show();
+            global.toast.show('请输入密码');
             return;
         }
         this.setState({ editable: false });
@@ -64,21 +62,19 @@ class SignIn extends React.Component {
             switch(res.code) {
                 case 'success':
                 this.props.loginSuccess(res.data);
-                    this.props.setToastMsg('登录成功');
-                    global.toast.show();
+                    global.toast.show('登录成功');
                     this.setState({ editable: true });
                     this.props.navigation.navigate('Root');
                 break;
                 case 'error':
-                    this.props.setToastMsg(res.message);
-                    global.toast.show();
+                    global.toast.show(res.message);
                     this.setState({ editable: true });
                 break;
             }
         });
     }
     render() {
-        const { editable } = this.state;
+        const { editable, username, password } = this.state;
         return (
             <ImageBackground source={appBg} style={Styles.background}>
                 <View style={Styles.title.container}>
@@ -87,28 +83,28 @@ class SignIn extends React.Component {
                 </View>
                 <View style={Styles.form}>
                     <TextInput
-                        style={this.state.editable ? theme.textInput : [theme.textInput, theme.textInputDisable]}
+                        style={editable ? theme.textInput : [theme.textInput, theme.textInputDisable]}
                         onChangeText={(username) => this.state.username = username}
                         // value={this.state.username}
                         placeholder="账号"
                         placeholderTextColor={theme.lightGray}
                         selectionColor="#fff"
                         maxLength={12}
-                        defaultValue={this.state.username}
-                        editable={this.state.editable}
+                        defaultValue={username}
+                        editable={editable}
                         autoCapitalize="none"
                         autoComplete="off"
                     />
                     <TextInput
-                        style={this.state.editable ? theme.textInput : [theme.textInput, theme.textInputDisable]}
+                        style={editable ? theme.textInput : [theme.textInput, theme.textInputDisable]}
                         onChangeText={(password) => this.state.password = password}
                         placeholder="密码"
                         placeholderTextColor={theme.lightGray}
                         selectionColor="#fff"
                         maxLength={8}
                         secureTextEntry={true}
-                        defaultValue={this.state.password}
-                        editable={this.state.editable}
+                        defaultValue={password}
+                        editable={editable}
                     />
                     <MyButton title="登录" activeOpacity={.5} onPress={editable ? this.login : this.lock}/>
                 </View>
@@ -128,12 +124,6 @@ export default connect(
                 dispatch({
                     type: 'LOGIN_SUCCESS',
                     data,
-                })
-            },
-            setToastMsg: (msg)=> {
-                dispatch({
-                    type: 'SET_TOAST_MSG',
-                    message: msg,
                 })
             }
         }
