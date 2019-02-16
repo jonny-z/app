@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ImageBackground, Alert, Text, View, StyleSheet } from 'react-native';
+import { ImageBackground, Alert, Text, View, StyleSheet, ScrollView } from 'react-native';
 import { Icon, Flex, } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
 import UserProfile from '../Components/Account/UserProfile';
@@ -19,7 +19,7 @@ const styles = {
         }
     },
 	itemList: {
-		backgroundColor: '#483D8B',
+		backgroundColor: theme.opacityWhite,
 		paddingTop: 15,
 		paddingBottom:15,
 		paddingLeft: 10,
@@ -81,11 +81,13 @@ export default class My extends Component {
 			// </View>
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
-                    <UserProfile editable={true} style={styles.userProfile}/>
-					<List name="个人信息" icon="contacts" id="PersonalInfo" nav={nav}/>
-					<List name="交易大厅" icon="skin" id="Transaction"  nav={nav}/>
-					<List name="分享链接" icon="phone" nav={nav}/>
-					<List name="收获地址" icon="tags" nav={nav}/>
+          <UserProfile editable={true} style={styles.userProfile}/>
+          <ScrollView>
+  					<List name="个人信息" icon="contacts" id="PersonalInfo" nav={nav}/>
+  					<List name="交易大厅" icon="skin" id="Transaction"  nav={nav}/>
+  					<List name="分享链接" icon="phone" nav={nav}/>
+  					<List name="收获地址" icon="tags" nav={nav}/>
+          </ScrollView>
 				</ImageBackground>
 			</View>
 		)

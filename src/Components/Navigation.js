@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Text, Image, View, TouchableWithoutFeedback } from 'react-native';
+import { Icon } from '@ant-design/react-native';
+import { theme } from '../Index';
 const Styles = {
     container: {
         marginTop: 10,
@@ -8,16 +10,21 @@ const Styles = {
         borderRadius: 20,
         paddingTop: 10,
         paddingBottom: 10,
-        backgroundColor: '#fff',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
     },
     item: {
-        width: '30%',
+        width: '31%',
+        backgroundColor: theme.opacityWhite,
+        borderRadius: 5,
+        marginBottom: 15,
         flex: 0,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingTop: 10,
+        paddingBottom: 10
+
     },
     itemImg: {
         width: 72,
@@ -25,7 +32,9 @@ const Styles = {
 
     },
     itemTitle: {
-        fontSize: 18,
+        fontSize: 16,
+        color: '#fff',
+        marginTop: 10
     }
 }
 
@@ -48,7 +57,7 @@ export default class Navigation extends Component{
                     list.map((item, index) => (
                         <TouchableWithoutFeedback key={index} onPress={() => this.link(item.id)}>
                             <View style={Styles.item}>
-                                <Image source={item.imgSrc} style={Styles.itemImg}/>
+                                <Icon name={item.icon} size="lg" color="red" />
                                 <Text style={Styles.itemTitle}>{item.title}</Text>
                             </View>
                         </TouchableWithoutFeedback>

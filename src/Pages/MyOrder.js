@@ -46,6 +46,9 @@ const orderInfo = {
 	orderType: '支付宝'
 }
 export default class Team extends Component {
+	static navigationOptions = {
+        title: '当前交易',
+    }
 	constructor (props) {
 	    super(props);
 	    this.state = {
@@ -70,8 +73,7 @@ export default class Team extends Component {
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
-					<Text style={styles.title}>当前交易</Text>
-					<View>
+					<View style={{marginTop: 10}}>
 						<Flex
 						direction="column"
 						style={{height: '100%'}}
