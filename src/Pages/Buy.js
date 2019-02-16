@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, TextInput, Alert } from 'react-native';
-import { Button, Flex } from '@ant-design/react-native';
+import { Flex } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
-
+import MyButton from '../Components/Form/MyButton';
+import Api from  '../Api/Api';
+import { connect } from 'react-redux';
 const styles = StyleSheet.create({
 	container: {
         flex: 1,
@@ -64,7 +66,7 @@ const money = [
 		key: '1'
 	}
 ]
-export default class Buy extends Component {
+class Buy extends Component {
     static navigationOptions = {
         title: '买入',
     }
@@ -74,7 +76,25 @@ export default class Buy extends Component {
 	    	isActive: '',
 	    	code: ''
 	    };
-	}
+    }
+    buy = () => {
+        const { id, token, machine_specifications } = this.props;
+        let fd = new FormData();
+        fd.append('id', id);
+        fd.append('token', token);
+        fd.append('machine_specifications', machine_specifications);
+        Api.buy(fd).then((res)=>{
+            if(res.code == 'error') {
+                global.toast.show(res.message);
+            }
+            else if (res.code == 'success') {
+                global.toast.show(res.message);
+            }
+            else {
+                global.toast.show('网络错误，请稍后再试');
+            }
+        });
+    }
 	render () {
 		return (
 			<View style={styles.container}>
@@ -97,28 +117,7 @@ export default class Buy extends Component {
 									}} style={(this.state.isActive == item.key) ? [styles.money, styles.moneyActive] : styles.money} key={item.key}>{item.number}</Text>
 								})}
 							</Flex>
-
-						    <Button
-						    style={styles.confirmBtn}
-				            onPress={() => {
-				                let formData=new FormData();
-								formData.append('id', '10000');
-								formData.append('token', 'f542d311a9d1a368cd241d2aa9ba7f1e');
-								formData.append('machine_specifications', money[this.state.isActive].number);
-								fetch('http://www.blyl1888.com/index.php/Api/Order/user_buy', {
-								  method: 'POST',
-								  headers: {},
-								  body: formData,
-								}).then((response) => response.json()).then((responseJson) => {
-							      	Alert.alert(responseJson.message);
-							    }).catch(function (err) {
-							    	console.log(err);
-							  	});
-				            }}
-				            type="primary"
-				            >
-					            确定
-					        </Button>
+                            <MyButton title="购买" onPress={this.buy}/>
 						</Flex>
 					</View>
 			    </ImageBackground>
@@ -126,6 +125,7 @@ export default class Buy extends Component {
 		)
 	}
 }
+export default connect((state) => state)(Buy)
 
 
 //<Text style={{color: '#fff', marginTop:10, marginBottom:10}}>请输入支付宝/银行卡号</Text>

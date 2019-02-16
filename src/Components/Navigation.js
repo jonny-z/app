@@ -35,7 +35,6 @@ export default class Navigation extends Component{
     }
     link (id) {
         if(!id) {
-            console.log('no page')
             global.toast.show('该功能暂未开放!!!');
             return;
         }
