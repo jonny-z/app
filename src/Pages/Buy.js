@@ -74,24 +74,25 @@ class Buy extends Component {
 	    super(props);
 	    this.state = {
 	    	isActive: '',
-	    	code: ''
+            code: '',
+            machine_specifications: '',
 	    };
     }
     buy = () => {
-        const { id, token, machine_specifications } = this.props;
+        const { id, token } = this.props;
+        const machine_specifications = this.state.machine_specifications;
+        console.log(machine_specifications);
         let fd = new FormData();
         fd.append('id', id);
         fd.append('token', token);
         fd.append('machine_specifications', machine_specifications);
         Api.buy(fd).then((res)=>{
+            console.log(res);
             if(res.code == 'error') {
                 global.toast.show(res.message);
             }
-            else if (res.code == 'success') {
+            if (res.code == 'success') {
                 global.toast.show(res.message);
-            }
-            else {
-                global.toast.show('网络错误，请稍后再试');
             }
         });
     }
@@ -113,7 +114,7 @@ class Buy extends Component {
 							>
 								{money.map((item, index) => {
 									return <Text onPress={() => {
-										this.setState({isActive: item.key})
+										this.setState({isActive: item.key, machine_specifications: item.number})
 									}} style={(this.state.isActive == item.key) ? [styles.money, styles.moneyActive] : styles.money} key={item.key}>{item.number}</Text>
 								})}
 							</Flex>
