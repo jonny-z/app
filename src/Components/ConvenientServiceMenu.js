@@ -56,7 +56,6 @@ export default class ConvenientServiceMenu extends Component {
                         </TouchableOpacity>
                     ))}
                 </View>
-                <Text>选择买入金额</Text>
             </View>
         )
     }
