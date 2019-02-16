@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ImageBackground, Text, View, StyleSheet, FlatList } from 'react-native';
+import { ImageBackground, Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
 import { Button, Flex } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
 
@@ -13,14 +13,6 @@ const styles = StyleSheet.create({
 	    width:null,
 	    width:null,
 	    backgroundColor:'rgba(0,0,0,0)',
-	},
-	title: {
-		marginTop: theme.appTopHeight,
-		textAlign: 'center',
-		color: 'white',
-		fontSize: 20,
-		fontWeight: 'bold',
-		marginBottom: 15
 	},
 	item: {
 		paddingTop: 10,
@@ -87,7 +79,7 @@ export default class Transaction extends Component {
 		  method: 'POST',
 		  headers: {},
 		}).then((response) => response.json()).then((responseJson) => {
-	      this.setState({Sale: responseJson.data})
+	      this.setState({Sale: responseJson.data.slice(0,4)})
 	    }).catch(function (err) {
 	    	console.log(err);
 	  	});
@@ -96,7 +88,7 @@ export default class Transaction extends Component {
 		  method: 'POST',
 		  headers: {},
 		}).then((response) => response.json()).then((responseJson) => {
-	      this.setState({Buy: responseJson.data})
+	      this.setState({Buy: responseJson.data.slice(0,4)})
 	    }).catch(function (err) {
 	    	console.log(err);
 	  	});
@@ -105,39 +97,40 @@ export default class Transaction extends Component {
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
-					<Text style={styles.title}>交易中心　</Text>
-					<View style={{marginBottom: 20}}>
-						<Flex
-						justify="between"
-						align="center"
-						style={styles.subcontent}
-						>
-							<Text style={styles.subtitle}>买入</Text>
-							<Text style={styles.viewmore}>更多</Text>
-						</Flex>
-						<TransactionList name="姓名" number="规格" time="挂单时间"/>
-						<FlatList
-							keyExtractor={(item, index) => index.toString()}
-							data={this.state.Buy}
-							renderItem={({item}) => <TransactionList name={item.id} number={item.purchase_quantity} time={item.purchase_time}/>}
-						/>
-					</View>
-					<View>
-						<Flex
-						justify="between"
-						align="center"
-						style={styles.subcontent}
-						>
-							<Text style={styles.subtitle}>卖出</Text>
-							<Text style={styles.viewmore}>更多</Text>
-						</Flex>
-						<TransactionList name="姓名" number="数量" time="时间"/>
-						<FlatList
-							keyExtractor={(item, index) => index.toString()}
-							data={this.state.Sale}
-							renderItem={({item}) => <TransactionList name={item.id} number={item.hanging_amount} time={item.hanging_time}/>}
-						/>
-					</View>
+					<ScrollView>
+						<View style={{marginBottom: 20, marginTop: 20}}>
+							<Flex
+							justify="between"
+							align="center"
+							style={styles.subcontent}
+							>
+								<Text style={styles.subtitle}>买入</Text>
+								<Text style={styles.viewmore}>更多</Text>
+							</Flex>
+							<TransactionList name="姓名" number="规格" time="挂单时间"/>
+							<FlatList
+								keyExtractor={(item, index) => index.toString()}
+								data={this.state.Buy}
+								renderItem={({item}) => <TransactionList name={item.id} number={item.purchase_quantity} time={item.purchase_time}/>}
+							/>
+						</View>
+						<View>
+							<Flex
+							justify="between"
+							align="center"
+							style={styles.subcontent}
+							>
+								<Text style={styles.subtitle}>卖出</Text>
+								<Text style={styles.viewmore}>更多</Text>
+							</Flex>
+							<TransactionList name="姓名" number="数量" time="时间"/>
+							<FlatList
+								keyExtractor={(item, index) => index.toString()}
+								data={this.state.Sale}
+								renderItem={({item}) => <TransactionList name={item.id} number={item.hanging_amount} time={item.hanging_time}/>}
+							/>
+						</View>
+					</ScrollView>
 			    </ImageBackground>
 			</View>
 		)
