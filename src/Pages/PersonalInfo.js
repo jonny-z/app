@@ -22,9 +22,9 @@ const styles = StyleSheet.create({
 		width: '30%',
 		textAlign: 'right',
 		paddingRight: 15,
-		paddingTop: 15,
-        paddingBottom: 15,
-		
+		// paddingTop: 15,
+        // paddingBottom: 15,
+
 	},
 	confirmWrapper: {
         width: 160,
@@ -197,7 +197,7 @@ class PersonalInfo extends Component {
 							align="center"
 							>
 								<Text style={styles.text}>推广码</Text>
-								<TextInput 
+								<TextInput
 								style={styles.inputField}
 							    defaultValue={promotion_code}
 							    onChangeText={(value) => {

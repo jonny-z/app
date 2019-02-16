@@ -37,8 +37,7 @@ export default class ConvenientServiceMenu extends Component {
         activeButton: '',
     }
     onClick = ()=> {
-        this.props.refs('该功能暂未开放!!!');
-        global.toast.show();
+        global.toast.show('该功能暂未开放!!!');
     }
     render () {
         const { menu } = this.props;

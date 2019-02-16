@@ -24,8 +24,21 @@ async function requestLogin (formData) {
         console.error(error);
     }
 }
-
+async function buy (formData) {
+    console.log('request buy');
+    try {
+        let res = await fetch('http://www.blyl1888.com/index.php/Api/Order/user_buy', {
+            method: 'POST',
+            body: formData,
+        })
+        let resData = await res.json();
+        return resData;
+    } catch (error) {
+        console.error(error);
+    }
+}
 export default {
     getUserInfo,
     requestLogin,
+    buy,
 }

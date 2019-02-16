@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
-import { ImageBackground, Alert, Text, View, Image, StyleSheet } from 'react-native';
-import { Icon, Button, Flex, WhiteSpace, WingBlank } from '@ant-design/react-native';
+import { ImageBackground, Alert, Text, View, StyleSheet } from 'react-native';
+import { Icon, Flex, } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
-
-const styles = StyleSheet.create({
-	avatar: {
-		width: 100,
-		height: 100,
-		borderRadius: 50,
-	},
+import UserProfile from '../Components/Account/UserProfile';
+const styles = {
+	userProfile: {
+        container: {
+            marginTop: theme.appTopHeight,
+        },
+        avatar: {
+            width: 80,
+            height: 80,
+            borderRadius: 40,
+            marginLeft: 15.
+        },
+        name: {
+            color: '#fff',
+        }
+    },
 	itemList: {
 		backgroundColor: '#483D8B',
 		paddingTop: 15,
@@ -27,7 +36,7 @@ const styles = StyleSheet.create({
 	    width:null,
 	    backgroundColor:'rgba(0,0,0,0)',
 	}
-});
+};
 
 class List extends Component {
     constructor(props) {
@@ -66,27 +75,13 @@ export default class My extends Component {
 	}
 	render () {
         const {nav} = this.props;
-        console.log(nav)
 		return (
 			// <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
 			//     <Text style={{ margin: 50 }}>{this.props.name}</Text>
 			// </View>
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
-					<Flex style={{ marginTop: 20, paddingTop: 20, paddingBottom: 20, paddingLeft: 15, paddingRight: 15 }}>
-						<Flex.Item style={{flex: 0, marginRight: 20}}>
-							<Image
-								style={styles.avatar}
-								source={{uri: 'http://img5.duitang.com/uploads/item/201411/07/20141107164412_v284V.jpeg'}}
-							/>
-						</Flex.Item>
-						<Flex.Item>
-							<Flex>
-								<Text style={{ paddingRight:15, color: 'white', fontSize: 20, fontWeight: 'bold' }}>昵称</Text>
-								<Icon name="edit" color="white" size="xs"/>
-							</Flex>
-						</Flex.Item>
-					</Flex>
+                    <UserProfile editable={true} style={styles.userProfile}/>
 					<List name="个人信息" icon="contacts" id="PersonalInfo" nav={nav}/>
 					<List name="交易大厅" icon="skin" id="Transaction"  nav={nav}/>
 					<List name="分享链接" icon="phone" nav={nav}/>

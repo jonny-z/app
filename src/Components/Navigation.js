@@ -35,9 +35,7 @@ export default class Navigation extends Component{
     }
     link (id) {
         if(!id) {
-            console.log('no page')
-            this.props.refs('该功能暂未开放!!!');
-            global.toast.show();
+            global.toast.show('该功能暂未开放!!!');
             return;
         }
         this.props.nav.navigate(id);
