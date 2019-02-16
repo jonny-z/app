@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, FlatList } from 'react-native';
-import { Button, Flex } from '@ant-design/react-native';
+import { Flex } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
-
+import { connect } from 'react-redux';
+import Api from '../Api/Api';
 const styles = StyleSheet.create({
 	container: {
         flex: 1,
@@ -61,7 +62,7 @@ class UserList extends Component {
   }
 }
 
-export default class Team extends Component {
+class Team extends Component {
     static navigationOptions = {
         title: '团队',
     }
@@ -72,19 +73,15 @@ export default class Team extends Component {
 	    }
 	}
 	componentDidMount() {
-		let formData=new FormData();
-		formData.append('id', '10000');
-		formData.append('token', 'f542d311a9d1a368cd241d2aa9ba7f1e');
-		fetch('http://www.blyl1888.com/index.php/Api/User/user_family', {
-		  method: 'POST',
-		  headers: {},
-		  body: formData,
-		}).then((response) => response.json()).then((responseJson) => {
+        const { id, token } = this.props;
+		let formData = new FormData();
+		formData.append('id', id);
+		formData.append('token', token);
+		Api.getUserFamily(formData).then((responseJson) => {
 	      this.setState({Team: responseJson.data});
-	    }).catch(function (err) {
-	    	console.log(err);
-	  	});
-	}
+	    });
+    }
+    keyExtractor = (item, index) => item.id;
 	render () {
 		return (
 			<View style={styles.container}>
@@ -93,8 +90,17 @@ export default class Team extends Component {
 					<View>
 						<UserList name="名称" level="推广级" standard="矿机规格" superior="推广码" />
 						<FlatList
-							data={this.state.Team}
-							renderItem={({item}) => <UserList name={item.name} level={item.level} standard={item.machine_specifications} superior={item.promotion_code} />}
+                            data={this.state.Team}
+                            keyExtractor={this.keyExtractor}
+                            renderItem={({item}) =>
+                                <UserList
+                                    id={item.id}
+                                    name={item.name}
+                                    level={item.level}
+                                    standard={item.machine_specifications}
+                                    superior={item.promotion_code}
+                                />
+                            }
 						/>
 					</View>
 			    </ImageBackground>
@@ -102,3 +108,4 @@ export default class Team extends Component {
 		)
 	}
 }
+export default connect((state)=>{return {id: state.id, token: state.token}})(Team)

@@ -81,7 +81,6 @@ class Buy extends Component {
     buy = () => {
         const { id, token } = this.props;
         const machine_specifications = this.state.machine_specifications;
-        console.log(machine_specifications);
         let fd = new FormData();
         fd.append('id', id);
         fd.append('token', token);
