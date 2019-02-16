@@ -22,9 +22,6 @@ const styles = StyleSheet.create({
 		width: '30%',
 		textAlign: 'right',
 		paddingRight: 15,
-		// paddingTop: 15,
-        // paddingBottom: 15,
-
 	},
 	confirmWrapper: {
         width: 160,
@@ -45,14 +42,7 @@ const styles = StyleSheet.create({
     },
     inputField: {
         width: '60%',
-        fontSize: 16,
-        color: '#fff',
-        paddingTop: 15,
-        paddingBottom: 15,
-        paddingLeft: 20,
-        paddingRight: 20,
-        textAlign: 'center',
-        backgroundColor: theme.opacityWhite,
+        marginBottom: 0
     },
 });
 
@@ -71,22 +61,8 @@ class PersonalInfo extends Component {
 	    	spreadCode: ''
 	    }
 	}
-	// componentWillMount() {
-	// 	let formData=new FormData();
-	// 	formData.append('id', this.props.id);
-	// 	formData.append('token', this.props.token);
-	// 	fetch('http://www.blyl1888.com/index.php/Api/User/getUserInfo', {
-	// 	  method: 'POST',
-	// 	  body: formData,
-	// 	}).then((response) => response.json()).then((responseJson) => {
-	// 		console.log(responseJson);
-	//       // this.setState({Info: responseJson.data})
-	//     }).catch(function (err) {
-	//     	console.log(err);
-	//   	});
-	// }
 	render () {
-        const {username, resident_id_card, alipay, bank_card, promotion_code} = this.props;
+        const {username, resident_id_card, alipay, bank_card, promotion_code, phone} = this.props;
         // const {username, resident_id_card, alipay, bank_card, promotion_code} = {username: 'zzz', resident_id_card: '23er2f', alipay: '1111', bank_card: '2222', promotion_code: '43324'};
 		return (
 			<View style={styles.container}>
@@ -100,7 +76,8 @@ class PersonalInfo extends Component {
 							>
 								<Text style={styles.text}>姓名</Text>
 								<TextInput
-								style={styles.inputField}
+								autoCapitalize = 'none'
+								style={(username == ''|| username == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
 							    defaultValue={username}
 							    onChangeText={(value) => {
 							      this.setState({
@@ -108,7 +85,7 @@ class PersonalInfo extends Component {
 							      });
 							    }}
 							    placeholder="请输入名字"
-							    editable={(username == '') ? true : false}
+							    editable={(username == ''|| username == null) ? true : false}
 								/>
 							</Flex>
 						</View>
@@ -119,7 +96,8 @@ class PersonalInfo extends Component {
 							>
 								<Text style={styles.text}>身份证</Text>
 								<TextInput
-								style={styles.inputField}
+								autoCapitalize = 'none'
+								style={(resident_id_card == '' || resident_id_card == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
 							    defaultValue={resident_id_card}
 							    onChangeText={(value) => {
 							      this.setState({
@@ -127,7 +105,7 @@ class PersonalInfo extends Component {
 							      });
 							    }}
 							    placeholder="请输身份证"
-							    editable={(resident_id_card == '') ? true : false}
+							    editable={(resident_id_card == '' || resident_id_card == null) ? true : false}
 								/>
 							</Flex>
 						</View>
@@ -138,18 +116,19 @@ class PersonalInfo extends Component {
 							>
 								<Text style={styles.text}>手机号</Text>
 								<TextInput
-								style={styles.inputField}
-							    defaultValue={alipay}
+								autoCapitalize = 'none'
+								style={(phone == '' || phone == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
+							    defaultValue={phone}
 							    maxLength={11}
 							    keyboardType="numeric"
 							    onChangeText={(value) => {
-							      const newPhone = money.replace(/[^\d]+/, '');
+							      const newPhone = value.replace(/[^\d]+/, '');
 							      this.setState({
 							        phoneNumber: newPhone,
 							      });
 							    }}
 							    placeholder="请输入手机号"
-							    editable={(alipay == '') ? true : false}
+							    editable={(phone == '' || phone == null) ? true : false}
 								/>
 							</Flex>
 						</View>
@@ -160,7 +139,8 @@ class PersonalInfo extends Component {
 							>
 								<Text style={styles.text}>银行卡号</Text>
 								<TextInput
-								style={styles.inputField}
+								autoCapitalize = 'none'
+								style={(bank_card == '' || bank_card == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
 							    defaultValue={bank_card}
 							    onChangeText={(value) => {
 							      this.setState({
@@ -168,7 +148,7 @@ class PersonalInfo extends Component {
 							      });
 							    }}
 							    placeholder="请输入银行卡号"
-							    editable={(bank_card == '') ? true : false}
+							    editable={(bank_card == '' || bank_card == null) ? true : false}
 								/>
 							</Flex>
 						</View>
@@ -179,7 +159,8 @@ class PersonalInfo extends Component {
 							>
 								<Text style={styles.text}>支付宝</Text>
 								<TextInput
-								style={styles.inputField}
+								autoCapitalize = 'none'
+								style={(alipay == '' || alipay == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
 							    defaultValue={alipay}
 							    onChangeText={(value) => {
 							      this.setState({
@@ -187,7 +168,7 @@ class PersonalInfo extends Component {
 							      });
 							    }}
 							    placeholder="请输入支付宝号"
-							    editable={(alipay == '') ? true : false}
+							    editable={(alipay == '' || alipay == null) ? true : false}
 								/>
 							</Flex>
 						</View>
@@ -198,7 +179,8 @@ class PersonalInfo extends Component {
 							>
 								<Text style={styles.text}>推广码</Text>
 								<TextInput
-								style={styles.inputField}
+								autoCapitalize = 'none'
+								style={(promotion_code == '' || promotion_code == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
 							    defaultValue={promotion_code}
 							    onChangeText={(value) => {
 							      this.setState({
@@ -206,7 +188,7 @@ class PersonalInfo extends Component {
 							      });
 							    }}
 							    placeholder="请输入推广码"
-							    editable={(promotion_code == '') ? true : false}
+							    editable={(promotion_code == '' || promotion_code == null) ? true : false}
 								/>
 							</Flex>
 						</View>
