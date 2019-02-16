@@ -11,6 +11,7 @@ import Toast from './src/Components/Modal/Toast';
 import Buy from './src/Pages/Buy';
 import HangUp from './src/Pages/HangUp';
 import Team from './src/Pages/Team';
+import MyOrder from './src/Pages/MyOrder';
 import PersonalInfo from './src/Pages/PersonalInfo';
 // import My from './src/Pages/My';
 import Transaction from './src/Pages/Transaction';
@@ -44,6 +45,7 @@ const RootNavigator = createStackNavigator({
     Team,
     Buy,
     // My,
+    MyOrder,
     HangUp,
     PersonalInfo,
     Transaction,

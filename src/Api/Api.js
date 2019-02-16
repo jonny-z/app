@@ -58,6 +58,7 @@ async function getUserFamily(formData) {
             body: formData,
         })
         let resData = await res.json();
+        console.log(resData);
         return resData;
     } catch (error) {
         console.error(error);

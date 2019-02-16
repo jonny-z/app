@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, ImageBackground } from 'react-native';
+import { Text, View, ScrollView, ImageBackground, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon, TabBar } from '@ant-design/react-native';
 import MyPage from './Pages/My';
@@ -8,6 +8,7 @@ import Navigation from './Components/Navigation';
 import ConvenientServiceMenu from './Components/ConvenientServiceMenu';
 import { appBg, theme } from './Index';
 import Api from "./Api/Api";
+import MyButton from './Components/Form/MyButton';
 
 const HOME = Symbol();
 const INFO = Symbol();
@@ -53,7 +54,7 @@ const Styles = {
                 paddingTop: 5,
                 paddingBottom: 5,
                 textAlign: 'center',
-                fontSize: 18,
+                fontSize: 16,
                 color: '#fff',
             },
             balance: {
@@ -63,69 +64,128 @@ const Styles = {
                 borderRightWidth: 1,
                 borderRightColor: '#fff',
             },
+            machineBuy: {
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                borderRightWidth: 1,
+                borderRightColor: '#fff',
+            },
             credit: {
                 flex: 1,
             }
         },
-        convenientService: {
-            container: {
-                marginTop: 15,
-                paddingLeft: 20,
-                paddingRight: 20,
-                paddingTop: 15,
-                paddingBottom: 15,
-                // backgroundColor: 'rgba(255, 255, 255, .2)',
-            },
-            title: {
-                container: {
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                },
-                titleBar: {
-                    width: 8,
-                    height: 24,
-                    borderRadius: 3,
-                    backgroundColor: theme.shitYellow
-                },
-                text: {
-                    color: '#fff',
-                    marginLeft: 15,
-                    fontSize: 18,
-                }
-            }
+        outBtnWrapper: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center'
         }
+        // convenientService: {
+        //     container: {
+        //         marginTop: 15,
+        //         paddingLeft: 20,
+        //         paddingRight: 20,
+        //         paddingTop: 15,
+        //         paddingBottom: 15,
+        //         // backgroundColor: 'rgba(255, 255, 255, .2)',
+        //     },
+        //     title: {
+        //         container: {
+        //             flexDirection: 'row',
+        //             alignItems: 'center',
+        //         },
+        //         titleBar: {
+        //             width: 8,
+        //             height: 24,
+        //             borderRadius: 3,
+        //             backgroundColor: theme.shitYellow
+        //         },
+        //         text: {
+        //             color: '#fff',
+        //             marginLeft: 15,
+        //             fontSize: 18,
+        //         }
+        //     }
+        // }
     }
 }
+// const navigateList = [
+//     {
+//         title: '买入',
+//         id: 'Buy',
+//         imgSrc: require('../assets/hengtai/buy.png'),
+//     },
+//     {
+//         title: '卖出',
+//         id: 'HangUp',
+//         imgSrc: require('../assets/hengtai/sale.png'),
+//     },
+//     {
+//         title: '推广链接',
+//         id: '',
+//         imgSrc: require('../assets/hengtai/share-link.png'),
+//     },
+//     {
+//         title: '积分兑换',
+//         id: '',
+//         imgSrc: require('../assets/hengtai/exchange-credit.png'),
+//     },
+//     {
+//         title: '团队',
+//         id: 'Team',
+//         imgSrc: require('../assets/hengtai/party.png'),
+//     },
+//     {
+//         title: '红包领取',
+//         id: '',
+//         imgSrc: require('../assets/hengtai/get-redpacket.png'),
+//     }
+// ]
 const navigateList = [
     {
-        title: '买入',
+        title: '购买记录',
         id: 'Buy',
-        imgSrc: require('../assets/hengtai/buy.png'),
+        icon: 'account-book'
     },
     {
-        title: '卖出',
+        title: '静态收益',
         id: 'HangUp',
-        imgSrc: require('../assets/hengtai/sale.png'),
+        icon: 'bar-chart'
     },
     {
-        title: '推广链接',
+        title: '动态收益',
         id: '',
-        imgSrc: require('../assets/hengtai/share-link.png'),
+        icon: 'rise'
     },
     {
-        title: '积分兑换',
+        title: '总账明细',
         id: '',
-        imgSrc: require('../assets/hengtai/exchange-credit.png'),
+        icon: 'pay-circle'
     },
     {
-        title: '团队',
+        title: '邀请链接',
         id: 'Team',
-        imgSrc: require('../assets/hengtai/party.png'),
+        icon: 'share-alt'
     },
     {
-        title: '红包领取',
+        title: '我的粉丝',
         id: '',
-        imgSrc: require('../assets/hengtai/get-redpacket.png'),
+        icon: 'cluster'
+    },
+    {
+        title: '矿机维护',
+        id: '',
+        icon: 'tool'
+    },
+    {
+        title: '我的交易',
+        id: 'MyOrder',
+        icon: 'money-collect'
+    },
+    {
+        title: '退本还息',
+        id: '',
+        icon: 'transaction'
     }
 ]
 const convenientServiceMenu = [
@@ -177,6 +237,11 @@ class Root extends React.Component {
                 <ScrollView style={Styles.home.main}>
                     <UserProfile editable={false} style={Styles.home.userProfile}/>
                     <View style={Styles.home.balanceAndCredit.container}>
+                        <View style={Styles.home.balanceAndCredit.machineBuy}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('Buy')}>
+                                <Text style={Styles.home.balanceAndCredit.text}>矿机购买</Text>
+                            </TouchableOpacity>
+                        </View>
                         <View style={Styles.home.balanceAndCredit.balance}>
                             <Text style={Styles.home.balanceAndCredit.text}>余额: {mine_balance}</Text>
                         </View>
@@ -185,6 +250,11 @@ class Root extends React.Component {
                         </View>
                     </View>
                     <Navigation list={navigateList} nav={navigation}/>
+                    <View style={Styles.home.outBtnWrapper}>
+                        <MyButton title="退出登陆" style={{container: {marginTop: 10}}} activeOpacity={.5} onPress={() => {}}/>
+                    </View>
+
+                    {/*
                     <View style={Styles.home.convenientService.container}>
                         <View style={Styles.home.convenientService.title.container}>
                             <View style={Styles.home.convenientService.title.titleBar}/>
@@ -192,6 +262,8 @@ class Root extends React.Component {
                         </View>
                         <ConvenientServiceMenu menu={convenientServiceMenu}></ConvenientServiceMenu>
                     </View>
+                    */}
+
                 </ScrollView>
             </ImageBackground>
     )}
