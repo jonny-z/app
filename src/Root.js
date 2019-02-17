@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, ImageBackground, TouchableOpacity } from 'react-native';
+import { Text, View, ScrollView, ImageBackground, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon, TabBar } from '@ant-design/react-native';
 import MyPage from './Pages/My';
@@ -60,7 +60,7 @@ const Styles = {
             balance: {
                 flex: 1,
                 flexDirection: 'row',
-                justifyContent: 'flex-end',
+                justifyContent: 'center',
                 borderRightWidth: 1,
                 borderRightColor: '#fff',
             },
@@ -169,7 +169,7 @@ const navigateList = [
     },
     {
         title: '我的粉丝',
-        id: '',
+        id: 'Team',
         icon: 'cluster'
     },
     {
@@ -231,19 +231,21 @@ class Root extends React.Component {
         };
     }
     Home = () => {
-        const { mine_balance, frozen_money, navigation } = this.props
+        const { mine_balance, frozen_money, navigation, is_real_name } = this.props
         return (
             <ImageBackground source={appBg} style={Styles.backgroundImage}>
                 <ScrollView style={Styles.home.main}>
                     <UserProfile editable={false} style={Styles.home.userProfile}/>
                     <View style={Styles.home.balanceAndCredit.container}>
                         <View style={Styles.home.balanceAndCredit.machineBuy}>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('Buy')}>
+                            <TouchableOpacity onPress={() => {if(is_real_name == '1'){this.props.navigation.navigate('Buy')}else{Alert.alert('需要实名认证')}}}>
                                 <Text style={Styles.home.balanceAndCredit.text}>矿机购买</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={Styles.home.balanceAndCredit.balance}>
-                            <Text style={Styles.home.balanceAndCredit.text}>余额: {mine_balance}</Text>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('HangUp')}>
+                                <Text style={Styles.home.balanceAndCredit.text}>余额: {mine_balance}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={Styles.home.balanceAndCredit.credit}>
                             <Text style={Styles.home.balanceAndCredit.text}>红利: {frozen_money}</Text>

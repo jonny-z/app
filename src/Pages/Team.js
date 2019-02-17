@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
 	    width:null,
 	    width:null,
 	    backgroundColor:'rgba(0,0,0,0)',
-	    paddingTop: 10
 	},
 	item: {
 		paddingTop: 10,
@@ -28,6 +27,13 @@ const styles = StyleSheet.create({
 		lineHeight: 17,
 		height: 17,
 		color: '#ffffff'
+	},
+	text: {
+		color: '#fff',
+		marginBottom: 15,
+		marginTop: 15,
+		textAlign: 'center',
+		fontSize: 18
 	}
 });
 class UserItem extends Component {
@@ -46,7 +52,7 @@ class UserList extends Component {
       <Flex
       	align="center"
       	justify="center">
-      	<UserItem type={this.props.name} />
+      	<UserItem type={this.props.id} />
       	<UserItem type={this.props.level} />
       	<UserItem type={this.props.standard} />
       	<UserItem type={this.props.superior} />
@@ -62,7 +68,9 @@ class Team extends Component {
 	constructor (props) {
 	    super(props);
 	    this.state = {
-	    	Team: ''
+	    	Team1: '',
+	    	Team2: '',
+	    	Team3: '',
 	    }
 	}
 	componentDidMount() {
@@ -71,7 +79,10 @@ class Team extends Component {
 		formData.append('id', id);
 		formData.append('token', token);
 		Api.getUserFamily(formData).then((responseJson) => {
-	      this.setState({Team: responseJson.data});
+			console.log(responseJson);
+	      this.setState({Team1: responseJson.data.list1});
+	      this.setState({Team2: responseJson.data.list2});
+	      this.setState({Team3: responseJson.data.list3});
 	    });
     }
     keyExtractor = (item, index) => item.id;
@@ -80,14 +91,42 @@ class Team extends Component {
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
 					<ScrollView>
-						<UserList name="名称" level="推广级" standard="矿机规格" superior="推广码" />
+						<Text style={styles.text}>直接推广</Text>
+						<UserList id="ID" level="推广级" standard="矿机规格" superior="推广码" />
 						<FlatList
-                            data={this.state.Team}
+                            data={this.state.Team1}
                             keyExtractor={this.keyExtractor}
                             renderItem={({item}) =>
                                 <UserList
                                     id={item.id}
-                                    name={item.name}
+                                    level='直推'
+                                    standard={item.machine_specifications}
+                                    superior={item.promotion_code}
+                                />
+                            }
+						/>
+						<Text style={styles.text}>间接推广</Text>
+						<UserList id="ID" level="推广级" standard="矿机规格" superior="推广码" />
+						<FlatList
+                            data={this.state.Team2}
+                            keyExtractor={this.keyExtractor}
+                            renderItem={({item}) =>
+                                <UserList
+                                    id={item.id}
+                                    level='间推'
+                                    standard={item.machine_specifications}
+                                    superior={item.promotion_code}
+                                />
+                            }
+						/>
+						<Text style={styles.text}>三级推广</Text>
+						<UserList id="ID" level="推广级" standard="矿机规格" superior="推广码" />
+						<FlatList
+                            data={this.state.Team3}
+                            keyExtractor={this.keyExtractor}
+                            renderItem={({item}) =>
+                                <UserList
+                                    id={item.id}
                                     level={item.level}
                                     standard={item.machine_specifications}
                                     superior={item.promotion_code}

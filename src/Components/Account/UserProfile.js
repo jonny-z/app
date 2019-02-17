@@ -43,7 +43,7 @@ class UserProfile extends Component {
         return;
     }
     render () {
-        const { editable, style: customStyle={}, avatar=defaultAvatar, name='昵称'} = this.props;
+        const { editable, style: customStyle={}, avatar=defaultAvatar, name='昵称', id} = this.props;
         return (
             <View style={[Styles.container, customStyle.container]}>
                 <View style={[Styles.avatarWrapper, customStyle.avatarWrapper]}>
@@ -51,12 +51,13 @@ class UserProfile extends Component {
                         source={avatar.toString().indexOf('http') === 0 ? {uri: avatar} : avatar}
                     />
                 </View>
-                <View style={[Styles.content, customStyle.content]}>
-                    <Text style={[Styles.name, customStyle.name]}>{name}</Text>
+                <View style={editable ? [Styles.content, customStyle.content] : [Styles.content, customStyle.content, {flexDirection: 'column', alignItems: 'flex-start',}]}>
+                    <Text style={[Styles.name, customStyle.name]}>{editable ? '' : '用户名: '}{name}</Text>
                     {this.showEdit(editable, customStyle.edit)}
+                    <Text style={[Styles.name, customStyle.name]}>{editable ? '' : 'ID: ' + id}</Text>
                 </View>
             </View>
         )
     }
 }
-export default connect((state)=>{ return {avatar: state.avatar, name: state.name}})(UserProfile)
+export default connect((state)=>{ return {avatar: state.avatar, name: state.name, id: state.id}})(UserProfile)
