@@ -56,7 +56,7 @@ class Maintain extends Component {
 	    };
 	}
 	render () {
-		const { id, token } = this.props;
+		const { id, token, maintain_currency } = this.props;
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
@@ -67,7 +67,7 @@ class Maintain extends Component {
 						direction="column"
 						style={{height: '100%'}}
 						>	
-							<Text style={styles.title}>维护币数量</Text>
+							<Text style={styles.title}>维护币数量(剩余: {maintain_currency})</Text>
 							<TextInput
 								keyboardType="numeric"
 								placeholder="请输入数量"
@@ -89,6 +89,7 @@ class Maintain extends Component {
 						        }}
 						        value={this.state.receiveId}
 						    />
+
 						    <MyButton 
 						    title="确定" 
 						    style={{container: {marginTop: 20}}}
@@ -117,4 +118,4 @@ class Maintain extends Component {
 		)
 	}
 }
-export default connect((state)=>{return {id: state.id, token: state.token}})(Maintain)
+export default connect((state)=>{console.log(state); return {maintain_currency: state.maintain_currency, id: state.id, token: state.token}})(Maintain)

@@ -56,7 +56,7 @@ const RootNavigator = createStackNavigator({
     BuyHistory,
     TotalDetail,
     Maintain,
-    DynamicIncome
+    DynamicIncome,
 },{
     defaultNavigationOptions: {
         headerStyle: {
