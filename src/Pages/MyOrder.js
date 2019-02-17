@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { ImageBackground, Text, View, StyleSheet, TextInput } from 'react-native';
+import { ImageBackground, Text, View, StyleSheet, ScrollView, TextInput } from 'react-native';
 import { Button, Flex } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
+import { connect } from 'react-redux';
+import Api from '../Api/Api';
 
 const styles = StyleSheet.create({
 	container: {
@@ -45,7 +47,7 @@ const orderInfo = {
 	name: '李四',
 	orderType: '支付宝'
 }
-export default class Team extends Component {
+class MyOrder extends Component {
 	static navigationOptions = {
         title: '当前交易',
     }
@@ -56,24 +58,20 @@ export default class Team extends Component {
 	    };
 	}
 	componentDidMount() {
-		let formData=new FormData();
-		formData.append('id', '10000');
-		formData.append('token', 'f542d311a9d1a368cd241d2aa9ba7f1e');
-		fetch('http://www.blyl1888.com/index.php/Api/Order/user_deal', {
-		  method: 'POST',
-		  headers: {},
-		  body: formData,
-		}).then((response) => response.json()).then((responseJson) => {
-	      this.setState({Info: responseJson.data})
-	    }).catch(function (err) {
-	    	console.log(err);
-	  	});
-	}
+        const { id, token } = this.props;
+		let formData = new FormData();
+		formData.append('id', id);
+		formData.append('token', token);
+		Api.getMyOrder(formData).then((responseJson) => {
+	      this.setState({Info: responseJson.data});
+	    });
+    }
+
 	render () {
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
-					<View style={{marginTop: 10}}>
+					<ScrollView style={{marginTop: 10}}>
 						<Flex
 						direction="column"
 						style={{height: '100%'}}
@@ -94,9 +92,10 @@ export default class Team extends Component {
 								</View>
 							))}
 						</Flex>
-					</View>
+					</ScrollView>
 			    </ImageBackground>
 			</View>
 		)
 	}
 }
+export default connect((state)=>{return {id: state.id, token: state.token}})(MyOrder)

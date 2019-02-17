@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ImageBackground, Text, View, StyleSheet, FlatList } from 'react-native';
+import { ImageBackground, Text, View, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { Flex } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
 import { connect } from 'react-redux';
@@ -14,14 +14,7 @@ const styles = StyleSheet.create({
 	    width:null,
 	    width:null,
 	    backgroundColor:'rgba(0,0,0,0)',
-	},
-	title: {
-		marginTop: theme.appTopHeight,
-		textAlign: 'center',
-		color: 'white',
-		fontSize: 20,
-		fontWeight: 'bold',
-		marginBottom: 15
+	    paddingTop: 10
 	},
 	item: {
 		paddingTop: 10,
@@ -86,8 +79,7 @@ class Team extends Component {
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
-					<Text style={styles.title}>团队成员</Text>
-					<View>
+					<ScrollView>
 						<UserList name="名称" level="推广级" standard="矿机规格" superior="推广码" />
 						<FlatList
                             data={this.state.Team}
@@ -102,7 +94,7 @@ class Team extends Component {
                                 />
                             }
 						/>
-					</View>
+					</ScrollView>
 			    </ImageBackground>
 			</View>
 		)
