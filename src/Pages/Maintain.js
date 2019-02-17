@@ -17,12 +17,11 @@ const styles = StyleSheet.create({
 	    backgroundColor:'rgba(0,0,0,0)',
 	},
 	title: {
-		marginTop: theme.appTopHeight,
 		textAlign: 'center',
 		color: 'white',
-		fontSize: 20,
+		fontSize: 16,
 		fontWeight: 'bold',
-		marginBottom: 30
+		marginBottom: 15
 	},
 	content: {
 		position: 'absolute',
@@ -40,19 +39,20 @@ const styles = StyleSheet.create({
 	},
 	confirmBtn: {
 		minWidth: 140,
-		marginTop: 30,
+		marginTop: 20,
 		height: 40,
 	}
 });
 
-class HangUp extends Component {
+class Maintain extends Component {
     static navigationOptions = {
-        title: '卖出',
+        title: '矿机维护',
     }
 	constructor (props) {
 	    super(props);
 	    this.state = {
-	    	money: ''
+	    	number: '',
+	    	receiveId: ''
 	    };
 	}
 	render () {
@@ -60,44 +60,56 @@ class HangUp extends Component {
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
-					<Text style={styles.title}>矿金挂卖</Text>
 					<View style={styles.content}>
 						<Flex
 						justify="center"
 						align="center"
 						direction="column"
 						style={{height: '100%'}}
-						>
+						>	
+							<Text style={styles.title}>维护币数量</Text>
 							<TextInput
 								keyboardType="numeric"
-								placeholder="请输入金额(元)"
-								style={styles.inputStyle}
-						        onChangeText={(money) => {
-						        	const newText = money.replace(/[^\d]+/, '');
-						        	this.setState({money: newText})
+								placeholder="请输入数量"
+								style={[styles.inputStyle, {marginBottom: 20}]}
+						        onChangeText={(number) => {
+						        	const newMoney = number.replace(/[^\d]+/, '');
+						        	this.setState({number: newMoney})
 						        }}
-						        value={this.state.money}
+						        value={this.state.number}
+						    />
+						    <Text style={styles.title}>ID</Text>
+							<TextInput
+								keyboardType="numeric"
+								placeholder="请输入ID"
+								style={styles.inputStyle}
+						        onChangeText={(number) => {
+						        	const newText = number.replace(/[^\d]+/, '');
+						        	this.setState({receiveId: newText})
+						        }}
+						        value={this.state.receiveId}
 						    />
 						    <MyButton 
 						    title="确定" 
 						    style={{container: {marginTop: 20}}}
 				            onPress={() => {
 				                let formData=new FormData();
-								formData.append('id', id);
+								formData.append('send_id', id);
 								formData.append('token', token);
-								formData.append('mine_balance', this.state.money);
-								fetch('http://www.blyl1888.com/index.php/Api/Order/user_sale', {
+								formData.append('number', this.state.number);
+								formData.append('receive_id', this.state.receiveId);
+								console.log(formData);
+								fetch('http://www.blyl1888.com/index.php/Api/User/transfer', {
 								  method: 'POST',
 								  headers: {},
 								  body: formData,
 								}).then((response) => response.json()).then((responseJson) => {
-									console.log(responseJson);
 							        Alert.alert(responseJson.message);
 							    }).catch(function (err) {
 							    	console.log(err);
 							  	});
 				            }}
-				            />
+				             />
 						</Flex>
 					</View>
 			    </ImageBackground>
@@ -105,4 +117,4 @@ class HangUp extends Component {
 		)
 	}
 }
-export default connect((state)=>{return {id: state.id, token: state.token}})(HangUp)
+export default connect((state)=>{return {id: state.id, token: state.token}})(Maintain)

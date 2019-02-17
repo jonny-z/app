@@ -12,6 +12,10 @@ import Buy from './src/Pages/Buy';
 import HangUp from './src/Pages/HangUp';
 import Team from './src/Pages/Team';
 import MyOrder from './src/Pages/MyOrder';
+import BuyHistory from './src/Pages/BuyHistory';
+import TotalDetail from './src/Pages/TotalDetail';
+import Maintain from './src/Pages/Maintain';
+import DynamicIncome from './src/Pages/DynamicIncome';
 import PersonalInfo from './src/Pages/PersonalInfo';
 // import My from './src/Pages/My';
 import Transaction from './src/Pages/Transaction';
@@ -49,6 +53,10 @@ const RootNavigator = createStackNavigator({
     HangUp,
     PersonalInfo,
     Transaction,
+    BuyHistory,
+    TotalDetail,
+    Maintain,
+    DynamicIncome
 },{
     defaultNavigationOptions: {
         headerStyle: {
