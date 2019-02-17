@@ -64,10 +64,35 @@ async function getUserFamily(formData) {
         console.error(error);
     }
 }
+async function getTotalDetail(formData) {
+    try {
+        let res = await fetch('http://www.blyl1888.com/index.php/Api/User/myDeal', {
+            method: 'POST',
+            body: formData,
+        })
+        let resData = await res.json();
+        console.log(resData);
+        return resData;
+    } catch (error) {
+        console.error(error);
+    }
+}
 async function getMyOrder(formData) {
-    console.log('request buy');
     try {
         let res = await fetch('http://www.blyl1888.com/index.php/Api/Order/user_deal', {
+            method: 'POST',
+            body: formData,
+        })
+        let resData = await res.json();
+        console.log(resData);
+        return resData;
+    } catch (error) {
+        console.error(error);
+    }
+}
+async function getDynamicIncome(formData) {
+    try {
+        let res = await fetch('http://www.blyl1888.com/index.php/Api/User/myBonus', {
             method: 'POST',
             body: formData,
         })
@@ -83,5 +108,7 @@ export default {
     requestLogin,
     getUserFamily,
     buy,
-    getMyOrder, 
+    getMyOrder,
+    getTotalDetail,
+    getDynamicIncome,
 }

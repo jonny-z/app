@@ -144,7 +144,7 @@ const Styles = {
 const navigateList = [
     {
         title: '购买记录',
-        id: 'Buy',
+        id: 'BuyHistory',
         icon: 'account-book'
     },
     {
@@ -154,17 +154,17 @@ const navigateList = [
     },
     {
         title: '动态收益',
-        id: '',
+        id: 'DynamicIncome',
         icon: 'rise'
     },
     {
         title: '总账明细',
-        id: '',
+        id: 'TotalDetail',
         icon: 'pay-circle'
     },
     {
         title: '邀请链接',
-        id: 'Team',
+        id: '',
         icon: 'share-alt'
     },
     {
@@ -174,7 +174,7 @@ const navigateList = [
     },
     {
         title: '矿机维护',
-        id: '',
+        id: 'Maintain',
         icon: 'tool'
     },
     {
