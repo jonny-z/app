@@ -164,7 +164,7 @@ const navigateList = [
     },
     {
         title: '邀请链接',
-        id: '',
+        id: 'ShareLink',
         icon: 'share-alt'
     },
     {

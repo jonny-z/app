@@ -17,6 +17,7 @@ import TotalDetail from './src/Pages/TotalDetail';
 import Maintain from './src/Pages/Maintain';
 import DynamicIncome from './src/Pages/DynamicIncome';
 import PersonalInfo from './src/Pages/PersonalInfo';
+import ShareLink from './src/Pages/ShareLink';
 // import My from './src/Pages/My';
 import Transaction from './src/Pages/Transaction';
 const reducer = (state = {
@@ -57,6 +58,7 @@ const RootNavigator = createStackNavigator({
     TotalDetail,
     Maintain,
     DynamicIncome,
+    ShareLink
 },{
     defaultNavigationOptions: {
         headerStyle: {
