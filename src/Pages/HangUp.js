@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, TextInput, Alert } from 'react-native';
-import { Button, Flex } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
 import { connect } from 'react-redux';
 import MyButton from '../Components/Form/MyButton';
@@ -42,6 +41,13 @@ const styles = StyleSheet.create({
 		minWidth: 140,
 		marginTop: 30,
 		height: 40,
+	},
+	inputContent: {
+		flex: 1,
+		flexDirection: 'column',
+      	justifyContent: "center",
+		alignItems: "center",
+		height: '100%'
 	}
 });
 
@@ -62,12 +68,7 @@ class HangUp extends Component {
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
 					<Text style={styles.title}>矿金挂卖</Text>
 					<View style={styles.content}>
-						<Flex
-						justify="center"
-						align="center"
-						direction="column"
-						style={{height: '100%'}}
-						>
+						<View style={styles.inputContent}>
 							<TextInput
 								keyboardType="numeric"
 								placeholder="请输入金额(元)"
@@ -98,7 +99,7 @@ class HangUp extends Component {
 							  	});
 				            }}
 				            />
-						</Flex>
+						</View>
 					</View>
 			    </ImageBackground>
 			</View>

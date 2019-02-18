@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ImageBackground, Alert, Text, View, StyleSheet, ScrollView } from 'react-native';
-import { Icon, Flex, } from '@ant-design/react-native';
+import { ImageBackground, Alert, Text, View, StyleSheet, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { Icon } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
 import UserProfile from '../Components/Account/UserProfile';
 const styles = {
@@ -25,10 +25,13 @@ const styles = {
 		paddingLeft: 10,
 		paddingRight:10,
 		marginTop: 15,
+    justifyContent: 'space-between',
+    flex: 1,
+    flexDirection: 'row',
 	},
 	container: {
-        flex: 1,
-    },
+    flex: 1,
+  },
 	backgroundImage:{
 	    flex:1,
 	    resizeMode: 'cover',
@@ -43,28 +46,26 @@ class List extends Component {
         super(props);
     }
   render() {
-      const {id, nav} = this.props;
+    const {id, nav} = this.props;
     return (
-      <Flex
-      	justify="between"
-      	style={ styles.itemList }
+      <TouchableWithoutFeedback 
       	onPress={() => {
             if(!id) {
                 Alert.alert('暂未开放')
                 return;
             }
 		    nav.navigate(id);
-		}}>
-      	<Flex.Item style={{ flex: 0 }}>
-      		<Flex>
-	      		<Icon name={this.props.icon} color='#cc9933' size='md'/>
-	      		<Text style={{ paddingLeft:15, color: 'white', fontSize: 18, fontWeight: 'bold' }}>{this.props.name}</Text>
-      		</Flex>
-      	</Flex.Item>
-      	<Flex.Item style={{ flex: 0 }}>
-      		<Icon name="right" color="white" size="xs"/>
-      	</Flex.Item>
-      </Flex>
+  		}}>
+        <View style={ styles.itemList }>
+        	<View style={{ flexDirection: 'row', flex: 0 }}>
+  	      		<Icon name={this.props.icon} color='#cc9933' size='md'/>
+  	      		<Text style={{ paddingLeft:15, color: 'white', fontSize: 18, fontWeight: 'bold' }}>{this.props.name}</Text>
+        	</View>
+        	<View style={{ flex: 0 }}>
+        		<Icon name="right" color="white" size="xs"/>
+        	</View>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -76,9 +77,6 @@ export default class My extends Component {
 	render () {
         const {nav} = this.props;
 		return (
-			// <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
-			//     <Text style={{ margin: 50 }}>{this.props.name}</Text>
-			// </View>
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
           <UserProfile editable={true} style={styles.userProfile}/>

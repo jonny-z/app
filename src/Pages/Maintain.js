@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, TextInput, Alert } from 'react-native';
-import { Button, Flex } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
 import { connect } from 'react-redux';
 import MyButton from '../Components/Form/MyButton';
@@ -41,6 +40,13 @@ const styles = StyleSheet.create({
 		minWidth: 140,
 		marginTop: 20,
 		height: 40,
+	},
+	inputContent: {
+		flex: 1,
+		flexDirection: 'column',
+      	justifyContent: "center",
+		alignItems: "center",
+		height: '100%'
 	}
 });
 
@@ -61,12 +67,7 @@ class Maintain extends Component {
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
 					<View style={styles.content}>
-						<Flex
-						justify="center"
-						align="center"
-						direction="column"
-						style={{height: '100%'}}
-						>	
+						<View style={styles.inputContent}>
 							<Text style={styles.title}>维护币数量(剩余: {maintain_currency})</Text>
 							<TextInput
 								keyboardType="numeric"
@@ -111,7 +112,7 @@ class Maintain extends Component {
 							  	});
 				            }}
 				             />
-						</Flex>
+						</View>
 					</View>
 			    </ImageBackground>
 			</View>

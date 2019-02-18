@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, TextInput, Alert, Clipboard } from 'react-native';
-import { Button, Flex } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
 import { connect } from 'react-redux';
 import MyButton from '../Components/Form/MyButton';
@@ -23,6 +22,13 @@ const styles = StyleSheet.create({
 		left: 0,
 		right: 0,
 	},
+	outerContent: {
+		flex: 1,
+		flexDirection: 'column',
+      	justifyContent: "center",
+		alignItems: "center",
+		height: '100%'
+	}
 });
 
 class ShareLink extends Component {
@@ -46,12 +52,7 @@ class ShareLink extends Component {
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
 					<View style={styles.content}>
-						<Flex
-						justify="center"
-						align="center"
-						direction="column"
-						style={{height: '100%'}}
-						>
+						<View style={styles.outerContent}>
 							<Text style={{color: '#fff', fontSize: 16,width: '60%'}}>{link}</Text>
 						    <MyButton 
 						    title="复制链接"
@@ -59,7 +60,7 @@ class ShareLink extends Component {
 				                this.copy();
 				            }}
 				            />
-						</Flex>
+						</View>
 					</View>
 			    </ImageBackground>
 			</View>
