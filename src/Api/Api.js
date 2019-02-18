@@ -1,3 +1,23 @@
+async function request(url, method, formData) {
+    console.log('request: ' + url);
+    try {
+        let res = await fetch(url, {
+            method,
+            body: formData,
+        })
+        let resData = '';
+        try {
+            resData = await res.json();
+        }
+        catch(error){
+            resData = await 'server error';
+        }
+        return resData;
+
+    } catch (error) {
+        console.error(error);
+    }
+}
 async function getUserInfo (formData) {
     console.log('request user info');
     try {
@@ -5,8 +25,15 @@ async function getUserInfo (formData) {
             method: 'POST',
             body: formData,
         })
-        let resData = await res.json();
+        let resData = '';
+        try {
+            resData = await res.json();
+        }
+        catch(error){
+            resData = await 'error';
+        }
         return resData;
+
     } catch (error) {
         console.error(error);
     }
@@ -104,6 +131,7 @@ async function getDynamicIncome(formData) {
     }
 }
 export default {
+    request,
     getUserInfo,
     requestLogin,
     getUserFamily,
