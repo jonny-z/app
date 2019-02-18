@@ -66,7 +66,6 @@ class MyOrder extends Component {
 	      this.setState({Info: responseJson.data});
 	    });
     }
-
 	render () {
 		return (
 			<View style={styles.container}>
