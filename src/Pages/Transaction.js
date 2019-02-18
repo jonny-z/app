@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
-import { Button, Flex } from '@ant-design/react-native';
-import { appBg, theme } from '../Index';
-
+import { appBg, apiUri } from '../Index';
+import Api from '../Api/Api';
 const styles = StyleSheet.create({
 	container: {
         flex: 1,
@@ -15,6 +14,7 @@ const styles = StyleSheet.create({
 	    backgroundColor:'rgba(0,0,0,0)',
 	},
 	item: {
+		flex: 1,
 		paddingTop: 10,
 		paddingBottom: 10,
 		backgroundColor: 'rgba(255,255,255,0.2)',
@@ -35,17 +35,26 @@ const styles = StyleSheet.create({
 		color: '#fff'
 	},
 	subcontent: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
 		paddingLeft: 15,
 		paddingRight: 15,
 		marginBottom: 10
+	},
+	list: {
+		flex: 1,
+		flexDirection: 'row',
+      	justifyContent: "center",
+		alignItems: "center",
 	}
 });
 class UserItem extends Component {
 	render() {
 		return (
-			<Flex.Item style={styles.item}>
+			<View style={styles.item}>
 	      		<Text style={styles.itemText}>{this.props.type}</Text>
-	      	</Flex.Item>
+	      	</View>
 		)
 	}
 }
@@ -53,13 +62,11 @@ class UserItem extends Component {
 class TransactionList extends Component {
   render() {
     return (
-      <Flex
-      	align="center"
-      	justify="center">
+      <View style={styles.list}>
       	<UserItem type={this.props.name} />
       	<UserItem type={this.props.number} />
       	<UserItem type={this.props.time} />
-      </Flex>
+      </View>
     );
   }
 }
@@ -72,26 +79,21 @@ export default class Transaction extends Component {
 	    this.state = {
 	    	Sale: null,
 	    	Buy: null
-	    }
-	}
-	componentDidMount() {
-		fetch('http://www.blyl1888.com/index.php/Api/Order/saleList', {
-		  method: 'POST',
-		  headers: {},
-		}).then((response) => response.json()).then((responseJson) => {
-	      this.setState({Sale: responseJson.data.slice(0,4)})
-	    }).catch(function (err) {
-	    	console.log(err);
-	  	});
-
-	  	fetch('http://www.blyl1888.com/index.php/Api/Order/BuyList', {
-		  method: 'POST',
-		  headers: {},
-		}).then((response) => response.json()).then((responseJson) => {
-	      this.setState({Buy: responseJson.data.slice(0,4)})
-	    }).catch(function (err) {
-	    	console.log(err);
-	  	});
+        }
+        Api.request(apiUri.getSaleList, 'POST').then((responseJson) => {
+            if(responseJson.code == 'error') {
+                global.toast.show(responseJson.message);
+                return;
+            }
+            this.setState({Sale: responseJson.data.slice(0,4)})
+        });
+        Api.request(apiUri.getBuyHistory, 'POST').then((responseJson) => {
+            if(responseJson.code == 'error') {
+                global.toast.show(responseJson.message);
+                return;
+            }
+            this.setState({Buy: responseJson.data.slice(0,4)})
+        });
 	}
 	render () {
 		return (
@@ -99,14 +101,10 @@ export default class Transaction extends Component {
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
 					<ScrollView>
 						<View style={{marginBottom: 20, marginTop: 20}}>
-							<Flex
-							justify="between"
-							align="center"
-							style={styles.subcontent}
-							>
+							<View style={styles.subcontent}>
 								<Text style={styles.subtitle}>买入</Text>
 								<Text style={styles.viewmore}>更多</Text>
-							</Flex>
+							</View>
 							<TransactionList name="id" number="规格" time="挂单时间"/>
 							<FlatList
 								keyExtractor={(item, index) => index.toString()}
@@ -115,14 +113,10 @@ export default class Transaction extends Component {
 							/>
 						</View>
 						<View>
-							<Flex
-							justify="between"
-							align="center"
-							style={styles.subcontent}
-							>
+							<View style={styles.subcontent}>
 								<Text style={styles.subtitle}>卖出</Text>
 								<Text style={styles.viewmore}>更多</Text>
-							</Flex>
+							</View>
 							<TransactionList name="id" number="数量" time="时间"/>
 							<FlatList
 								keyExtractor={(item, index) => index.toString()}

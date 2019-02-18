@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ImageBackground, Alert, Text, View, StyleSheet, ScrollView } from 'react-native';
-import { Icon, Flex, } from '@ant-design/react-native';
+import { ImageBackground, Alert, Text, View, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { appBg, theme } from '../Index';
 import UserProfile from '../Components/Account/UserProfile';
 const styles = {
@@ -16,6 +16,10 @@ const styles = {
         },
         name: {
             color: '#fff',
+            fontSize: 22,
+        },
+        edit: {
+            size: 18,
         }
     },
 	itemList: {
@@ -25,6 +29,10 @@ const styles = {
 		paddingLeft: 10,
 		paddingRight:10,
 		marginTop: 15,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row',
 	},
 	container: {
         flex: 1,
@@ -35,7 +43,10 @@ const styles = {
 	    width:null,
 	    width:null,
 	    backgroundColor:'rgba(0,0,0,0)',
-	}
+    },
+    listIcon: {
+        position: 'absolute'
+    }
 };
 
 class List extends Component {
@@ -43,51 +54,49 @@ class List extends Component {
         super(props);
     }
   render() {
-      const {id, nav} = this.props;
+    const {id, nav} = this.props;
     return (
-      <Flex
-      	justify="between"
-      	style={ styles.itemList }
+      <TouchableWithoutFeedback
       	onPress={() => {
             if(!id) {
                 Alert.alert('暂未开放')
                 return;
             }
-		    nav.navigate(id);
-		}}>
-      	<Flex.Item style={{ flex: 0 }}>
-      		<Flex>
-	      		<Icon name={this.props.icon} color='#cc9933' size='md'/>
-	      		<Text style={{ paddingLeft:15, color: 'white', fontSize: 18, fontWeight: 'bold' }}>{this.props.name}</Text>
-      		</Flex>
-      	</Flex.Item>
-      	<Flex.Item style={{ flex: 0 }}>
-      		<Icon name="right" color="white" size="xs"/>
-      	</Flex.Item>
-      </Flex>
+		    this.props.nav.navigate(id);
+  		}}>
+        <View style={ styles.itemList }>
+        	<View style={{ flexDirection: 'row', flex: 0, alignItems: 'center' }}>
+  	      		<FontAwesome style={styles.listIcon} name={this.props.icon} color='#cc9933' size={18}/>
+  	      		<Text style={{ paddingLeft:30, color: 'white', fontSize: 18, fontWeight: 'bold' }}>{this.props.name}</Text>
+        	</View>
+        	<View style={{ flex: 0 }}>
+        		<FontAwesome  name="chevron-right" color="white" size={18}/>
+        	</View>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
 
 export default class My extends Component {
+    static navigationOptions = {
+        title: '我的',
+    }
 	constructor (props) {
 	    super(props);
 	}
 	render () {
-        const {nav} = this.props;
+        const {navigation} = this.props;
 		return (
-			// <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
-			//     <Text style={{ margin: 50 }}>{this.props.name}</Text>
-			// </View>
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
-          <UserProfile editable={true} style={styles.userProfile}/>
-          <ScrollView>
-  					<List name="个人信息" icon="contacts" id="PersonalInfo" nav={nav}/>
-  					<List name="交易大厅" icon="skin" id="Transaction"  nav={nav}/>
-  					<List name="分享链接" icon="phone" nav={nav}/>
-  					<List name="收获地址" icon="tags" nav={nav}/>
-          </ScrollView>
+                    <UserProfile editable={true} style={styles.userProfile}/>
+                    <ScrollView>
+                        <List name="个人信息" icon="vcard-o" id="PersonalInfo" nav={navigation}/>
+                        <List name="交易大厅" icon="cart-plus" id="Transaction" nav={navigation}/>
+                        <List name="分享链接" icon="share" nav={navigation}/>
+                        <List name="收获地址" icon="tags" nav={navigation}/>
+                    </ScrollView>
 				</ImageBackground>
 			</View>
 		)

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, ScrollView, TextInput } from 'react-native';
-import { Button, Flex, List, InputItem } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
 import { connect } from 'react-redux';
 
@@ -34,7 +33,11 @@ const styles = StyleSheet.create({
     	justifyContent: 'center',
     },
     item: {
+    	flex: 1,
+    	flexDirection: 'row',
+    	alignItems: "center",
     	marginBottom: 15,
+
     },
     confirm: {
         fontSize: 18,
@@ -44,6 +47,12 @@ const styles = StyleSheet.create({
         width: '60%',
         marginBottom: 0
     },
+    btn: {
+    	flex: 1,
+    	flexDirection: 'row',
+    	alignItems: "center",
+    	justifyContent: 'center'
+    }
 });
 
 class PersonalInfo extends Component {
@@ -70,10 +79,7 @@ class PersonalInfo extends Component {
 					<ScrollView
 					>
 						<View>
-							<Flex
-							style={styles.item}
-							align="center"
-							>
+							<View style={styles.item}>
 								<Text style={styles.text}>姓名</Text>
 								<TextInput
 								autoCapitalize = 'none'
@@ -87,13 +93,10 @@ class PersonalInfo extends Component {
 							    placeholder="请输入名字"
 							    editable={(username == ''|| username == null) ? true : false}
 								/>
-							</Flex>
+							</View>
 						</View>
 						<View>
-							<Flex
-							align="center"
-							style={styles.item}
-							>
+							<View style={styles.item}>
 								<Text style={styles.text}>身份证</Text>
 								<TextInput
 								autoCapitalize = 'none'
@@ -107,13 +110,10 @@ class PersonalInfo extends Component {
 							    placeholder="请输身份证"
 							    editable={(resident_id_card == '' || resident_id_card == null) ? true : false}
 								/>
-							</Flex>
+							</View>
 						</View>
 						<View>
-							<Flex
-							style={styles.item}
-							align="center"
-							>
+							<View style={styles.item}>
 								<Text style={styles.text}>手机号</Text>
 								<TextInput
 								autoCapitalize = 'none'
@@ -130,13 +130,10 @@ class PersonalInfo extends Component {
 							    placeholder="请输入手机号"
 							    editable={(phone == '' || phone == null) ? true : false}
 								/>
-							</Flex>
+							</View>
 						</View>
 						<View>
-							<Flex
-							style={styles.item}
-							align="center"
-							>
+							<View style={styles.item}>
 								<Text style={styles.text}>银行卡号</Text>
 								<TextInput
 								autoCapitalize = 'none'
@@ -150,13 +147,10 @@ class PersonalInfo extends Component {
 							    placeholder="请输入银行卡号"
 							    editable={(bank_card == '' || bank_card == null) ? true : false}
 								/>
-							</Flex>
+							</View>
 						</View>
 						<View>
-							<Flex
-							style={styles.item}
-							align="center"
-							>
+							<View style={styles.item}>
 								<Text style={styles.text}>支付宝</Text>
 								<TextInput
 								autoCapitalize = 'none'
@@ -170,13 +164,10 @@ class PersonalInfo extends Component {
 							    placeholder="请输入支付宝号"
 							    editable={(alipay == '' || alipay == null) ? true : false}
 								/>
-							</Flex>
+							</View>
 						</View>
 						<View>
-							<Flex
-							style={styles.item}
-							align="center"
-							>
+							<View style={styles.item}>
 								<Text style={styles.text}>推广码</Text>
 								<TextInput
 								autoCapitalize = 'none'
@@ -190,16 +181,13 @@ class PersonalInfo extends Component {
 							    placeholder="请输入推广码"
 							    editable={(promotion_code == '' || promotion_code == null) ? true : false}
 								/>
-							</Flex>
+							</View>
 						</View>
-						<Flex
-						align="center"
-						justify="center"
-						>
+						<View style={styles.btn}>
 							<View style={styles.confirmWrapper}>
 	                            <Text style={styles.confirm}>确定</Text>
 	                        </View>
-                        </Flex>
+                        </View>
 					</ScrollView>
 			    </ImageBackground>
 			</View>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, TextInput, Alert } from 'react-native';
-import { Flex } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
 import MyButton from '../Components/Form/MyButton';
 import Api from  '../Api/Api';
@@ -54,6 +53,18 @@ const styles = StyleSheet.create({
 	},
 	moneyActive: {
 		color: '#cc9933'
+	},
+	listWrapper: {
+		flex: 1,
+		height: '100%',
+		justifyContent: "center",
+		alignItems: "center",
+		flexDirection: "column",
+	},
+	list: {
+		justifyContent: "center",
+		alignItems: "center",
+		flexDirection: "row",
 	}
 });
 
@@ -101,24 +112,16 @@ class Buy extends Component {
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
 					<Text style={styles.title}>矿机规格</Text>
 					<View style={styles.content}>
-						<Flex
-						justify="center"
-						align="center"
-						direction="column"
-						style={{height: '100%'}}
-						>
-							<Flex
-							justify="center"
-							align="center"
-							>
+						<View style={styles.listWrapper}>
+							<View style={styles.list}>
 								{money.map((item, index) => {
 									return <Text onPress={() => {
 										this.setState({isActive: item.key, machine_specifications: item.number})
 									}} style={(this.state.isActive == item.key) ? [styles.money, styles.moneyActive] : styles.money} key={item.key}>{item.number}</Text>
 								})}
-							</Flex>
+							</View>
                             <MyButton title="购买" onPress={this.buy}/>
-						</Flex>
+						</View>
 					</View>
 			    </ImageBackground>
 			</View>

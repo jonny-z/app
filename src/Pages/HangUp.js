@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, TextInput, Alert } from 'react-native';
-import { Button, Flex } from '@ant-design/react-native';
-import { appBg, theme } from '../Index';
+import { appBg, theme, apiUri } from '../Index';
 import { connect } from 'react-redux';
 import MyButton from '../Components/Form/MyButton';
+import Api from '../Api/Api';
 
 const styles = StyleSheet.create({
 	container: {
@@ -42,6 +42,13 @@ const styles = StyleSheet.create({
 		minWidth: 140,
 		marginTop: 30,
 		height: 40,
+	},
+	inputContent: {
+		flex: 1,
+		flexDirection: 'column',
+      	justifyContent: "center",
+		alignItems: "center",
+		height: '100%'
 	}
 });
 
@@ -62,12 +69,7 @@ class HangUp extends Component {
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
 					<Text style={styles.title}>矿金挂卖</Text>
 					<View style={styles.content}>
-						<Flex
-						justify="center"
-						align="center"
-						direction="column"
-						style={{height: '100%'}}
-						>
+						<View style={styles.inputContent}>
 							<TextInput
 								keyboardType="numeric"
 								placeholder="请输入金额(元)"
@@ -78,27 +80,20 @@ class HangUp extends Component {
 						        }}
 						        value={this.state.money}
 						    />
-						    <MyButton 
-						    title="确定" 
+						    <MyButton
+						    title="确定"
 						    style={{container: {marginTop: 20}}}
 				            onPress={() => {
-				                let formData=new FormData();
+				                let formData = new FormData();
 								formData.append('id', id);
 								formData.append('token', token);
-								formData.append('mine_balance', this.state.money);
-								fetch('http://www.blyl1888.com/index.php/Api/Order/user_sale', {
-								  method: 'POST',
-								  headers: {},
-								  body: formData,
-								}).then((response) => response.json()).then((responseJson) => {
-									console.log(responseJson);
+                                formData.append('mine_balance', this.state.money);
+                                Api.request(apiUri.getUserSale, 'POST', formData).then((responseJson) => {
 							        Alert.alert(responseJson.message);
-							    }).catch(function (err) {
-							    	console.log(err);
-							  	});
+							    });
 				            }}
 				            />
-						</Flex>
+						</View>
 					</View>
 			    </ImageBackground>
 			</View>

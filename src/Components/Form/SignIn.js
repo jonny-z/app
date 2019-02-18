@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Text, View, ImageBackground, TextInput } from 'react-native';
-import { appBg, theme } from "../../Index";
+import { appBg, theme, apiUri } from "../../Index";
 import MyButton from './MyButton';
 import Api from "../../Api/Api";
 const Styles = {
@@ -58,7 +58,7 @@ class SignIn extends React.Component {
         let fd = new FormData();
         fd.append('username', this.state.username);
         fd.append('password', this.state.password);
-        Api.requestLogin(fd).then((res) => {
+        Api.request(apiUri.login, 'POST', fd).then((res) => {
             switch(res.code) {
                 case 'success':
                 this.props.loginSuccess(res.data);

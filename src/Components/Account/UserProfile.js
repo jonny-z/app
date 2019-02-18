@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Text, Image, View } from 'react-native';
-import { Icon } from '@ant-design/react-native';
 import { defaultAvatar } from '../../Index';
 import { connect } from 'react-redux';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 const Styles = {
     container: {
         flexDirection: 'row',
@@ -26,7 +27,7 @@ const Styles = {
     edit: {
         name: "edit",
         color: '#fff',
-        size: 'xs',
+        size: 14,
     }
 }
 class UserProfile extends Component {
@@ -37,26 +38,27 @@ class UserProfile extends Component {
         let iconStyle = Object.assign(Styles.edit, style);
         if(editable) {
             return (
-                <Icon name={iconStyle.name} color={iconStyle.color} size={iconStyle.size}/>
+                <FontAwesome style={{marginLeft: 5}} name={iconStyle.name} color={iconStyle.color} size={iconStyle.size}/>
             )
         }
         return;
     }
     render () {
-        const { editable, style: customStyle={}, avatar=defaultAvatar, name='昵称'} = this.props;
+        const { editable, style: customStyle={}, avatar=defaultAvatar, name='昵称', id} = this.props;
         return (
             <View style={[Styles.container, customStyle.container]}>
                 <View style={[Styles.avatarWrapper, customStyle.avatarWrapper]}>
                     <Image style={[Styles.avatar, customStyle.avatar]}
-                        source={avatar.toString().indexOf('http') === 0 ? {uri: avatar} : avatar}
+                        source={avatar.toString().indexOf('http') === 0? {uri: avatar} : defaultAvatar}
                     />
                 </View>
-                <View style={[Styles.content, customStyle.content]}>
-                    <Text style={[Styles.name, customStyle.name]}>{name}</Text>
+                <View style={editable ? [Styles.content, customStyle.content] : [Styles.content, customStyle.content, {flexDirection: 'column', alignItems: 'flex-start',}]}>
+                    <Text style={[Styles.name, customStyle.name]}>{editable ? '' : '用户名: '}{name}</Text>
                     {this.showEdit(editable, customStyle.edit)}
+                    <Text style={[Styles.name, customStyle.name]}>{editable ? '' : 'ID: ' + id}</Text>
                 </View>
             </View>
         )
     }
 }
-export default connect((state)=>{ return {avatar: state.avatar, name: state.name}})(UserProfile)
+export default connect((state)=>{ return {avatar: state.avatar, name: state.name, id: state.id}})(UserProfile)

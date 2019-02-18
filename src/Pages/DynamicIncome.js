@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
-import { Button, Flex } from '@ant-design/react-native';
-import { appBg, theme } from '../Index';
+import { appBg, apiUri } from '../Index';
 import { connect } from 'react-redux';
 import Api from '../Api/Api';
 
@@ -17,6 +16,7 @@ const styles = StyleSheet.create({
 	    backgroundColor:'rgba(0,0,0,0)',
 	},
 	item: {
+		flex: 1,
 		paddingTop: 10,
 		paddingBottom: 10,
 		backgroundColor: 'rgba(255,255,255,0.2)',
@@ -31,14 +31,20 @@ const styles = StyleSheet.create({
 	},
 	viewmore: {
 		color: '#fff'
+	},
+	list: {
+		flex: 1,
+		flexDirection: 'row',
+      	justifyContent: "center",
+		alignItems: "center",
 	}
 });
 class UserItem extends Component {
 	render() {
 		return (
-			<Flex.Item style={styles.item}>
+			<View style={styles.item}>
 	      		<Text style={styles.itemText}>{this.props.type}</Text>
-	      	</Flex.Item>
+	      	</View>
 		)
 	}
 }
@@ -46,13 +52,11 @@ class UserItem extends Component {
 class TransactionList extends Component {
   render() {
     return (
-      <Flex
-      	align="center"
-      	justify="center">
+      <View style={styles.list}>
       	<UserItem type={this.props.name} />
       	<UserItem type={this.props.number} />
       	<UserItem type={this.props.time} />
-      </Flex>
+      </View>
     );
   }
 }
@@ -71,8 +75,12 @@ class DynamicIncome extends Component {
 		let formData = new FormData();
 		formData.append('id', id);
 		formData.append('token', token);
-		Api.getDynamicIncome(formData).then((responseJson) => {
-	      this.setState({Buy: responseJson.data});
+		Api.request(apiUri.getDynamicIncome, 'POST', formData).then((responseJson) => {
+            if(responseJson.code == 'error') {
+                global.toast.show(responseJson.message);
+                return;
+            }
+	        this.setState({Buy: responseJson.data});
 	    });
     }
 	render () {

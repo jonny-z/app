@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, TextInput, Alert } from 'react-native';
-import { Button, Flex } from '@ant-design/react-native';
-import { appBg, theme } from '../Index';
+import { appBg, apiUri } from '../Index';
+import Api from '../Api/Api';
 import { connect } from 'react-redux';
 import MyButton from '../Components/Form/MyButton';
 
@@ -41,6 +41,13 @@ const styles = StyleSheet.create({
 		minWidth: 140,
 		marginTop: 20,
 		height: 40,
+	},
+	inputContent: {
+		flex: 1,
+		flexDirection: 'column',
+      	justifyContent: "center",
+		alignItems: "center",
+		height: '100%'
 	}
 });
 
@@ -56,18 +63,13 @@ class Maintain extends Component {
 	    };
 	}
 	render () {
-		const { id, token } = this.props;
+		const { id, token, maintain_currency } = this.props;
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
 					<View style={styles.content}>
-						<Flex
-						justify="center"
-						align="center"
-						direction="column"
-						style={{height: '100%'}}
-						>	
-							<Text style={styles.title}>维护币数量</Text>
+						<View style={styles.inputContent}>
+							<Text style={styles.title}>维护币数量(剩余: {maintain_currency})</Text>
 							<TextInput
 								keyboardType="numeric"
 								placeholder="请输入数量"
@@ -89,32 +91,27 @@ class Maintain extends Component {
 						        }}
 						        value={this.state.receiveId}
 						    />
-						    <MyButton 
-						    title="确定" 
+
+						    <MyButton
+						    title="确定"
 						    style={{container: {marginTop: 20}}}
 				            onPress={() => {
-				                let formData=new FormData();
+				                let formData = new FormData();
 								formData.append('send_id', id);
 								formData.append('token', token);
 								formData.append('number', this.state.number);
 								formData.append('receive_id', this.state.receiveId);
-								console.log(formData);
-								fetch('http://www.blyl1888.com/index.php/Api/User/transfer', {
-								  method: 'POST',
-								  headers: {},
-								  body: formData,
-								}).then((response) => response.json()).then((responseJson) => {
+                                console.log(formData);
+                                Api.request(apiUri.getTransfer, 'POST', formData).then((responseJson) => {
 							        Alert.alert(responseJson.message);
-							    }).catch(function (err) {
-							    	console.log(err);
-							  	});
+							    })
 				            }}
 				             />
-						</Flex>
+						</View>
 					</View>
 			    </ImageBackground>
 			</View>
 		)
 	}
 }
-export default connect((state)=>{return {id: state.id, token: state.token}})(Maintain)
+export default connect((state)=>{console.log(state); return {maintain_currency: state.maintain_currency, id: state.id, token: state.token}})(Maintain)
