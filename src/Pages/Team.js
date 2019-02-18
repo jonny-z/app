@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, ScrollView, FlatList } from 'react-native';
-import { Flex } from '@ant-design/react-native';
 import { appBg, theme } from '../Index';
 import { connect } from 'react-redux';
 import Api from '../Api/Api';
@@ -16,6 +15,7 @@ const styles = StyleSheet.create({
 	    backgroundColor:'rgba(0,0,0,0)',
 	},
 	item: {
+		flex: 1,
 		paddingTop: 10,
 		paddingBottom: 10,
 		backgroundColor: 'rgba(255,255,255,0.2)',
@@ -34,14 +34,20 @@ const styles = StyleSheet.create({
 		marginTop: 15,
 		textAlign: 'center',
 		fontSize: 18
+	},
+	list: {
+		flex: 1,
+		flexDirection: 'row',
+      	justifyContent: "center",
+		alignItems: "center",
 	}
 });
 class UserItem extends Component {
 	render() {
 		return (
-			<Flex.Item style={styles.item}>
+			<View style={styles.item}>
 	      		<Text style={styles.itemText}>{this.props.type}</Text>
-	      	</Flex.Item>
+	      	</View>
 		)
 	}
 }
@@ -49,14 +55,12 @@ class UserItem extends Component {
 class UserList extends Component {
   render() {
     return (
-      <Flex
-      	align="center"
-      	justify="center">
+      <View style={styles.list}>
       	<UserItem type={this.props.id} />
       	<UserItem type={this.props.level} />
       	<UserItem type={this.props.standard} />
       	<UserItem type={this.props.superior} />
-      </Flex>
+      </View>
     );
   }
 }
