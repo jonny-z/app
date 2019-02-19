@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, ScrollView, FlatList } from 'react-native';
-import { appBg, theme } from '../Index';
+import { appBg, apiUri } from '../Index';
 import { connect } from 'react-redux';
 import Api from '../Api/Api';
 const styles = StyleSheet.create({
@@ -82,8 +82,7 @@ class Team extends Component {
 		let formData = new FormData();
 		formData.append('id', id);
 		formData.append('token', token);
-		Api.getUserFamily(formData).then((responseJson) => {
-			console.log(responseJson);
+		Api.request(apiUri.getUserFamily, 'POST', formData).then((responseJson) => {
 	      this.setState({Team1: responseJson.data.list1});
 	      this.setState({Team2: responseJson.data.list2});
 	      this.setState({Team3: responseJson.data.list3});

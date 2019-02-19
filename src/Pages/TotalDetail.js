@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
-import { appBg, theme } from '../Index';
+import { appBg, apiUri } from '../Index';
 import { connect } from 'react-redux';
 import Api from '../Api/Api';
 
@@ -76,8 +76,12 @@ class TotalDetail extends Component {
 		let formData = new FormData();
 		formData.append('id', id);
 		formData.append('token', token);
-		Api.getTotalDetail(formData).then((responseJson) => {
-	      this.setState({Buy: responseJson.data});
+		Api.request(apiUri.getTotalDetail, 'POST', formData).then((responseJson) => {
+            if(responseJson.code == 'error') {
+                global.toast.show(responseJson.message);
+                return;
+            }
+	        this.setState({Buy: responseJson.data});
 	    });
     }
 	render () {

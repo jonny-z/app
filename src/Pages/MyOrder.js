@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
-import { appBg, theme } from '../Index';
+import { appBg, theme, apiUri } from '../Index';
 import { connect } from 'react-redux';
 import Api from '../Api/Api';
 
@@ -71,8 +71,12 @@ class MyOrder extends Component {
 		let formData = new FormData();
 		formData.append('id', id);
 		formData.append('token', token);
-		Api.getMyOrder(formData).then((responseJson) => {
-	      this.setState({Info: responseJson.data});
+		Api.request(apiUri.getMyOrder, 'POST', formData).then((responseJson) => {
+            if(responseJson.code == 'error') {
+                global.toast.show(responseJson.message);
+                return;
+            }
+	        this.setState({Info: responseJson.data});
 	    });
     }
 	render () {
