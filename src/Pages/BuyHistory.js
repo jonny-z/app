@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
-import { appBg, theme } from '../Index';
+import { appBg, apiUri } from '../Index';
+import Api from '../Api/Api';
 
 const styles = StyleSheet.create({
 	container: {
@@ -66,17 +67,10 @@ export default class BuyHistory extends Component {
 	    super(props);
 	    this.state = {
 	    	Buy: null
-	    }
-	}
-	componentDidMount() {
-	  	fetch('http://www.blyl1888.com/index.php/Api/Order/BuyList', {
-		  method: 'POST',
-		  headers: {},
-		}).then((response) => response.json()).then((responseJson) => {
-	      this.setState({Buy: responseJson.data})
-	    }).catch(function (err) {
-	    	console.log(err);
-	  	});
+        }
+        Api.request(apiUri.getBuyHistory, 'POST').then((responseJson)=>{
+            this.setState({Buy: responseJson.data})
+        })
 	}
 	render () {
 		return (

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
-import { appBg, theme } from '../Index';
-
+import { appBg, apiUri } from '../Index';
+import Api from '../Api/Api';
 const styles = StyleSheet.create({
 	container: {
         flex: 1,
@@ -79,26 +79,21 @@ export default class Transaction extends Component {
 	    this.state = {
 	    	Sale: null,
 	    	Buy: null
-	    }
-	}
-	componentDidMount() {
-		fetch('http://www.blyl1888.com/index.php/Api/Order/saleList', {
-		  method: 'POST',
-		  headers: {},
-		}).then((response) => response.json()).then((responseJson) => {
-	      this.setState({Sale: responseJson.data.slice(0,4)})
-	    }).catch(function (err) {
-	    	console.log(err);
-	  	});
-
-	  	fetch('http://www.blyl1888.com/index.php/Api/Order/BuyList', {
-		  method: 'POST',
-		  headers: {},
-		}).then((response) => response.json()).then((responseJson) => {
-	      this.setState({Buy: responseJson.data.slice(0,4)})
-	    }).catch(function (err) {
-	    	console.log(err);
-	  	});
+        }
+        Api.request(apiUri.getSaleList, 'POST').then((responseJson) => {
+            if(responseJson.code == 'error') {
+                global.toast.show(responseJson.message);
+                return;
+            }
+            this.setState({Sale: responseJson.data.slice(0,4)})
+        });
+        Api.request(apiUri.getBuyHistory, 'POST').then((responseJson) => {
+            if(responseJson.code == 'error') {
+                global.toast.show(responseJson.message);
+                return;
+            }
+            this.setState({Buy: responseJson.data.slice(0,4)})
+        });
 	}
 	render () {
 		return (

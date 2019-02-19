@@ -27,5 +27,23 @@ module.exports = {
             color: '#ccc',
             opacity: .9,
         }
+    },
+    apiUri: {
+        getUserInfo: 'http://www.blyl1888.com/index.php/Api/User/getUserInfo',
+        login: 'http://www.blyl1888.com/index.php/Api/User/login',
+        userBuy: 'http://www.blyl1888.com/index.php/Api/Order/user_buy',
+        getSpreadUri: 'http://www.blyl1888.com/index.php/Api/Index/getUrl',
+        getUserFamily: 'http://www.blyl1888.com/index.php/Api/User/user_family',
+        getTotalDetail: 'http://www.blyl1888.com/index.php/Api/User/myDeal',
+        getMyOrder: 'http://www.blyl1888.com/index.php/Api/Order/user_deal',
+        getDynamicIncome: 'http://www.blyl1888.com/index.php/Api/User/myBonus',
+        getBuyHistory: 'http://www.blyl1888.com/index.php/Api/Order/BuyList',
+        getUserSale: 'http://www.blyl1888.com/index.php/Api/Order/user_sale',
+        getTransfer: 'http://www.blyl1888.com/index.php/Api/User/transfer',
+        getSaleList: 'http://www.blyl1888.com/index.php/Api/Order/saleList',
+    },
+    code: {
+        ERROR_SERVER: Symbol(),
+        ERROR_NETWORK: Symbol(),
     }
 }
