@@ -134,8 +134,8 @@ class Home extends Component {
             this.props.update(resData.data);
         });
     }
-    render() {
-        const { mine_balance, frozen_money, navigation, is_real_name } = this.props
+    Home = () => {
+        const { mine_balance, frozen_money, navigation, is_real_name, out_money } = this.props
         return (
             <ImageBackground source={appBg} style={Styles.backgroundImage}>
                 <ScrollView style={Styles.home.main}>
@@ -155,7 +155,7 @@ class Home extends Component {
                             <Text style={Styles.home.balanceAndCredit.text}>红利: {frozen_money}</Text>
                         </View>
                     </View>
-                    <Navigation list={navigateList} nav={navigation}/>
+                    <Navigation list={navigateList} nav={navigation} out_money={out_money}/>
                     <View style={Styles.home.outBtnWrapper}>
                         <MyButton title="退出登陆" style={{container: {marginTop: 10}}} activeOpacity={.5} onPress={() => {}}/>
                     </View>
