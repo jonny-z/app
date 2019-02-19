@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, TextInput, Alert } from 'react-native';
-import { appBg, theme } from '../Index';
+import { appBg, theme, apiUri } from '../Index';
 import { connect } from 'react-redux';
 import MyButton from '../Components/Form/MyButton';
+import Api from '../Api/Api';
 
 const styles = StyleSheet.create({
 	container: {
@@ -79,24 +80,17 @@ class HangUp extends Component {
 						        }}
 						        value={this.state.money}
 						    />
-						    <MyButton 
-						    title="确定" 
+						    <MyButton
+						    title="确定"
 						    style={{container: {marginTop: 20}}}
 				            onPress={() => {
-				                let formData=new FormData();
+				                let formData = new FormData();
 								formData.append('id', id);
 								formData.append('token', token);
-								formData.append('mine_balance', this.state.money);
-								fetch('http://www.blyl1888.com/index.php/Api/Order/user_sale', {
-								  method: 'POST',
-								  headers: {},
-								  body: formData,
-								}).then((response) => response.json()).then((responseJson) => {
-									console.log(responseJson);
+                                formData.append('mine_balance', this.state.money);
+                                Api.request(apiUri.getUserSale, 'POST', formData).then((responseJson) => {
 							        Alert.alert(responseJson.message);
-							    }).catch(function (err) {
-							    	console.log(err);
-							  	});
+							    });
 				            }}
 				            />
 						</View>

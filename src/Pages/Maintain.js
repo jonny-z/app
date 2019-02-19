@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ImageBackground, Text, View, StyleSheet, TextInput, Alert } from 'react-native';
-import { appBg, theme } from '../Index';
+import { appBg, apiUri } from '../Index';
+import Api from '../Api/Api';
 import { connect } from 'react-redux';
 import MyButton from '../Components/Form/MyButton';
 
@@ -91,25 +92,19 @@ class Maintain extends Component {
 						        value={this.state.receiveId}
 						    />
 
-						    <MyButton 
-						    title="确定" 
+						    <MyButton
+						    title="确定"
 						    style={{container: {marginTop: 20}}}
 				            onPress={() => {
-				                let formData=new FormData();
+				                let formData = new FormData();
 								formData.append('send_id', id);
 								formData.append('token', token);
 								formData.append('number', this.state.number);
 								formData.append('receive_id', this.state.receiveId);
-								console.log(formData);
-								fetch('http://www.blyl1888.com/index.php/Api/User/transfer', {
-								  method: 'POST',
-								  headers: {},
-								  body: formData,
-								}).then((response) => response.json()).then((responseJson) => {
+                                console.log(formData);
+                                Api.request(apiUri.getTransfer, 'POST', formData).then((responseJson) => {
 							        Alert.alert(responseJson.message);
-							    }).catch(function (err) {
-							    	console.log(err);
-							  	});
+							    })
 				            }}
 				             />
 						</View>

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { Alert, Text, Image, View, TouchableWithoutFeedback } from 'react-native';
 import { Icon } from '@ant-design/react-native';
+=======
+import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+>>>>>>> 6a43e08add8cf00ba2e92ff18a5494c8b180f928
 import { theme } from '../Index';
 const Styles = {
     container: {
@@ -79,7 +84,7 @@ export default class Navigation extends Component{
                                 this.link(item.id);
                             }}}>
                             <View style={Styles.item}>
-                                <Icon name={item.icon} size="lg" color="red" />
+                                <FontAwesome name={item.icon} size={22} color="red" />
                                 <Text style={Styles.itemTitle}>{item.title}</Text>
                             </View>
                         </TouchableWithoutFeedback>
