@@ -45,6 +45,7 @@ module.exports = {
         getOutGame: 'http://www.blyl1888.com/index.php/Api/User/out_game',
         getDealCheck: 'http://www.blyl1888.com/index.php/Api/Order/deal_check',
         getChangePassword: 'http://www.blyl1888.com/index.php/Api/User/changePassword',
+        getRealName: 'http://www.blyl1888.com/index.php/Api/User/real_name',
     },
     code: {
         ERROR_SERVER: Symbol(),

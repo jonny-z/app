@@ -30,18 +30,17 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		color: '#fff',
+		fontSize: 16
 	},
 	specialText: {
 		fontWeight: 'bold',
 		fontSize: 40
 	},
 	topInfo: {
-		flex: 1,
 		flexDirection: 'row',
       	justifyContent: "space-between",
-		alignItems: "center",
 		padding: 10,
-		backgroundColor: 'rgba(255,255,255,0.2)'
+		backgroundColor: 'rgba(0,0,0,0.5)'
 	}
 });
 
