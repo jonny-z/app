@@ -75,7 +75,7 @@ export default class Navigation extends Component{
                         <TouchableWithoutFeedback key={index} onPress={() => {
                             const Tip = '您一共可退本金: ' + out_money;
                             if(item.id == ''){
-                                if(out_money != 0) {
+                                if(out_money == 0 || out_money == '0') {
                                     Alert.alert('提示','没有可退本金', [{text: '确定'}]);
                                 }else {
                                     Alert.alert('提示', Tip, [

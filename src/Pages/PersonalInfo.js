@@ -82,6 +82,7 @@ class PersonalInfo extends Component {
 							<View style={styles.item}>
 								<Text style={styles.text}>姓名</Text>
 								<TextInput
+								placeholderTextColor={theme.lightGray}
 								autoCapitalize = 'none'
 								style={(username == ''|| username == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
 							    defaultValue={username}
@@ -99,6 +100,7 @@ class PersonalInfo extends Component {
 							<View style={styles.item}>
 								<Text style={styles.text}>身份证</Text>
 								<TextInput
+								placeholderTextColor={theme.lightGray}
 								autoCapitalize = 'none'
 								style={(resident_id_card == '' || resident_id_card == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
 							    defaultValue={resident_id_card}
@@ -116,6 +118,7 @@ class PersonalInfo extends Component {
 							<View style={styles.item}>
 								<Text style={styles.text}>手机号</Text>
 								<TextInput
+								placeholderTextColor={theme.lightGray}
 								autoCapitalize = 'none'
 								style={(phone == '' || phone == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
 							    defaultValue={phone}
@@ -136,6 +139,7 @@ class PersonalInfo extends Component {
 							<View style={styles.item}>
 								<Text style={styles.text}>银行卡号</Text>
 								<TextInput
+								placeholderTextColor={theme.lightGray}
 								autoCapitalize = 'none'
 								style={(bank_card == '' || bank_card == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
 							    defaultValue={bank_card}
@@ -153,6 +157,7 @@ class PersonalInfo extends Component {
 							<View style={styles.item}>
 								<Text style={styles.text}>支付宝</Text>
 								<TextInput
+								placeholderTextColor={theme.lightGray}
 								autoCapitalize = 'none'
 								style={(alipay == '' || alipay == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
 							    defaultValue={alipay}
@@ -170,6 +175,7 @@ class PersonalInfo extends Component {
 							<View style={styles.item}>
 								<Text style={styles.text}>推广码</Text>
 								<TextInput
+								placeholderTextColor={theme.lightGray}
 								autoCapitalize = 'none'
 								style={(promotion_code == '' || promotion_code == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
 							    defaultValue={promotion_code}

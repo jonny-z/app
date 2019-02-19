@@ -18,6 +18,8 @@ import DynamicIncome from './src/Pages/DynamicIncome';
 import PersonalInfo from './src/Pages/PersonalInfo';
 import ShareLink from './src/Pages/ShareLink';
 import Transaction from './src/Pages/Transaction';
+import ChangePassword from './src/Pages/ChangePassword';
+import StaticIncome from './src/Pages/StaticIncome';
 
 const reducer = (state = {
         mainIsReady: false,
@@ -57,7 +59,9 @@ const Navigator = createStackNavigator({
     TotalDetail,
     Maintain,
     DynamicIncome,
-    ShareLink
+    ShareLink,
+    ChangePassword,
+    StaticIncome
 },{
     defaultNavigationOptions: ({ navigation })=> {
         const { routeName } = navigation.state;
