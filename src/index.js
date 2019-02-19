@@ -28,6 +28,7 @@ module.exports = {
             opacity: .9,
         }
     },
+
     apiUri: {
         getUserInfo: 'http://www.blyl1888.com/index.php/Api/User/getUserInfo',
         login: 'http://www.blyl1888.com/index.php/Api/User/login',
@@ -37,10 +38,11 @@ module.exports = {
         getTotalDetail: 'http://www.blyl1888.com/index.php/Api/User/myDeal',
         getMyOrder: 'http://www.blyl1888.com/index.php/Api/Order/user_deal',
         getDynamicIncome: 'http://www.blyl1888.com/index.php/Api/User/myBonus',
-        getBuyHistory: 'http://www.blyl1888.com/index.php/Api/Order/BuyList',
+        getBuyHistory: 'http://www.blyl1888.com/index.php/Api/User/myDeal',
         getUserSale: 'http://www.blyl1888.com/index.php/Api/Order/user_sale',
         getTransfer: 'http://www.blyl1888.com/index.php/Api/User/transfer',
         getSaleList: 'http://www.blyl1888.com/index.php/Api/Order/saleList',
+        getOutGame: 'http://www.blyl1888.com/index.php/Api/User/out_game',
     },
     code: {
         ERROR_SERVER: Symbol(),
