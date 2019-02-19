@@ -80,7 +80,7 @@ const navigateList = [
     },
     {
         title: '静态收益',
-        id: 'StaticIncome',
+        id: 'HangUp',
         icon: 'bar-chart'
     },
     {
@@ -135,7 +135,7 @@ class Home extends Component {
         });
     }
     render() {
-        const { mine_balance, frozen_money, navigation, is_real_name, out_money, id, token } = this.props
+        const { mine_balance, frozen_money, navigation, is_real_name } = this.props
         return (
             <ImageBackground source={appBg} style={Styles.backgroundImage}>
                 <ScrollView style={Styles.home.main}>
@@ -155,7 +155,7 @@ class Home extends Component {
                             <Text style={Styles.home.balanceAndCredit.text}>红利: {frozen_money}</Text>
                         </View>
                     </View>
-                    <Navigation list={navigateList} nav={navigation} id={id} token={token} out_money={out_money}/>
+                    <Navigation list={navigateList} nav={navigation}/>
                     <View style={Styles.home.outBtnWrapper}>
                         <MyButton title="退出登陆" style={{container: {marginTop: 10}}} activeOpacity={.5} onPress={() => {}}/>
                     </View>
@@ -171,11 +171,9 @@ class Info extends Component {
     }
     render() {
         return (
-            <ImageBackground source={appBg} style={Styles.backgroundImage}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{color: '#fff'}}>资讯暂未开放</Text>
-                </View>
-            </ImageBackground>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>资讯</Text>
+            </View>
         );
     }
 }
@@ -186,11 +184,9 @@ class ShoppingCenter extends Component {
     }
     render() {
         return (
-            <ImageBackground source={appBg} style={Styles.backgroundImage}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{color: '#fff'}}>商城暂未开放</Text>
-                </View>
-            </ImageBackground>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>资讯</Text>
+            </View>
         );
     }
 }
@@ -240,22 +236,3 @@ const TabNavigator = createBottomTabNavigator({
     },
 });
 export default createAppContainer(TabNavigator);
-// export default connect(
-//     (state) => {
-//         console.log('root map state to props');
-//         console.log(state)
-//         return state;
-//     },
-//     (dispatch) => {
-//         console.log('root map dispatch props')
-//         return {
-//             update: (userInfo) =>{
-//                 console.log('update user info');
-//                 dispatch({
-//                     type: 'UPDATE_USER_INFO',
-//                     userInfo,
-//                 })
-//             }
-//         }
-//     }
-// )(createAppContainer(TabNavigator));

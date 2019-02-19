@@ -52,7 +52,7 @@ export default class Navigation extends Component{
         this.props.nav.navigate(id);
     }
     onPress () {
-        Alert.alert('提示','确认退本还息后此账号将被永久冻结', 
+        Alert.alert('提示','确认退本还息后此账号将被永久冻结',
             [{text: '确定', onPress: _this.onConfirm},
             {text: '取消'},]);
     }

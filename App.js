@@ -65,10 +65,10 @@ const Navigator = createStackNavigator({
 },{
     defaultNavigationOptions: ({ navigation })=> {
         const { routeName } = navigation.state;
-        console.log(routeName)
         if(routeName == 'Root') {
             return {
                 header: null,
+                headerBackTitle: null,
             }
         }
         else {
@@ -77,7 +77,6 @@ const Navigator = createStackNavigator({
                     backgroundColor: 'black',
                 },
                 headerTintColor: 'white',
-                headerBackTitle: '返回',
             }
         }
     },
@@ -87,7 +86,7 @@ const RootContainer = createAppContainer(createSwitchNavigator({
     SignIn,
     Navigator,
 },{
-    initialRouteName: 'SignIn'
+    initialRouteName: 'SignIn',
     // initialRouteName: 'Navigator'
 }));
 export default class App extends Component {
