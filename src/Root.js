@@ -134,7 +134,7 @@ class Home extends Component {
             this.props.update(resData.data);
         });
     }
-    Home = () => {
+    render() {
         const { mine_balance, frozen_money, navigation, is_real_name, out_money } = this.props
         return (
             <ImageBackground source={appBg} style={Styles.backgroundImage}>
