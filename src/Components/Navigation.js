@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Alert, Text, View, TouchableWithoutFeedback } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { theme } from '../Index';
+import { theme, apiUri  } from '../Index';
+import Api from '../Api/Api';
 const Styles = {
     container: {
         marginTop: 10,
@@ -56,10 +57,17 @@ export default class Navigation extends Component{
             {text: '取消'},]);
     }
     onConfirm() {
-        console.log('b');
+        const { id, token } = _this.props;
+        let formData = new FormData();
+        formData.append('id', id);
+        formData.append('token', token);
+        Api.request(apiUri.getOutGame, 'POST', formData).then((responseJson) => {
+            Alert.alert(responseJson.message);
+        });
     }
     render () {
         const { list, out_money } = this.props;
+        console.log(this.props);
         return (
             <View style={Styles.container}>
                 {
@@ -67,7 +75,7 @@ export default class Navigation extends Component{
                         <TouchableWithoutFeedback key={index} onPress={() => {
                             const Tip = '您一共可退本金: ' + out_money;
                             if(item.id == ''){
-                                if(out_money != '0') {
+                                if(out_money != 0) {
                                     Alert.alert('提示','没有可退本金', [{text: '确定'}]);
                                 }else {
                                     Alert.alert('提示', Tip, [
