@@ -43,6 +43,8 @@ module.exports = {
         getTransfer: 'http://www.blyl1888.com/index.php/Api/User/transfer',
         getSaleList: 'http://www.blyl1888.com/index.php/Api/Order/saleList',
         getOutGame: 'http://www.blyl1888.com/index.php/Api/User/out_game',
+        getDealCheck: 'http://www.blyl1888.com/index.php/Api/Order/deal_check',
+        getChangePassword: 'http://www.blyl1888.com/index.php/Api/User/changePassword',
     },
     code: {
         ERROR_SERVER: Symbol(),

@@ -80,7 +80,7 @@ const navigateList = [
     },
     {
         title: '静态收益',
-        id: 'HangUp',
+        id: 'StaticIncome',
         icon: 'bar-chart'
     },
     {
@@ -171,9 +171,11 @@ class Info extends Component {
     }
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>资讯</Text>
-            </View>
+            <ImageBackground source={appBg} style={Styles.backgroundImage}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{color: '#fff'}}>资讯暂未开放</Text>
+                </View>
+            </ImageBackground>
         );
     }
 }
@@ -184,9 +186,11 @@ class ShoppingCenter extends Component {
     }
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>资讯</Text>
-            </View>
+            <ImageBackground source={appBg} style={Styles.backgroundImage}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{color: '#fff'}}>商城暂未开放</Text>
+                </View>
+            </ImageBackground>
         );
     }
 }
