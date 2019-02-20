@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, ImageBackground, TouchableOpacity, Alert } from 'react-native';
+import { Image, Text, View, ScrollView, ImageBackground, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -70,8 +70,72 @@ const Styles = {
             justifyContent: 'center',
             alignItems: 'center'
         }
+    },
+    businessWrapper: {
+        marginTop: 30,
+        marginLeft: 10,
+        marginRight: 10,
+        borderRadius: 20,
+        paddingTop: 10,
+        paddingBottom: 10,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+    },
+    businessItem: {
+        width: '48%',
+        backgroundColor: theme.opacityWhite,
+        borderRadius: 5,
+        marginBottom: 15,
+        flex: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 10,
+        paddingRight: 10
+    },
+    businessInfo: {
+        flex: 0,
+        width: '100%',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    businessText: {
+        fontSize: 16,
+        color: '#fff',
+        marginTop: 10
+    },
+    businessImg: {
+        width: '100%',
+        height: 0,
+        paddingBottom: '100%',
+        borderRadius: 5
     }
 }
+const business = [
+    {
+        title: '船票',
+        img: {uri: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'},
+        money: '123'
+    },
+    {
+        title: '邮票',
+        img: {uri: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'},
+        money: '123'
+    },
+    {
+        title: '船票',
+        img: {uri: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'},
+        money: '123'
+    },
+    {
+        title: '船票',
+        img: {uri: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'},
+        money: '123'
+    },
+]
 const navigateList = [
     {
         title: '购买记录',
@@ -134,6 +198,7 @@ class Home extends Component {
             this.props.update(resData.data);
         });
     }
+
     render() {
         const { mine_balance, frozen_money, navigation, is_real_name, out_money, id, token } = this.props
         return (
@@ -206,9 +271,22 @@ class ShoppingCenter extends Component {
     render() {
         return (
             <ImageBackground source={appBg} style={Styles.backgroundImage}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{color: '#fff',fontSize:18}}>该功能暂未开放,敬请期待</Text>
-                </View>
+                <ScrollView>
+                    <View style={Styles.businessWrapper}>
+                        {business.map((item, index) => (
+                            <View style={Styles.businessItem} key={index}>
+                                <Image
+                                    style={Styles.businessImg}
+                                    source={item.img}
+                                />
+                                <View style={Styles.businessInfo}>
+                                    <Text style={Styles.businessText}>{item.title}</Text>
+                                    <Text style={Styles.businessText}>¥ {item.money}</Text>
+                                </View>
+                            </View>
+                        ))}
+                    </View>
+                </ScrollView>
             </ImageBackground>
         );
     }
