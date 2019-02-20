@@ -200,6 +200,7 @@ class PersonalInfo extends Component {
 						        fd.append('bank_card', this.state.bankCard);
 						        fd.append('resident_id_card', this.state.idCard);
 						        fd.append('alipay', this.state.aPay);
+						        console.log(fd);
 						        Api.request(apiUri.getRealName, 'POST', fd).then((res) => {
 						            console.log(res);
 						            global.toast.show(res.message);
