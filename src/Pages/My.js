@@ -92,7 +92,7 @@ export default class My extends Component {
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
                     <UserProfile editable={true} style={styles.userProfile}/>
                     <ScrollView>
-                        <List name="个人信息" icon="vcard-o" id="PersonalInfo" nav={navigation}/>
+                        <List name="实名认证" icon="vcard-o" id="PersonalInfo" nav={navigation}/>
                         <List name="修改密码" icon="cart-plus" id="ChangePassword" nav={navigation}/>
                         <List name="收获地址" icon="tags" nav={navigation}/>
                     </ScrollView>
