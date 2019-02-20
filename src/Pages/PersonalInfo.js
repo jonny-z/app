@@ -63,7 +63,7 @@ class PersonalInfo extends Component {
 	constructor (props) {
 	    super(props);
 	    this.state = {
-	    	userName: this.props.username,
+	    	userName: this.props.real_name,
 	    	idCard: this.props.resident_id_card,
 	    	phoneNumber: this.props.phone,
 	    	bankCard: this.props.bank_card,
@@ -72,7 +72,7 @@ class PersonalInfo extends Component {
 	    }
 	}
 	render () {
-        const {username, resident_id_card, alipay, bank_card, promotion_code, phone} = this.props;
+        const {real_name, resident_id_card, alipay, bank_card, promotion_code, phone} = this.props;
         // const {username, resident_id_card, alipay, bank_card, promotion_code} = {username: 'zzz', resident_id_card: '23er2f', alipay: '1111', bank_card: '2222', promotion_code: '43324'};
 		return (
 			<View style={styles.container}>
@@ -85,15 +85,15 @@ class PersonalInfo extends Component {
 								<TextInput
 								placeholderTextColor={theme.lightGray}
 								autoCapitalize = 'none'
-								style={(username == ''|| username == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
-							    defaultValue={username}
+								style={(real_name == ''|| real_name == null) ? [theme.textInput, styles.inputField] : [theme.textInput, theme.textInputDisable, styles.inputField]}
+							    defaultValue={real_name}
 							    onChangeText={(value) => {
 							      this.setState({
 							        userName: value,
 							      });
 							    }}
 							    placeholder="请输入名字"
-							    editable={(username == ''|| username == null) ? true : false}
+							    editable={(real_name == ''|| real_name == null) ? true : false}
 								/>
 							</View>
 						</View>
