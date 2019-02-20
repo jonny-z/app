@@ -142,17 +142,17 @@ class Home extends Component {
                     <UserProfile editable={false} style={Styles.home.userProfile}/>
                     <View style={Styles.home.balanceAndCredit.container}>
                         <View style={Styles.home.balanceAndCredit.machineBuy}>
-                            <TouchableOpacity onPress={() => {if(is_real_name == '1'){navigation.navigate('Buy')}else{Alert.alert('需要实名认证')}}}>
+                            <TouchableOpacity onPress={() => {if(is_real_name == '1'){navigation.navigate('Buy')}else{Alert.alert('您的身份信息尚未完善，请前往我的页面完善个人信息，完成实名认证审核')}}}>
                                 <Text style={Styles.home.balanceAndCredit.text}>矿机购买</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={Styles.home.balanceAndCredit.balance}>
                             <TouchableOpacity onPress={() => navigation.navigate('HangUp')}>
-                                <Text style={Styles.home.balanceAndCredit.text}>余额: {mine_balance}</Text>
+                                <Text style={Styles.home.balanceAndCredit.text}>可交易HKT: {mine_balance}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={Styles.home.balanceAndCredit.credit}>
-                            <Text style={Styles.home.balanceAndCredit.text}>红利: {frozen_money}</Text>
+                            <Text style={Styles.home.balanceAndCredit.text}>冻结HKT: {frozen_money}</Text>
                         </View>
                     </View>
                     <Navigation list={navigateList} nav={navigation} id={id} token={token} out_money={out_money}/>
@@ -176,7 +176,22 @@ class Info extends Component {
         return (
             <ImageBackground source={appBg} style={Styles.backgroundImage}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{color: '#fff'}}>资讯暂未开放</Text>
+                    <Text style={{color: '#fff',fontSize:18}}>该功能暂未开放,敬请期待</Text>
+                </View>
+            </ImageBackground>
+        );
+    }
+}
+
+class HKTShoppingCenter extends Component {
+    static navigationOptions = {
+        title: 'HKT商城',
+    }
+    render() {
+        return (
+            <ImageBackground source={appBg} style={Styles.backgroundImage}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{color: '#fff',fontSize:18}}>该功能暂未开放,敬请期待</Text>
                 </View>
             </ImageBackground>
         );
@@ -191,7 +206,7 @@ class ShoppingCenter extends Component {
         return (
             <ImageBackground source={appBg} style={Styles.backgroundImage}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{color: '#fff'}}>商城暂未开放</Text>
+                    <Text style={{color: '#fff',fontSize:18}}>该功能暂未开放,敬请期待</Text>
                 </View>
             </ImageBackground>
         );
@@ -219,6 +234,7 @@ const TabNavigator = createBottomTabNavigator({
              }
         })(Home),
     Info,
+    HKTShoppingCenter,
     ShoppingCenter,
     My,
 },{
@@ -232,6 +248,9 @@ const TabNavigator = createBottomTabNavigator({
                     break;
                 case 'Info':
                     iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+                    break;
+                case 'HKTShoppingCenter':
+                    iconName = 'md-card';
                     break;
                 case 'ShoppingCenter':
                     iconName = 'md-cart';
