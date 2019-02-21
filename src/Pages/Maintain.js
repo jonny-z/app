@@ -94,7 +94,7 @@ class Maintain extends Component {
 						<ScrollView
 						ref={component => this._scrollView=component}
 						scrollEnabled={false}
-                        keyboardShouldPersistTaps={true}
+                        keyboardShouldPersistTaps='always'
                         contentContainerStyle={{flex:1}}
                         >
 							<View style={styles.inputContent}>
