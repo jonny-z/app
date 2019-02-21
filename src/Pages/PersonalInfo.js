@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 
 class PersonalInfo extends Component {
     static navigationOptions = {
-        title: '个人信息',
+        title: '实名认证',
     }
 	constructor (props) {
 	    super(props);
@@ -110,7 +110,7 @@ class PersonalInfo extends Component {
 							        idCard: value,
 							      });
 							    }}
-							    placeholder="请输身份证"
+							    placeholder="请输入身份证"
 							    editable={(resident_id_card == '' || resident_id_card == null) ? true : false}
 								/>
 							</View>
@@ -149,7 +149,7 @@ class PersonalInfo extends Component {
 							        bankCard: value,
 							      });
 							    }}
-							    placeholder="请输入银行卡号"
+							    placeholder="银行卡号仅限四大行"
 							    editable={(bank_card == '' || bank_card == null) ? true : false}
 								/>
 							</View>
@@ -167,7 +167,7 @@ class PersonalInfo extends Component {
 							        aPay: value,
 							      });
 							    }}
-							    placeholder="请输入支付宝号"
+							    placeholder="请输入支付宝账号"
 							    editable={(alipay == '' || alipay == null) ? true : false}
 								/>
 							</View>

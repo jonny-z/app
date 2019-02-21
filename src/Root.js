@@ -116,24 +116,24 @@ const Styles = {
 }
 const business = [
     {
-        title: '船票',
-        img: {uri: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'},
-        money: '123'
+        title: '话费充值',
+        img: require( '../assets/hengtai/phone-charge.png'),
+        money: '1000'
     },
     {
-        title: '邮票',
-        img: {uri: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'},
-        money: '123'
+        title: 'iphone',
+        img: require( '../assets/hengtai/iphone.png'),
+        money: '5999'
     },
     {
-        title: '船票',
-        img: {uri: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'},
-        money: '123'
+        title: 'gucci皮包',
+        img: require( '../assets/hengtai/gucci.png'),
+        money: '108888'
     },
     {
-        title: '船票',
-        img: {uri: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'},
-        money: '123'
+        title: '油卡',
+        img: require( '../assets/hengtai/oil-card.png'),
+        money: '1000'
     },
 ]
 const navigateList = [
@@ -178,7 +178,7 @@ const navigateList = [
         icon: 'exchange'
     },
     {
-        title: '退本还息',
+        title: '保本还息',
         id: '',
         icon: 'percent'
     }
