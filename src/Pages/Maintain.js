@@ -5,6 +5,9 @@ import Api from '../Api/Api';
 import { connect } from 'react-redux';
 import MyButton from '../Components/Form/MyButton';
 
+const Keyboard = require('Keyboard');
+import type {KeyboardEvent} from 'Keyboard';
+
 const styles = StyleSheet.create({
 	container: {
         flex: 1,
@@ -67,6 +70,7 @@ class Maintain extends Component {
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
+					<KeyboardAvoidingView behavior='padding'>
 					<View style={styles.content}>
 						<View style={styles.inputContent}>
 							<Text style={styles.title}>转移维护币(剩余: {maintain_currency})</Text>
@@ -106,9 +110,10 @@ class Maintain extends Component {
 							        Alert.alert(responseJson.message);
 							    })
 				            }}
-				             />
+				            />
 						</View>
 					</View>
+					</KeyboardAvoidingView>
 			    </ImageBackground>
 			</View>
 		)
