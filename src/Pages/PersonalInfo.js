@@ -219,6 +219,7 @@ class PersonalInfo extends Component {
 		)
 	}
 }
+
 export default connect(
     (state) => {
         console.log(state);
