@@ -101,7 +101,7 @@ class SignIn extends React.Component {
                         placeholder="密码"
                         placeholderTextColor={theme.lightGray}
                         selectionColor="#fff"
-                        maxLength={12}
+                        maxLength={8}
                         secureTextEntry={true}
                         defaultValue={password}
                         editable={editable}
