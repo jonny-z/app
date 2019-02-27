@@ -75,6 +75,7 @@ class SignIn extends React.Component {
     }
     render() {
         const { editable, username, password } = this.state;
+        const { navigation } = this.props;
         return (
             <ImageBackground source={appBg} style={Styles.background}>
                 <View style={Styles.title.container}>
@@ -107,17 +108,16 @@ class SignIn extends React.Component {
                         editable={editable}
                     />
                     <MyButton title="登录" activeOpacity={.5} onPress={editable ? this.login : this.lock}/>
-                    <MyButton title="找回密码" activeOpacity={.5} onPress={navigation.navigate('RetrievePsw')}/>
                 </View>
             </ImageBackground>
         )
     }
 }
 export default connect(
-    // (state) => {
-    //     console.log('sign in map state to props')
-    //     return state;
-    // },
+    (state) => {
+        console.log('sign in map state to props')
+        return state;
+    },
     null,
     (dispatch, ownProps) => {
         return {

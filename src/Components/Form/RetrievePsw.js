@@ -1,8 +1,8 @@
 import React from 'react';
 import { ImageBackground, Text, View, StyleSheet, TextInput, Alert } from 'react-native';
 import { appBg, theme, apiUri } from '../../Index';
-import MyButton from '../Components/Form/MyButton';
-import Api from  '../Api/Api';
+import MyButton from './MyButton';
+import Api from "../../Api/Api";
 import { connect } from 'react-redux'
 const styles = StyleSheet.create({
     container: {
