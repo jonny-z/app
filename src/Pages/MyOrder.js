@@ -88,12 +88,12 @@ class MyOrder extends Component {
 							{this.state.Info.map((item, index) => (
 								<View style={styles.infoWrapper} key={index}>
 									<Text style={styles.text}>已出单</Text>
-									<Text style={styles.text}>{(item.role == 1) ? '购入人姓名' : '售卖人姓名' } : {(item.role == 1) ? item.buy_name : item.sale_name}</Text>
-									<Text style={styles.text}>支付宝: {(item.role == 1) ? item.buy_alipay : item.sale_alipay}</Text>
-									<Text style={styles.text}>银行卡: {(item.role == 1) ? item.buy_bank_card : item.sale_bank_card}</Text>
-									<Text style={styles.text}>联系方式: {(item.role == 1) ? item.buy_phone : item.sale_phone}</Text>
+									<Text style={styles.text}>{(item.role == 2) ? '购入人姓名' : '售卖人姓名' } : {(item.role == 2) ? item.buy_name : item.sale_name}</Text>
+									<Text style={styles.text}>支付宝: {(item.role == 2) ? item.buy_alipay : item.sale_alipay}</Text>
+									<Text style={styles.text}>银行卡: {(item.role == 2) ? item.buy_bank_card : item.sale_bank_card}</Text>
+									<Text style={styles.text}>联系方式: {(item.role == 2) ? item.buy_phone : item.sale_phone}</Text>
 									<View style={styles.lastInfo}>
-										<TouchableOpacity onPress={() => {
+										{(item.role == 2) ? <TouchableOpacity onPress={() => {
 											const { id, token } = this.props;
 											let formData = new FormData();
 											formData.append('id', id);
@@ -102,7 +102,8 @@ class MyOrder extends Component {
 											Api.request(apiUri.getDealCheck, 'POST', formData).then((responseJson) => {
 									            Alert.alert(responseJson.message);
 										    });
-										}}><Text style={styles.btn}>{(item.role == 1) ? '打出款项' : '收到款项'}</Text></TouchableOpacity>
+										}}><Text style={styles.btn}>{(item.role == 2) ? '打出款项' : '收到款项'}</Text></TouchableOpacity> : ''}
+										
 									</View>
 								</View>
 							))}

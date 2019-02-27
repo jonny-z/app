@@ -107,6 +107,7 @@ class SignIn extends React.Component {
                         editable={editable}
                     />
                     <MyButton title="登录" activeOpacity={.5} onPress={editable ? this.login : this.lock}/>
+                    <MyButton title="找回密码" activeOpacity={.5} onPress={navigation.navigate('RetrievePsw')}/>
                 </View>
             </ImageBackground>
         )
