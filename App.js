@@ -5,6 +5,7 @@ import { StatusBar } from 'react-native';
 import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 import Root from './src/Root';
 import SignIn from './src/Components/Form/SignIn';
+import RetrievePsw from './src/Components/Form/RetrievePsw';
 import Toast from './src/Components/Modal/Toast';
 
 import Buy from './src/Pages/Buy';
@@ -63,7 +64,8 @@ const Navigator = createStackNavigator({
     DynamicIncome,
     ShareLink,
     ChangePassword,
-    StaticIncome
+    StaticIncome,
+    RetrievePsw
 },{
     defaultNavigationOptions: ({ navigation })=> {
         const { routeName } = navigation.state;
