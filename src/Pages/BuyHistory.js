@@ -56,7 +56,11 @@ class TransactionList extends Component {
       	<UserItem type={this.props.number} />
       	<UserItem type={this.props.time} />
       	<TouchableWithoutFeedback onPress={() => {
-      		console.log('a');
+      		if(this.props.detail != '详细信息') {
+      			this.props.nav.navigate('BuyDetail', {
+	            	item: this.props.info,
+	            })
+      		}
       	}}>
       		<View style={styles.item}>
 	      		<Text style={styles.itemText}>{this.props.detail}</Text>
@@ -99,7 +103,7 @@ class BuyHistory extends Component {
 							<FlatList
 								keyExtractor={(item, index) => index.toString()}
 								data={this.state.Buy}
-								renderItem={({item}) => <TransactionList number={item.money} time={item.add_time} detail="详情"/>}
+								renderItem={({item}) => <TransactionList nav={this.props.navigation} info={item} number={item.money} time={item.add_time} detail="详情"/>}
 							/>
 						</View>
 					</ScrollView>
