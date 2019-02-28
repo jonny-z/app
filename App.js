@@ -64,8 +64,7 @@ const Navigator = createStackNavigator({
     DynamicIncome,
     ShareLink,
     ChangePassword,
-    StaticIncome,
-    RetrievePsw
+    StaticIncome
 },{
     defaultNavigationOptions: ({ navigation })=> {
         const { routeName } = navigation.state;
@@ -86,11 +85,34 @@ const Navigator = createStackNavigator({
     },
     initialRouteName: 'Root',
 });
-const RootContainer = createAppContainer(createSwitchNavigator({
+const Navigator1 = createStackNavigator({
     SignIn,
+    RetrievePsw,
+},{
+    defaultNavigationOptions: ({ navigation })=> {
+        const { routeName } = navigation.state;
+        if(routeName == 'SignIn') {
+            return {
+                header: null,
+                headerBackTitle: null,
+            }
+        }
+        else {
+            return {
+                headerStyle: {
+                    backgroundColor: 'black',
+                },
+                headerTintColor: 'white',
+            }
+        }
+    },
+    initialRouteName: 'SignIn',
+});
+const RootContainer = createAppContainer(createSwitchNavigator({
+    Navigator1,
     Navigator,
 },{
-    initialRouteName: 'SignIn',
+    initialRouteName: 'Navigator1',
     // initialRouteName: 'Navigator'
 }));
 export default class App extends Component {
