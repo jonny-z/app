@@ -8,9 +8,6 @@ const styles = StyleSheet.create({
 	container: {
         flex: 1,
     },
-    hidden: {
-    	backgroundColor: '#fff',
-    },
 	backgroundImage:{
 	    flex:1,
 	    resizeMode: 'cover',
@@ -58,9 +55,12 @@ class TransactionList extends Component {
       <View style={styles.list}>
       	<UserItem type={this.props.number} />
       	<UserItem type={this.props.time} />
-      	<UserItem type={this.props.status} />
       	<TouchableWithoutFeedback onPress={() => {
-      		console.log('a');
+      		if(this.props.detail != '详细信息') {
+      			this.props.nav.navigate('BuyDetail', {
+	            	item: this.props.info,
+	            })
+      		}
       	}}>
       		<View style={styles.item}>
 	      		<Text style={styles.itemText}>{this.props.detail}</Text>
@@ -77,7 +77,7 @@ class BuyHistory extends Component {
 	constructor (props) {
 	    super(props);
 	    this.state = {
-	    	Buy: []
+	    	Buy: null
         }
 	}
 	componentDidMount() {
@@ -85,7 +85,7 @@ class BuyHistory extends Component {
 		let formData = new FormData();
 		formData.append('id', id);
 		formData.append('token', token);
-		Api.request(apiUri.getMyOrder, 'POST', formData).then((responseJson)=>{
+		Api.request(apiUri.getBuyHistory, 'POST', formData).then((responseJson)=>{
 			if(responseJson.code == 'error') {
                 global.toast.show(responseJson.message);
                 return;
@@ -99,10 +99,12 @@ class BuyHistory extends Component {
 				<ImageBackground source={appBg} style={styles.backgroundImage}>
 					<ScrollView>
 						<View style={{marginBottom: 20, marginTop: 10}}>
-							<TransactionList number="购买数量" time="挂单时间" status="状态" detail="详细信息"/>
-							{this.state.Buy.map((item, index) => (
-								<TransactionList key={index} number={item.money} time={item.add_time} status={(item.role == 'buyer') ? '交易完成' : '匹配中'} detail="详情"/>
-							))}
+							<TransactionList number="购买数量" time="挂单时间" detail="详细信息"/>
+							<FlatList
+								keyExtractor={(item, index) => index.toString()}
+								data={this.state.Buy}
+								renderItem={({item}) => <TransactionList nav={this.props.navigation} info={item} number={item.money} time={item.add_time} detail="详情"/>}
+							/>
 						</View>
 					</ScrollView>
 			    </ImageBackground>

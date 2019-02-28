@@ -21,6 +21,7 @@ import ShareLink from './src/Pages/ShareLink';
 import Transaction from './src/Pages/Transaction';
 import ChangePassword from './src/Pages/ChangePassword';
 import StaticIncome from './src/Pages/StaticIncome';
+import BuyDetail from './src/Pages/BuyDetail';
 const defaultState = {
     isLogin: false,
     username: '未登录',
@@ -64,7 +65,8 @@ const Navigator = createStackNavigator({
     DynamicIncome,
     ShareLink,
     ChangePassword,
-    StaticIncome
+    StaticIncome,
+    BuyDetail
 },{
     defaultNavigationOptions: ({ navigation })=> {
         const { routeName } = navigation.state;
