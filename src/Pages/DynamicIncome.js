@@ -69,8 +69,8 @@ class TransactionList extends Component {
 		return (
 		  <View style={styles.list}>
 		  	<UserItem type={this.props.name} />
+		  	<UserItem type={this.props.number} />
 		  	<UserItem type={(this.props.head == 'true') ? this.props.time : showTime} />
-		  	<UserItem type={this.props.time} />
 		  </View>
 		);
 	}
